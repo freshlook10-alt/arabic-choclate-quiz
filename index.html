@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Arabic Chocolate Challenge</title>
+<style>
+:root{--purple:#6d3bb6;--cream:#fff7e9;--text:#29231d;--green:#087a38;--red:#b42318}
+*{box-sizing:border-box}body{font-family:system-ui,-apple-system,Segoe UI,Arial,sans-serif;background:linear-gradient(160deg,#fff7e9,#f6efff);color:var(--text);margin:0;padding:22px;min-height:100vh}main{max-width:600px;margin:auto;background:white;padding:26px;border-radius:24px;box-shadow:0 12px 36px #00000014}h1{margin-top:0;color:#8b4513;text-align:center}h2{text-align:center}.sub{text-align:center;color:#5b5560}button,input,select{font:inherit;padding:13px;margin:8px 0;border-radius:12px;border:1px solid #ccc;width:100%}button{background:var(--purple);color:white;cursor:pointer;border:0;font-weight:700}button:disabled{opacity:.55;cursor:not-allowed}.picture{font-size:108px;text-align:center;margin:10px 0}.arabic{font-size:31px;line-height:1.6;direction:rtl;text-align:center}.hide{display:none}.good{color:var(--green);font-weight:800}.bad{color:var(--red);font-weight:800}.card{padding:14px;border-radius:14px;background:#faf8ff;margin:12px 0}.winner{font-size:23px;text-align:center;padding:16px;background:#effcf4;border-radius:16px}.loser{text-align:center;padding:16px;background:#fff4f2;border-radius:16px}small{color:#666;display:block;line-height:1.45;margin-top:7px}.status{font-size:14px;text-align:center;color:#666}.footer{text-align:center;margin-top:20px;color:#777;font-size:12px}
+</style>
+</head>
+<body>
+<main>
+<h1>🍫 Arabic Chocolate Challenge</h1>
+<p class="sub">Get all 3 correct to win a chocolate!</p>
+<section id="start" class="card">
+  <label for="name"><strong>Your name</strong></label>
+  <input id="name" maxlength="35" placeholder="Type your name" autocomplete="off">
+  <label for="level"><strong>Arabic level</strong></label>
+  <select id="level">
+    <option value="beginner">Beginner</option>
+    <option value="intermediate">Intermediate</option>
+    <option value="advanced">Advanced</option>
+  </select>
+  <button onclick="begin()">Start quiz</button>
+  <small>No visitor email is needed. Your name, level and score will be shared with the exhibition organizer.</small>
+</section>
+
+<section id="quiz" class="hide">
+  <p id="progress" class="status"></p>
+  <div id="picture" class="picture"></div>
+  <p id="question" class="arabic"></p>
+  <div id="answers"></div>
+  <p id="feedback" aria-live="polite"></p>
+  <button id="next" class="hide" onclick="nextQuestion()">Next →</button>
+</section>
+
+<section id="result" class="hide">
+  <h2 id="final"></h2>
+  <div id="prizeBox"><p id="prize"></p><p id="claim"></p></div>
+  <p id="saveStatus" class="status">Saving result…</p>
+  <button onclick="location.reload()">New visitor</button>
+</section>
+<div class="footer">Exhibition quiz • Arabic language challenge</div>
+</main>
+
+<script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore-compat.js"></script>
+<script src="firebase-config.js"></script>
+<script>
+const sets={
+beginner:[
+  ['🐎','ما ترجمة هذه الصورة إلى العربية؟',['حصان','قطة','كتاب'],0],
+  ['🍎','ما ترجمة هذه الصورة إلى العربية؟',['ماء','تفاحة','بيت'],1],
+  ['☀️','ما ترجمة هذه الصورة إلى العربية؟',['شمس','قمر','باب'],0]
+],
+intermediate:[
+  ['🦋','ما الكلمة العربية المناسبة للصورة؟',['فراشة','نحلة','شجرة'],0],
+  ['🌉','ما الكلمة العربية المناسبة للصورة؟',['مدرسة','جسر','مكتبة'],1],
+  ['🔑','ما الكلمة العربية المناسبة للصورة؟',['نافذة','حديقة','مفتاح'],2]
+],
+advanced:[
+  ['🧭','اختر الكلمة العربية الأكثر دقة للصورة.',['بوصلة','مقص','مرآة'],0],
+  ['🔬','اختر الكلمة العربية الأكثر دقة للصورة.',['منظار','مجهر','ميزان'],1],
+  ['⚖️','اختر الكلمة العربية الأكثر دقة للصورة.',['مصباح','مطرقة','ميزان'],2]
+]};
+let index=0,score=0,person='',level='',locked=false;
+const $=id=>document.getElementById(id);
+
+function begin(){
+  person=$('name').value.trim().replace(/\s+/g,' ');
+  if(!person){alert('Please enter your name');return}
+  level=$('level').value;
+  $('start').classList.add('hide');
+  $('quiz').classList.remove('hide');
+  render();
+}
+
+function render(){
+  locked=false;
+  const q=sets[level][index];
+  $('progress').textContent=`Question ${index+1} of 3 · ${score} correct`;
+  $('picture').textContent=q[0];
+  $('question').textContent=q[1];
+  $('feedback').textContent='';
+  $('feedback').className='';
+  $('next').classList.add('hide');
+  $('next').textContent=index===2?'See my result →':'Next →';
+  $('answers').innerHTML='';
+  q[2].forEach((a,i)=>{
+    const b=document.createElement('button');
+    b.textContent=a;
+    b.setAttribute('dir','rtl');
+    b.onclick=()=>answer(i);
+    $('answers').appendChild(b);
+  });
+}
+
+function answer(i){
+  if(locked)return;
+  locked=true;
+  const q=sets[level][index],ok=i===q[3];
+  if(ok)score++;
+  $('feedback').textContent=ok?'✅ Correct!':'❌ Wrong! Correct answer: '+q[2][q[3]];
+  $('feedback').className=ok?'good':'bad';
+  [...$('answers').children].forEach(b=>b.disabled=true);
+  $('next').classList.remove('hide');
+}
+
+function nextQuestion(){
+  index++;
+  if(index<3){render();return;}
+  finishQuiz();
+}
+
+async function finishQuiz(){
+  $('quiz').classList.add('hide');
+  $('result').classList.remove('hide');
+  $('final').textContent=`${person}, you scored ${score}/3!`;
+  const won=score===3;
+  $('prize').textContent=won?'🎉 You have won a chocolate! 🍫':'Nice try! You need 3/3 to win a chocolate.';
+  $('claim').textContent=won?'Show this screen to the organizer to claim your prize.':'';
+  $('prizeBox').className=won?'winner':'loser';
+
+  try{
+    await db.collection('results').add({
+      name:person,
+      level:level,
+      score:score,
+      total:3,
+      won:won,
+      createdAt:firebase.firestore.FieldValue.serverTimestamp()
+    });
+    $('saveStatus').textContent='✅ Result saved to the organizer dashboard.';
+  }catch(err){
+    console.error(err);
+    $('saveStatus').textContent='⚠️ Your score is shown above, but the online save failed. Please show this screen to the organizer.';
+  }
+}
+</script>
+</body>
+</html>
