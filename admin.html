@@ -1,123 +1,341 @@
-<!doctype html>
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Arabic Quiz • Private Dashboard</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Arabic Quiz Admin Dashboard</title>
 <style>
-*{box-sizing:border-box}body{font-family:system-ui,-apple-system,Segoe UI,Arial,sans-serif;margin:0;background:#fff7e9;color:#29231d;padding:24px}.wrap{max-width:1000px;margin:auto}h1{color:#6d3bb6}.panel{background:white;padding:20px;border-radius:18px;box-shadow:0 8px 25px #0001;margin-bottom:18px}input,button{font:inherit;padding:12px;border-radius:10px;border:1px solid #ccc;margin:6px 0}input{width:100%}button{background:#6d3bb6;color:white;border:0;font-weight:700;cursor:pointer}.logout{background:#555}.hide{display:none}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.stat{background:#faf8ff;padding:16px;border-radius:14px;text-align:center}.stat b{font-size:28px;display:block}table{border-collapse:collapse;background:white;width:100%}td,th{border-bottom:1px solid #e5e5e5;padding:10px;text-align:left}th{background:#faf8ff}.winner{font-weight:800;color:#087a38}.scroll{overflow-x:auto}.error{color:#b42318}.small{font-size:13px;color:#666}@media(max-width:620px){.stats{grid-template-columns:1fr}body{padding:12px}}
+* { box-sizing: border-box; }
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+  background: #f5efff;
+  color: #30243d;
+}
+main { max-width: 1100px; margin: auto; }
+h1 { color: #743caa; }
+.card {
+  background: white;
+  padding: 20px;
+  margin: 15px 0;
+  border-radius: 16px;
+  box-shadow: 0 5px 20px #0001;
+}
+button, input {
+  padding: 12px;
+  margin: 5px;
+  font: inherit;
+  border-radius: 9px;
+}
+input {
+  width: 100%;
+  max-width: 380px;
+  border: 1px solid #ccc;
+}
+button {
+  background: #743caa;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+}
+button:disabled { opacity: .5; }
+.hide { display: none; }
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+.stat {
+  background: white;
+  padding: 20px;
+  text-align: center;
+  border-radius: 15px;
+}
+.stat strong {
+  display: block;
+  font-size: 29px;
+  color: #743caa;
+}
+.scroll { overflow-x: auto; }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+}
+th, td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+th { background: #eee3ff; }
+.accepted { color: green; font-weight: bold; }
+.error { color: #bc2525; }
+@media(max-width:600px) {
+  .stats { grid-template-columns: 1fr; }
+}
 </style>
 </head>
+
 <body>
-<div class="wrap">
-<h1>🔒 Organizer Dashboard</h1>
-<section id="loginBox" class="panel">
-  <h2>Admin sign in</h2>
-  <p class="small">This login is only for the exhibition organizer. Visitors do not need an email.</p>
-  <input id="email" type="email" placeholder="Admin email" autocomplete="username">
-  <input id="password" type="password" placeholder="Admin password" autocomplete="current-password">
-  <button onclick="login()">Sign in</button>
-  <p id="loginMsg" class="error"></p>
+<main>
+<h1>🔒 Arabic Chocolate Quiz — Admin</h1>
+
+<section id="loginSection" class="card">
+  <h2>Admin Login</h2>
+  <p>Only the organizer can access the results.</p>
+  <input id="email" type="email" placeholder="Admin Email">
+  <input id="password" type="password" placeholder="Password">
+  <button onclick="login()">Log In</button>
+  <p id="loginMessage" class="error"></p>
 </section>
 
 <section id="dashboard" class="hide">
-  <div class="panel">
-    <div style="display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap">
-      <div><strong id="who"></strong><div class="small">Live exhibition results</div></div>
-      <div><button onclick="downloadCSV()">Export CSV</button> <button class="logout" onclick="logout()">Sign out</button></div>
+  <div class="card">
+    <strong id="adminEmail"></strong>
+    <p>Live exhibition results</p>
+    <button onclick="downloadCSV()">Download Results CSV</button>
+    <button onclick="logout()">Log Out</button>
+  </div>
+
+  <div class="stats">
+    <div class="stat">
+      <strong id="totalVisitors">0</strong>
+      Total Visitors
+    </div>
+    <div class="stat">
+      <strong id="totalWinners">0</strong>
+      Chocolate Winners
+    </div>
+    <div class="stat">
+      <strong id="approvedWinners">0</strong>
+      Admin Accepted
     </div>
   </div>
-  <div class="stats">
-    <div class="stat"><b id="visitors">0</b>Visitors</div>
-    <div class="stat"><b id="winners">0</b>Winners</div>
-    <div class="stat"><b id="perfect">0%</b>3/3 rate</div>
-  </div>
-  <div class="panel scroll" style="margin-top:18px">
+
+  <div class="card scroll">
+    <h2>Visitor Results</h2>
     <table>
-      <thead><tr><th>Name</th><th>Level</th><th>Score</th><th>Chocolate?</th><th>Time</th></tr></thead>
-      <tbody id="rows"></tbody>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Level</th>
+          <th>Score</th>
+          <th>Chocolate</th>
+          <th>Approval</th>
+          <th>Time</th>
+        </tr>
+      </thead>
+      <tbody id="resultsTable"></tbody>
     </table>
-    <p id="empty" class="small">No results yet.</p>
+    <p id="message">Waiting for results...</p>
   </div>
 </section>
-</div>
+</main>
 
 <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore-compat.js"></script>
 <script src="firebase-config.js"></script>
-<script>
-const auth=firebase.auth();
-let allResults=[];
-let unsubscribe=null;
-const $=id=>document.getElementById(id);
 
-async function login(){
-  $('loginMsg').textContent='';
-  try{
-    await auth.signInWithEmailAndPassword($('email').value.trim(),$('password').value);
-  }catch(err){
-    console.error(err);
-    $('loginMsg').textContent='Sign in failed. Check the email/password and Firebase setup.';
+<script>
+const auth = firebase.auth();
+
+let results = [];
+let approvedIds = new Set();
+let stopResults = null;
+let stopApprovals = null;
+
+const el = id => document.getElementById(id);
+
+async function login() {
+  el("loginMessage").textContent = "";
+
+  try {
+    await auth.signInWithEmailAndPassword(
+      el("email").value.trim(),
+      el("password").value
+    );
+  } catch (error) {
+    console.error(error);
+    el("loginMessage").textContent =
+      "Login failed. Check your email and password.";
   }
 }
 
-async function logout(){
-  if(unsubscribe){unsubscribe();unsubscribe=null;}
+async function logout() {
   await auth.signOut();
 }
 
-auth.onAuthStateChanged(user=>{
-  if(user){
-    $('loginBox').classList.add('hide');
-    $('dashboard').classList.remove('hide');
-    $('who').textContent=user.email || 'Signed in';
-    watchResults();
-  }else{
-    $('loginBox').classList.remove('hide');
-    $('dashboard').classList.add('hide');
-    $('rows').innerHTML='';
-    allResults=[];
+auth.onAuthStateChanged(user => {
+  if (stopResults) {
+    stopResults();
+    stopResults = null;
+  }
+
+  if (stopApprovals) {
+    stopApprovals();
+    stopApprovals = null;
+  }
+
+  if (user) {
+    el("loginSection").classList.add("hide");
+    el("dashboard").classList.remove("hide");
+    el("adminEmail").textContent = user.email;
+
+    listenToResults();
+    listenToApprovals();
+  } else {
+    results = [];
+    approvedIds.clear();
+
+    el("loginSection").classList.remove("hide");
+    el("dashboard").classList.add("hide");
   }
 });
 
-function watchResults(){
-  if(unsubscribe)unsubscribe();
-  unsubscribe=db.collection('results').orderBy('createdAt','desc').onSnapshot(snap=>{
-    allResults=snap.docs.map(doc=>({id:doc.id,...doc.data()}));
-    renderRows();
-  },err=>{
-    console.error(err);
-    $('empty').textContent='Could not read results. Check your Firestore rules and admin UID.';
-    $('empty').style.display='block';
-  });
+function listenToResults() {
+  stopResults = db.collection("results")
+    .orderBy("createdAt", "desc")
+    .onSnapshot(snapshot => {
+      results = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+
+      displayResults();
+    }, error => {
+      console.error(error);
+      el("message").textContent =
+        "Cannot read results. Check your Firebase rules and admin UID.";
+    });
 }
 
-function renderRows(){
-  const body=$('rows');body.innerHTML='';
-  allResults.forEach(x=>{
-    const tr=body.insertRow();
-    const time=x.createdAt?.toDate ? x.createdAt.toDate().toLocaleString() : 'Saving…';
-    const values=[x.name,x.level,`${x.score}/${x.total}`,x.won?'🍫 Winner':'No',time];
-    values.forEach((v,i)=>{const td=tr.insertCell();td.textContent=v;if(i===3&&x.won)td.className='winner';});
-  });
-  const winCount=allResults.filter(x=>x.won).length;
-  $('visitors').textContent=allResults.length;
-  $('winners').textContent=winCount;
-  $('perfect').textContent=allResults.length?Math.round(winCount/allResults.length*100)+'%':'0%';
-  $('empty').style.display=allResults.length?'none':'block';
-  $('empty').textContent='No results yet.';
+function listenToApprovals() {
+  stopApprovals = db.collection("approvals")
+    .onSnapshot(snapshot => {
+      approvedIds = new Set(
+        snapshot.docs
+          .filter(doc => doc.data().accepted === true)
+          .map(doc => doc.id)
+      );
+
+      displayResults();
+    }, error => {
+      console.error(error);
+      el("message").textContent =
+        "Cannot read approvals. Check Firebase rules.";
+    });
 }
 
-function csvCell(v){return '"'+String(v??'').replaceAll('"','""')+'"'}
-function downloadCSV(){
-  const rows=[['Name','Level','Score','Won','Time'],...allResults.map(x=>[
-    x.name,x.level,`${x.score}/${x.total}`,x.won?'Yes':'No',x.createdAt?.toDate?x.createdAt.toDate().toLocaleString():''
-  ])];
-  const csv=rows.map(r=>r.map(csvCell).join(',')).join('\r\n');
-  const a=document.createElement('a');
-  a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));
-  a.download='arabic-quiz-results.csv';a.click();URL.revokeObjectURL(a.href);
+async function acceptWin(resultId, button) {
+  if (button) {
+    button.disabled = true;
+    button.textContent = "Accepting...";
+  }
+
+  try {
+    await db.collection("approvals").doc(resultId).set({
+      accepted: true,
+      acceptedAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+  } catch (error) {
+    console.error(error);
+    alert("Could not accept the win. Check your Firebase rules.");
+
+    if (button) {
+      button.disabled = false;
+      button.textContent = "Accept Win";
+    }
+  }
+}
+
+function displayResults() {
+  const table = el("resultsTable");
+  table.replaceChildren();
+
+  results.forEach(player => {
+    const row = table.insertRow();
+
+    const values = [
+      player.name,
+      player.level,
+      `${player.score}/3`,
+      player.score >= 1 ? "🍫 Eligible" : "❌ No"
+    ];
+
+    values.forEach(value => {
+      const cell = row.insertCell();
+      cell.textContent = value;
+    });
+
+    const approvalCell = row.insertCell();
+
+    if (player.score === 0) {
+      approvalCell.textContent = "Not eligible";
+    } else if (approvedIds.has(player.id)) {
+      approvalCell.textContent = "✅ Accepted";
+      approvalCell.className = "accepted";
+    } else {
+      const button = document.createElement("button");
+      button.textContent = "Accept Win";
+      button.onclick = () => acceptWin(player.id, button);
+      approvalCell.appendChild(button);
+    }
+
+    const dateCell = row.insertCell();
+    dateCell.textContent = player.createdAt?.toDate
+      ? player.createdAt.toDate().toLocaleString()
+      : "Saving...";
+  });
+
+  el("totalVisitors").textContent = results.length;
+
+  el("totalWinners").textContent =
+    results.filter(player => player.score >= 1).length;
+
+  el("approvedWinners").textContent =
+    results.filter(player => approvedIds.has(player.id)).length;
+
+  el("message").textContent =
+    results.length === 0 ? "No visitors yet." : "";
+}
+
+function downloadCSV() {
+  const rows = [
+    ["Name","Level","Score","Eligible","Accepted","Time"],
+    ...results.map(player => [
+      player.name,
+      player.level,
+      `${player.score}/3`,
+      player.score >= 1 ? "Yes" : "No",
+      approvedIds.has(player.id) ? "Yes" : "No",
+      player.createdAt?.toDate
+        ? player.createdAt.toDate().toLocaleString()
+        : ""
+    ])
+  ];
+
+  const csv = rows.map(row =>
+    row.map(value =>
+      '"' + String(value ?? "").replaceAll('"','""') + '"'
+    ).join(",")
+  ).join("\r\n");
+
+  const blob = new Blob(["\uFEFF" + csv], {
+    type: "text/csv;charset=utf-8"
+  });
+
+  const link = document.createElement("a");
+  const url = URL.createObjectURL(blob);
+
+  link.href = url;
+  link.download = "arabic-quiz-results.csv";
+  link.click();
+
+  URL.revokeObjectURL(url);
 }
 </script>
 </body>
