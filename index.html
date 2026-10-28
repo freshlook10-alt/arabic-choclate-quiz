@@ -3,78 +3,110 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Arabic Chocolate Challenge</title>
 <style>
-* { box-sizing: border-box; }
-body {
-  margin: 0;
-  padding: 20px;
-  min-height: 100vh;
-  font-family: Arial, sans-serif;
-  background: linear-gradient(145deg,#fff3cd,#eee0ff);
-  color: #30243d;
+*{box-sizing:border-box}
+body{
+  margin:0;
+  padding:20px;
+  font-family:Arial,sans-serif;
+  background:linear-gradient(145deg,#fff4db,#f2eaff);
+  color:#30243d;
 }
-main {
-  max-width: 560px;
-  margin: 20px auto;
-  padding: 26px;
-  background: white;
-  border-radius: 24px;
-  box-shadow: 0 10px 35px #0002;
+main{
+  max-width:580px;
+  margin:15px auto;
+  background:white;
+  border-radius:25px;
+  padding:26px;
+  box-shadow:0 12px 35px #0002;
 }
-h1 { color: #7539ad; text-align: center; }
-h2, .center { text-align: center; }
-.subtitle { text-align: center; color: #665b70; }
-button, input, select {
-  font: inherit;
-  display: block;
-  width: 100%;
-  padding: 14px;
-  margin: 12px 0;
-  border-radius: 12px;
+h1{text-align:center;color:#6d3bb6}
+h2{text-align:center}
+.subtitle{text-align:center;color:#696071}
+input,select,button{
+  width:100%;
+  padding:14px;
+  margin:12px 0;
+  border-radius:12px;
+  font:inherit;
 }
-input, select { border: 1px solid #cfc7db; }
-button {
-  border: none;
-  background: #7539ad;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
+input,select{border:1px solid #ccc}
+button{
+  background:#6d3bb6;
+  color:white;
+  border:0;
+  font-weight:bold;
+  cursor:pointer;
 }
-button:disabled { opacity: .55; }
-.picture { font-size: 100px; text-align: center; margin: 18px 0; }
-.question { font-size: 23px; font-weight: bold; text-align: center; }
-.hide { display: none; }
-.good { color: #168143; font-weight: bold; }
-.bad { color: #bb2525; font-weight: bold; }
-.prize {
-  background: #e9fbed;
-  border-radius: 18px;
-  padding: 22px;
-  text-align: center;
-  font-size: 20px;
+button:disabled{opacity:.5}
+.hide{display:none!important}
+.picture{
+  font-size:105px;
+  text-align:center;
+  padding:20px;
 }
-.noPrize {
-  background: #fff0ee;
-  border-radius: 18px;
-  padding: 22px;
-  text-align: center;
+.question{
+  font-size:23px;
+  text-align:center;
+  font-weight:bold;
 }
-small { color: #777; line-height: 1.5; }
-#status { font-size: 14px; text-align: center; }
+.options button{
+  font-size:25px;
+  direction:rtl;
+}
+.good{color:green;font-weight:bold}
+.bad{color:red;font-weight:bold}
+.center{text-align:center}
+.result-box{
+  padding:20px;
+  text-align:center;
+  border-radius:16px;
+  background:#edfff1;
+}
+.no{background:#fff0ee}
+small{color:#666}
+#approvedTicket{
+  text-align:center;
+  padding:28px 15px;
+  background:linear-gradient(145deg,#fff8df,#e5ffe9);
+  border:4px solid #d4ad42;
+  border-radius:23px;
+}
+.ticketTitle{
+  color:#16713c;
+  font-size:32px;
+  font-weight:bold;
+}
+.ticketIcon{font-size:75px}
+.ticketBox{
+  background:white;
+  padding:15px;
+  border-radius:14px;
+  margin:15px 0;
+  border:1px solid #d4ad42;
+}
+.ticketBanner{
+  background:#16713c;
+  color:white;
+  padding:20px;
+  border-radius:14px;
+  font-weight:bold;
+  font-size:19px;
+}
 </style>
 </head>
-
 <body>
 <main>
 <h1>🍫 Arabic Chocolate Challenge</h1>
-<p class="subtitle">Get at least 1/3 correct to qualify for chocolate!</p>
+<p class="subtitle">Get at least 1/3 correct to qualify for a chocolate!</p>
 
 <section id="welcome">
   <h2>Welcome!</h2>
   <label>Your name</label>
-  <input id="playerName" maxlength="35" placeholder="Enter your name">
+  <input id="playerName" maxlength="35"
+         placeholder="Enter your name">
 
   <label>Choose your Arabic level</label>
   <select id="level">
@@ -84,28 +116,59 @@ small { color: #777; line-height: 1.5; }
   </select>
 
   <button onclick="startQuiz()">Start Quiz 🚀</button>
-  <small>No email needed. Your name, level and result will be
-  shared with the exhibition organizer.</small>
+  <small>Your name, level and score will be shared with the organizer. No email is needed.</small>
 </section>
 
 <section id="quiz" class="hide">
   <p id="progress" class="center"></p>
   <div id="picture" class="picture"></div>
   <p class="question">What is the Arabic word for this picture?</p>
-  <div id="options"></div>
+  <div id="options" class="options"></div>
   <p id="feedback"></p>
-  <button id="nextBtn" class="hide" onclick="nextQuestion()">Next →</button>
+  <button id="nextBtn" class="hide"
+          onclick="nextQuestion()">Next →</button>
 </section>
 
 <section id="result" class="hide">
   <h2 id="scoreText"></h2>
-  <div id="prizeBox">
+  <div id="resultBox" class="result-box">
     <h2 id="prizeText"></h2>
     <p id="approvalText"></p>
   </div>
-  <p id="status"></p>
-  <button onclick="location.reload()">New Visitor</button>
+  <p id="saveStatus" class="center"></p>
+  <button onclick="newVisitor()">New Visitor</button>
 </section>
+
+<section id="approvedTicket" class="hide">
+  <div class="ticketIcon">🏆🍫</div>
+  <div class="ticketTitle">ADMIN APPROVED!</div>
+  <h2>Chocolate Prize Ticket</h2>
+  <p>Your chocolate has been approved!</p>
+
+  <div class="ticketBox">
+    <h2 id="ticketName"></h2>
+    <p>Score: <strong id="ticketScore"></strong></p>
+    <p>Level: <strong id="ticketLevel"></strong></p>
+  </div>
+
+  <div class="ticketBox">
+    <small>UNIQUE PRIZE TICKET ID</small>
+    <h2 id="ticketCode"></h2>
+  </div>
+
+  <div class="ticketBox">
+    <small>Approved at</small>
+    <p id="ticketApprovedAt"></p>
+  </div>
+
+  <div class="ticketBanner">
+    ✅ SHOW THIS SCREEN TO THE ORGANIZER
+  </div>
+
+  <p>One chocolate per approved ticket.</p>
+  <button onclick="newVisitor()">New Visitor</button>
+</section>
+
 </main>
 
 <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-app-compat.js"></script>
@@ -113,166 +176,169 @@ small { color: #777; line-height: 1.5; }
 <script src="firebase-config.js"></script>
 
 <script>
-const wordBanks = {
-beginner: [
-["🐎","حصان"],
-["🍎","تفاحة"],
-["☀️","شمس"],
-["🐈","قطة"],
-["🐕","كلب"],
-["🐟","سمكة"],
-["🏠","بيت"],
-["🚗","سيارة"],
-["📖","كتاب"],
-["🌙","قمر"],
-["🌳","شجرة"],
-["🌸","زهرة"],
-["🍌","موز"],
-["🍇","عنب"],
-["🍉","بطيخ"],
-["🥕","جزر"],
-["🥛","حليب"],
-["🍞","خبز"],
-["🥚","بيضة"],
-["🚪","باب"],
-["🪟","نافذة"],
-["🪑","كرسي"],
-["🛏️","سرير"],
-["✏️","قلم رصاص"],
-["🖊️","قلم"],
-["👟","حذاء"],
-["👕","قميص"],
-["🎩","قبعة"],
-["⚽","كرة"],
-["🚲","دراجة"],
-["🚌","حافلة"],
-["🚂","قطار"],
-["✈️","طائرة"],
-["🚢","سفينة"],
-["🐘","فيل"],
-["🦁","أسد"],
-["🐒","قرد"],
-["🐻","دب"],
-["🐇","أرنب"],
-["🦆","بطة"],
-["🐓","ديك"],
-["🐄","بقرة"],
-["🐑","خروف"],
-["🐐","ماعز"],
-["🐝","نحلة"],
-["🦋","فراشة"],
-["🌧️","مطر"],
-["❄️","ثلج"],
-["🔥","نار"],
-["⭐","نجمة"]
-],
+const pictureBankText = {
+beginner: `🐎|حصان
+🍎|تفاحة
+☀️|شمس
+🐈|قطة
+🐕|كلب
+🐟|سمكة
+🏠|بيت
+🚗|سيارة
+📖|كتاب
+🌙|قمر
+🌳|شجرة
+🌸|زهرة
+🍌|موز
+🍇|عنب
+🍉|بطيخ
+🥕|جزر
+🥛|حليب
+🍞|خبز
+🥚|بيضة
+🚪|باب
+🪟|نافذة
+🪑|كرسي
+🛏️|سرير
+✏️|قلم رصاص
+🖊️|قلم
+👟|حذاء
+👕|قميص
+🎩|قبعة
+⚽|كرة
+🚲|دراجة
+🚌|حافلة
+🚂|قطار
+✈️|طائرة
+🚢|سفينة
+🐘|فيل
+🦁|أسد
+🐒|قرد
+🐻|دب
+🐇|أرنب
+🦆|بطة
+🐓|ديك
+🐄|بقرة
+🐑|خروف
+🐐|ماعز
+🐝|نحلة
+🦋|فراشة
+🌧️|مطر
+❄️|ثلج
+🔥|نار
+⭐|نجمة`,
 
-intermediate: [
-["🔑","مفتاح"],
-["🌉","جسر"],
-["🏥","مستشفى"],
-["🏫","مدرسة"],
-["🏦","بنك"],
-["🏰","قلعة"],
-["🏟️","ملعب"],
-["🏖️","شاطئ"],
-["🏜️","صحراء"],
-["⛰️","جبل"],
-["🌋","بركان"],
-["🏝️","جزيرة"],
-["🗺️","خريطة"],
-["🧳","حقيبة سفر"],
-["🎒","حقيبة ظهر"],
-["☂️","مظلة"],
-["🧤","قفاز"],
-["🧣","وشاح"],
-["🧥","معطف"],
-["👓","نظارة"],
-["⌚","ساعة يد"],
-["📷","كاميرا"],
-["📱","هاتف"],
-["💻","حاسوب محمول"],
-["🖥️","شاشة"],
-["⌨️","لوحة مفاتيح"],
-["🖨️","طابعة"],
-["🎧","سماعات"],
-["🎤","ميكروفون"],
-["🎸","غيتار"],
-["🎻","كمان"],
-["🥁","طبل"],
-["🎺","بوق"],
-["🔔","جرس"],
-["🕯️","شمعة"],
-["💡","مصباح"],
-["🔦","مصباح يدوي"],
-["🧲","مغناطيس"],
-["🔨","مطرقة"],
-["🪓","فأس"],
-["🪚","منشار"],
-["🪜","سلم"],
-["🧹","مكنسة"],
-["🪣","دلو"],
-["🧺","سلة"],
-["🪞","مرآة"],
-["🪥","فرشاة أسنان"],
-["🧼","صابون"],
-["🧽","إسفنجة"],
-["🪴","نبات منزلي"]
-],
+intermediate: `🔑|مفتاح
+🌉|جسر
+🏥|مستشفى
+🏫|مدرسة
+🏦|بنك
+🏰|قلعة
+🏟️|ملعب
+🏖️|شاطئ
+🏜️|صحراء
+⛰️|جبل
+🌋|بركان
+🏝️|جزيرة
+🗺️|خريطة
+🧳|حقيبة سفر
+🎒|حقيبة ظهر
+☂️|مظلة
+🧤|قفاز
+🧣|وشاح
+🧥|معطف
+👓|نظارة
+⌚|ساعة يد
+📷|كاميرا
+📱|هاتف
+💻|حاسوب محمول
+🖥️|شاشة
+⌨️|لوحة مفاتيح
+🖨️|طابعة
+🎧|سماعات
+🎤|ميكروفون
+🎸|غيتار
+🎻|كمان
+🥁|طبل
+🎺|بوق
+🔔|جرس
+🕯️|شمعة
+💡|مصباح
+🔦|مصباح يدوي
+🧲|مغناطيس
+🔨|مطرقة
+🪓|فأس
+🪚|منشار
+🪜|سلم
+🧹|مكنسة
+🪣|دلو
+🧺|سلة
+🪞|مرآة
+🪥|فرشاة أسنان
+🧼|صابون
+🧽|إسفنجة
+🪴|نبات منزلي`,
 
-advanced: [
-["🧭","بوصلة"],
-["🔬","مجهر"],
-["⚖️","ميزان"],
-["🧪","أنبوب اختبار"],
-["🧬","حمض نووي"],
-["🛰️","قمر صناعي"],
-["🔭","تلسكوب"],
-["🧯","طفاية حريق"],
-["🩺","سماعة طبية"],
-["💉","حقنة"],
-["🩻","صورة أشعة"],
-["🩹","ضمادة"],
-["🦠","ميكروب"],
-["🧫","طبق بتري"],
-["🪫","بطارية فارغة"],
-["🔋","بطارية"],
-["🪛","مفك براغي"],
-["🔧","مفتاح ربط"],
-["🗜️","مشبك"],
-["⛓️","سلسلة"],
-["⚙️","ترس"],
-["🧱","طوب"],
-["🪨","صخرة"],
-["🪵","خشب"],
-["🪝","خطاف"],
-["🧷","دبوس أمان"],
-["🪡","إبرة خياطة"],
-["🧵","خيط"],
-["🪢","عقدة"],
-["📐","مثلث هندسي"],
-["📏","مسطرة"],
-["🧮","معداد"],
-["📊","رسم بياني"],
-["📈","مخطط صاعد"],
-["🗃️","خزانة ملفات"],
-["🗄️","خزانة أدراج"],
-["📜","مخطوطة"],
-["🗞️","صحيفة"],
-["🪧","لافتة"],
-["🛡️","درع"],
-["⚓","مرساة"],
-["🛟","طوق نجاة"],
-["🚦","إشارة مرور"],
-["🛤️","سكة حديد"],
-["🏗️","رافعة بناء"],
-["🪂","مظلة هبوط"],
-["🚁","مروحية"],
-["🚀","صاروخ"],
-["🛸","طبق طائر"],
-["🪐","كوكب ذو حلقات"]
-]
+advanced: `🧭|بوصلة
+🔬|مجهر
+⚖️|ميزان
+🧪|أنبوب اختبار
+🧬|حمض نووي
+🛰️|قمر صناعي
+🔭|تلسكوب
+🧯|طفاية حريق
+🩺|سماعة طبية
+💉|حقنة
+🩻|صورة أشعة
+🩹|ضمادة
+🦠|ميكروب
+🧫|طبق بتري
+🪫|بطارية فارغة
+🔋|بطارية
+🪛|مفك براغي
+🔧|مفتاح ربط
+🗜️|مشبك
+⛓️|سلسلة
+⚙️|ترس
+🧱|طوب
+🪨|صخرة
+🪵|خشب
+🪝|خطاف
+🧷|دبوس أمان
+🪡|إبرة خياطة
+🧵|خيط
+🪢|عقدة
+📐|مثلث هندسي
+📏|مسطرة
+🧮|معداد
+📊|رسم بياني
+📈|مخطط صاعد
+🗃️|خزانة ملفات
+🗄️|خزانة أدراج
+📜|مخطوطة
+🗞️|صحيفة
+🪧|لافتة
+🛡️|درع
+⚓|مرساة
+🛟|طوق نجاة
+🚦|إشارة مرور
+🛤️|سكة حديد
+🏗️|رافعة بناء
+🪂|مظلة هبوط
+🚁|مروحية
+🚀|صاروخ
+🛸|طبق طائر
+🪐|كوكب ذو حلقات`
 };
+
+const wordBanks = Object.fromEntries(
+  Object.entries(pictureBankText).map(([key,text]) => [
+    key,
+    text.trim().split("\n").map(line => line.split("|"))
+  ])
+);
+
+const el = id => document.getElementById(id);
 
 let questions = [];
 let questionNumber = 0;
@@ -282,40 +348,37 @@ let level = "";
 let locked = false;
 let approvalListener = null;
 
-const el = id => document.getElementById(id);
-
-function shuffle(array) {
-  const copy = [...array];
-  for (let i = copy.length - 1; i > 0; i--) {
+function shuffle(list) {
+  const arr = [...list];
+  for(let i = arr.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
-    [copy[i], copy[j]] = [copy[j], copy[i]];
+    [arr[i],arr[j]] = [arr[j],arr[i]];
   }
-  return copy;
+  return arr;
 }
 
 function createQuestions(selectedLevel) {
   const bank = wordBanks[selectedLevel];
-  const selected = shuffle(bank).slice(0, 3);
 
-  return selected.map(([picture, correct]) => {
+  return shuffle(bank).slice(0,3).map(([picture,correct]) => {
     const wrong = shuffle(
       bank.filter(item => item[1] !== correct)
-    ).slice(0, 2).map(item => item[1]);
+    ).slice(0,2).map(item => item[1]);
 
-    const options = shuffle([correct, ...wrong]);
+    const options = shuffle([correct,...wrong]);
 
     return {
-      picture: picture,
-      options: options,
-      correct: options.indexOf(correct)
+      picture:picture,
+      options:options,
+      correct:options.indexOf(correct)
     };
   });
 }
 
 function startQuiz() {
-  playerName = el("playerName").value.trim();
+  playerName = el("playerName").value.trim().replace(/\s+/g," ");
 
-  if (!playerName) {
+  if(!playerName) {
     alert("Please enter your name.");
     return;
   }
@@ -336,7 +399,7 @@ function showQuestion() {
   const q = questions[questionNumber];
 
   el("progress").textContent =
-    `Question ${questionNumber + 1} of 3`;
+    `Question ${questionNumber+1} of 3`;
 
   el("picture").textContent = q.picture;
   el("feedback").textContent = "";
@@ -346,30 +409,28 @@ function showQuestion() {
   const container = el("options");
   container.replaceChildren();
 
-  q.options.forEach((option, index) => {
+  q.options.forEach((option,i) => {
     const button = document.createElement("button");
     button.textContent = option;
-    button.dir = "rtl";
-    button.onclick = () => chooseAnswer(index);
+    button.onclick = () => chooseAnswer(i);
     container.appendChild(button);
   });
 }
 
-function chooseAnswer(answerIndex) {
-  if (locked) return;
+function chooseAnswer(i) {
+  if(locked) return;
   locked = true;
 
   const q = questions[questionNumber];
+  const ok = i === q.correct;
 
-  if (answerIndex === q.correct) {
-    score++;
-    el("feedback").textContent = "✅ Correct!";
-    el("feedback").className = "good";
-  } else {
-    el("feedback").textContent =
-      "❌ Wrong! Correct answer: " + q.options[q.correct];
-    el("feedback").className = "bad";
-  }
+  if(ok) score++;
+
+  el("feedback").textContent = ok
+    ? "✅ Correct!"
+    : "❌ Wrong! Correct answer: " + q.options[q.correct];
+
+  el("feedback").className = ok ? "good" : "bad";
 
   [...el("options").children].forEach(button => {
     button.disabled = true;
@@ -384,11 +445,19 @@ function chooseAnswer(answerIndex) {
 function nextQuestion() {
   questionNumber++;
 
-  if (questionNumber < 3) {
+  if(questionNumber < 3) {
     showQuestion();
   } else {
     finishQuiz();
   }
+}
+
+function newVisitor() {
+  if(approvalListener) {
+    approvalListener();
+    approvalListener = null;
+  }
+  location.reload();
 }
 
 async function finishQuiz() {
@@ -399,59 +468,69 @@ async function finishQuiz() {
     `${playerName}, you scored ${score}/3!`;
 
   const won = score >= 1;
+  el("resultBox").classList.toggle("no", !won);
 
-  el("prizeBox").className = won ? "prize" : "noPrize";
+  el("prizeText").textContent = won
+    ? "🍫 You qualify for a chocolate!"
+    : "No chocolate this time.";
 
-  if (won) {
-    el("prizeText").textContent =
-      "🍫 You qualify for a chocolate!";
+  el("approvalText").textContent = won
+    ? "⏳ Waiting for admin approval. Keep this tab open."
+    : "You need at least 1 correct answer.";
 
-    el("approvalText").textContent =
-      "⏳ Waiting for admin approval. Keep this page open.";
-  } else {
-    el("prizeText").textContent = "No chocolate this time.";
-    el("approvalText").textContent =
-      "You need at least 1 correct answer.";
-  }
-
-  el("status").textContent = "Saving your score...";
+  el("saveStatus").textContent = "Saving result...";
 
   try {
-    const reference = db.collection("results").doc();
+    const ref = db.collection("results").doc();
 
-    await reference.set({
-      name: playerName,
-      level: level,
-      score: score,
-      total: 3,
-      won: won,
-      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    await ref.set({
+      name:playerName,
+      level:level,
+      score:score,
+      total:3,
+      won:won,
+      createdAt:firebase.firestore.FieldValue.serverTimestamp()
     });
 
-    el("status").textContent = "✅ Result saved!";
+    el("saveStatus").textContent =
+      "✅ Result saved to the admin dashboard.";
 
-    if (won) {
+    if(won) {
       approvalListener = db.collection("approvals")
-        .doc(reference.id)
+        .doc(ref.id)
         .onSnapshot(snapshot => {
-          if (snapshot.exists && snapshot.data().accepted === true) {
-            el("prizeText").textContent =
-              "🎉 Your win has been accepted by the admin! 🍫";
-
-            el("approvalText").textContent =
-              "Show this screen to collect your chocolate.";
+          if(snapshot.exists && snapshot.data().accepted === true) {
+            showApprovedTicket(ref.id,snapshot.data());
           }
-        }, error => {
+        },error => {
           console.error(error);
           el("approvalText").textContent =
-            "Please ask the organizer to confirm your win.";
+            "Ask the organizer to check your approval status.";
         });
     }
-  } catch (error) {
+  } catch(error) {
     console.error(error);
-    el("status").textContent =
-      "⚠️ Score not saved. Please ask the organizer for help.";
+    el("saveStatus").textContent =
+      "⚠️ Result NOT saved. Ask the organizer for help.";
   }
+}
+
+function showApprovedTicket(resultId,approval) {
+  el("result").classList.add("hide");
+  el("approvedTicket").classList.remove("hide");
+
+  el("ticketName").textContent = playerName;
+  el("ticketScore").textContent = `${score}/3`;
+  el("ticketLevel").textContent =
+    level.charAt(0).toUpperCase() + level.slice(1);
+
+  el("ticketCode").textContent =
+    resultId.slice(-8).toUpperCase();
+
+  el("ticketApprovedAt").textContent =
+    approval.acceptedAt?.toDate
+      ? approval.acceptedAt.toDate().toLocaleString()
+      : "Just approved";
 }
 </script>
 </body>
