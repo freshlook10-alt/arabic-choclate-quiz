@@ -3,99 +3,95 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Arabic Quiz Admin Dashboard</title>
 <style>
-* { box-sizing: border-box; }
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 20px;
-  background: #f5efff;
-  color: #30243d;
+*{box-sizing:border-box}
+body{
+  margin:0;
+  padding:22px;
+  font-family:Arial,sans-serif;
+  background:#f4edff;
+  color:#30243d;
 }
-main { max-width: 1100px; margin: auto; }
-h1 { color: #743caa; }
-.card {
-  background: white;
-  padding: 20px;
-  margin: 15px 0;
-  border-radius: 16px;
-  box-shadow: 0 5px 20px #0001;
+main{max-width:1180px;margin:auto}
+h1{color:#743caa}
+.card,.stat{
+  background:white;
+  border-radius:18px;
+  padding:20px;
+  margin:14px 0;
+  box-shadow:0 5px 20px #0001;
 }
-button, input {
-  padding: 12px;
-  margin: 5px;
-  font: inherit;
-  border-radius: 9px;
+input,button{
+  font:inherit;
+  padding:12px;
+  border-radius:10px;
+  margin:5px 0;
 }
-input {
-  width: 100%;
-  max-width: 380px;
-  border: 1px solid #ccc;
+input{
+  display:block;
+  width:100%;
+  max-width:380px;
+  border:1px solid #ccc;
 }
-button {
-  background: #743caa;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-  border: none;
+button{
+  background:#743caa;
+  color:white;
+  font-weight:bold;
+  border:0;
+  cursor:pointer;
 }
-button:disabled { opacity: .5; }
-.hide { display: none; }
-.stats {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
+button:disabled{opacity:.5}
+.hide{display:none!important}
+.muted{color:#676073;font-size:13px}
+.stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
 }
-.stat {
-  background: white;
-  padding: 20px;
-  text-align: center;
-  border-radius: 15px;
+.stat{text-align:center}
+.stat strong{
+  display:block;
+  font-size:32px;
+  color:#743caa;
 }
-.stat strong {
-  display: block;
-  font-size: 29px;
-  color: #743caa;
+.scroll{overflow:auto}
+table{
+  width:100%;
+  min-width:850px;
+  border-collapse:collapse;
 }
-.scroll { overflow-x: auto; }
-table {
-  width: 100%;
-  border-collapse: collapse;
-  background: white;
+th,td{
+  padding:13px;
+  text-align:left;
+  border-bottom:1px solid #ddd;
 }
-th, td {
-  padding: 12px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
-}
-th { background: #eee3ff; }
-.accepted { color: green; font-weight: bold; }
-.error { color: #bc2525; }
-@media(max-width:600px) {
-  .stats { grid-template-columns: 1fr; }
+th{background:#efe5ff}
+.success{color:green;font-weight:bold}
+@media(max-width:650px){
+  .stats{grid-template-columns:1fr}
 }
 </style>
 </head>
-
 <body>
 <main>
+
 <h1>🔒 Arabic Chocolate Quiz — Admin</h1>
 
 <section id="loginSection" class="card">
-  <h2>Admin Login</h2>
-  <p>Only the organizer can access the results.</p>
-  <input id="email" type="email" placeholder="Admin Email">
+  <h2>Organizer Login</h2>
+  <input id="email" type="email" placeholder="Admin email">
   <input id="password" type="password" placeholder="Password">
   <button onclick="login()">Log In</button>
-  <p id="loginMessage" class="error"></p>
+  <button onclick="resetPassword()">Reset Password</button>
+  <p id="loginMessage"></p>
 </section>
 
 <section id="dashboard" class="hide">
   <div class="card">
     <strong id="adminEmail"></strong>
-    <p>Live exhibition results</p>
+    <p>Live exhibition results and chocolate tracking</p>
     <button onclick="downloadCSV()">Download Results CSV</button>
     <button onclick="logout()">Log Out</button>
   </div>
@@ -106,31 +102,34 @@ th { background: #eee3ff; }
       Total Visitors
     </div>
     <div class="stat">
-      <strong id="totalWinners">0</strong>
-      Chocolate Winners
+      <strong id="givenOut">0</strong>
+      🍫 Chocolates Given Out
     </div>
     <div class="stat">
-      <strong id="approvedWinners">0</strong>
-      Admin Accepted
+      <strong id="pendingWinners">0</strong>
+      Waiting for Approval
     </div>
   </div>
 
   <div class="card scroll">
     <h2>Visitor Results</h2>
+    <p>Click Accept Win when handing out the chocolate.</p>
+
     <table>
       <thead>
         <tr>
           <th>Name</th>
           <th>Level</th>
           <th>Score</th>
-          <th>Chocolate</th>
-          <th>Approval</th>
-          <th>Time</th>
+          <th>Ticket ID</th>
+          <th>Time Played</th>
+          <th>Admin Approval</th>
         </tr>
       </thead>
       <tbody id="resultsTable"></tbody>
     </table>
-    <p id="message">Waiting for results...</p>
+
+    <p id="message">Loading...</p>
   </div>
 </section>
 </main>
@@ -142,13 +141,18 @@ th { background: #eee3ff; }
 
 <script>
 const auth = firebase.auth();
+const el = id => document.getElementById(id);
 
 let results = [];
-let approvedIds = new Set();
+let approvals = new Map();
 let stopResults = null;
 let stopApprovals = null;
 
-const el = id => document.getElementById(id);
+function formatDate(timestamp) {
+  return timestamp?.toDate
+    ? timestamp.toDate().toLocaleString()
+    : "Saving...";
+}
 
 async function login() {
   el("loginMessage").textContent = "";
@@ -158,10 +162,31 @@ async function login() {
       el("email").value.trim(),
       el("password").value
     );
-  } catch (error) {
+  } catch(error) {
     console.error(error);
     el("loginMessage").textContent =
       "Login failed. Check your email and password.";
+  }
+}
+
+async function resetPassword() {
+  const email = el("email").value.trim();
+
+  if(!email) {
+    el("loginMessage").textContent =
+      "Enter your admin email first.";
+    return;
+  }
+
+  try {
+    await auth.sendPasswordResetEmail(email);
+
+    el("loginMessage").textContent =
+      "If this email is registered, a password reset link has been sent.";
+  } catch(error) {
+    console.error(error);
+    el("loginMessage").textContent =
+      "Could not request reset. Check your Firebase settings.";
   }
 }
 
@@ -169,173 +194,201 @@ async function logout() {
   await auth.signOut();
 }
 
-auth.onAuthStateChanged(user => {
-  if (stopResults) {
+function stopListening() {
+  if(stopResults) {
     stopResults();
     stopResults = null;
   }
 
-  if (stopApprovals) {
+  if(stopApprovals) {
     stopApprovals();
     stopApprovals = null;
   }
+}
 
-  if (user) {
-    el("loginSection").classList.add("hide");
-    el("dashboard").classList.remove("hide");
-    el("adminEmail").textContent = user.email;
+auth.onAuthStateChanged(user => {
+  stopListening();
+  results = [];
+  approvals = new Map();
 
-    listenToResults();
-    listenToApprovals();
-  } else {
-    results = [];
-    approvedIds.clear();
-
+  if(!user) {
     el("loginSection").classList.remove("hide");
     el("dashboard").classList.add("hide");
+    return;
   }
-});
 
-function listenToResults() {
+  el("loginSection").classList.add("hide");
+  el("dashboard").classList.remove("hide");
+  el("adminEmail").textContent = user.email || "Admin";
+
   stopResults = db.collection("results")
-    .orderBy("createdAt", "desc")
+    .orderBy("createdAt","desc")
     .onSnapshot(snapshot => {
       results = snapshot.docs.map(doc => ({
-        id: doc.id,
+        id:doc.id,
         ...doc.data()
       }));
 
-      displayResults();
-    }, error => {
+      drawTable();
+    },error => {
       console.error(error);
       el("message").textContent =
-        "Cannot read results. Check your Firebase rules and admin UID.";
+        "Cannot read results. Check Firebase rules.";
     });
-}
 
-function listenToApprovals() {
   stopApprovals = db.collection("approvals")
     .onSnapshot(snapshot => {
-      approvedIds = new Set(
+      approvals = new Map(
         snapshot.docs
           .filter(doc => doc.data().accepted === true)
-          .map(doc => doc.id)
+          .map(doc => [doc.id,doc.data()])
       );
 
-      displayResults();
-    }, error => {
+      drawTable();
+    },error => {
       console.error(error);
       el("message").textContent =
         "Cannot read approvals. Check Firebase rules.";
     });
-}
+});
 
-async function acceptWin(resultId, button) {
-  if (button) {
-    button.disabled = true;
-    button.textContent = "Accepting...";
-  }
+async function acceptWin(resultId,button) {
+  button.disabled = true;
+  button.textContent = "Accepting...";
 
   try {
     await db.collection("approvals").doc(resultId).set({
-      accepted: true,
-      acceptedAt: firebase.firestore.FieldValue.serverTimestamp()
+      accepted:true,
+      acceptedAt:firebase.firestore.FieldValue.serverTimestamp()
     });
-  } catch (error) {
+  } catch(error) {
     console.error(error);
-    alert("Could not accept the win. Check your Firebase rules.");
-
-    if (button) {
-      button.disabled = false;
-      button.textContent = "Accept Win";
-    }
+    button.disabled = false;
+    button.textContent = "Accept Win 🍫";
+    alert("Approval failed. Check Firebase rules.");
   }
 }
 
-function displayResults() {
+function drawTable() {
   const table = el("resultsTable");
   table.replaceChildren();
 
-  results.forEach(player => {
+  for(const person of results) {
     const row = table.insertRow();
+    const ticket = person.id.slice(-8).toUpperCase();
 
-    const values = [
-      player.name,
-      player.level,
-      `${player.score}/3`,
-      player.score >= 1 ? "🍫 Eligible" : "❌ No"
-    ];
-
-    values.forEach(value => {
-      const cell = row.insertCell();
-      cell.textContent = value;
+    [
+      person.name,
+      person.level,
+      `${person.score}/3`,
+      ticket,
+      formatDate(person.createdAt)
+    ].forEach(value => {
+      row.insertCell().textContent = value;
     });
 
-    const approvalCell = row.insertCell();
+    const cell = row.insertCell();
+    const approval = approvals.get(person.id);
 
-    if (player.score === 0) {
-      approvalCell.textContent = "Not eligible";
-    } else if (approvedIds.has(player.id)) {
-      approvalCell.textContent = "✅ Accepted";
-      approvalCell.className = "accepted";
+    if(person.score === 0) {
+      cell.textContent = "Not eligible";
+    } else if(approval) {
+      cell.className = "success";
+      cell.textContent =
+        "✅ Approved • " + formatDate(approval.acceptedAt);
     } else {
       const button = document.createElement("button");
-      button.textContent = "Accept Win";
-      button.onclick = () => acceptWin(player.id, button);
-      approvalCell.appendChild(button);
+      button.textContent = "Accept Win 🍫";
+      button.onclick = () => acceptWin(person.id,button);
+      cell.appendChild(button);
     }
+  }
 
-    const dateCell = row.insertCell();
-    dateCell.textContent = player.createdAt?.toDate
-      ? player.createdAt.toDate().toLocaleString()
-      : "Saving...";
-  });
+  const given = results.filter(
+    person => person.score >= 1 && approvals.has(person.id)
+  ).length;
+
+  const eligible = results.filter(
+    person => person.score >= 1
+  ).length;
 
   el("totalVisitors").textContent = results.length;
-
-  el("totalWinners").textContent =
-    results.filter(player => player.score >= 1).length;
-
-  el("approvedWinners").textContent =
-    results.filter(player => approvedIds.has(player.id)).length;
+  el("givenOut").textContent = given;
+  el("pendingWinners").textContent = eligible - given;
 
   el("message").textContent =
-    results.length === 0 ? "No visitors yet." : "";
+    results.length ? "" : "No visitors yet.";
+}
+
+function escapeCSV(value) {
+  let text = String(value ?? "");
+
+  if(/^\s*[=+\-@]/.test(text)) {
+    text = "'" + text;
+  }
+
+  return '"' + text.replaceAll('"','""') + '"';
 }
 
 function downloadCSV() {
   const rows = [
-    ["Name","Level","Score","Eligible","Accepted","Time"],
-    ...results.map(player => [
-      player.name,
-      player.level,
-      `${player.score}/3`,
-      player.score >= 1 ? "Yes" : "No",
-      approvedIds.has(player.id) ? "Yes" : "No",
-      player.createdAt?.toDate
-        ? player.createdAt.toDate().toLocaleString()
-        : ""
-    ])
+    [
+      "Name",
+      "Level",
+      "Score",
+      "Eligible for Chocolate",
+      "Ticket ID",
+      "Time Played",
+      "Admin Approved",
+      "Approved At",
+      "Chocolates Given Out"
+    ],
+    ...results.map(person => {
+      const approval = approvals.get(person.id);
+      const given = !!approval && person.score >= 1;
+
+      return [
+        person.name,
+        person.level,
+        `${person.score}/3`,
+        person.score >= 1 ? "Yes" : "No",
+        person.id.slice(-8).toUpperCase(),
+        formatDate(person.createdAt),
+        given ? "Yes" : "No",
+        approval ? formatDate(approval.acceptedAt) : "",
+        given ? "1" : "0"
+      ];
+    })
   ];
 
+  const totalGiven = results.filter(
+    person => person.score >= 1 && approvals.has(person.id)
+  ).length;
+
+  rows.push([
+    "TOTAL CHOCOLATES GIVEN OUT",
+    "","","","","","","",
+    String(totalGiven)
+  ]);
+
   const csv = rows.map(row =>
-    row.map(value =>
-      '"' + String(value ?? "").replaceAll('"','""') + '"'
-    ).join(",")
+    row.map(escapeCSV).join(",")
   ).join("\r\n");
 
-  const blob = new Blob(["\uFEFF" + csv], {
-    type: "text/csv;charset=utf-8"
+  const blob = new Blob(["\uFEFF"+csv],{
+    type:"text/csv;charset=utf-8"
   });
 
-  const link = document.createElement("a");
   const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
 
   link.href = url;
-  link.download = "arabic-quiz-results.csv";
+  link.download = "arabic-chocolate-results.csv";
+  document.body.appendChild(link);
   link.click();
+  link.remove();
 
-  URL.revokeObjectURL(url);
+  setTimeout(() => URL.revokeObjectURL(url),1000);
 }
 </script>
 </body>
