@@ -1,1 +1,902 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Arabic Chocolate Challenge | Admin Control Room</title>
+<style>
+:root {
+  --bg:#06070d;
+  --panel:#111421;
+  --panel2:#181b2b;
+  --line:#303349;
+  --text:#f6f1ff;
+  --muted:#a9a5bb;
+  --purple:#ac76ff;
+  --gold:#ffd478;
+  --green:#68e8ac;
+  --pink:#ff81b4;
+}
+* {box-sizing:border-box}
+body {
+  margin:0;
+  min-height:100vh;
+  background:
+    radial-gradient(ellipse at 8% -10%,#44237f70,transparent 43%),
+    radial-gradient(ellipse at 100% 0%,#5c431f45,transparent 35%),
+    var(--bg);
+  font-family:system-ui,Segoe UI,Arial,sans-serif;
+  color:var(--text);
+}
+body::before {
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  opacity:.13;
+  background-image:radial-gradient(#cbb8fa 1px,transparent 1px);
+  background-size:28px 28px;
+}
+main {
+  position:relative;
+  max-width:1240px;
+  margin:auto;
+  padding:28px 18px 65px;
+}
+.hero {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  margin-bottom:26px;
+  flex-wrap:wrap;
+}
+.eyebrow {
+  font-size:12px;
+  letter-spacing:3px;
+  font-weight:850;
+  color:var(--gold);
+}
+h1 {
+  font-size:clamp(29px,4vw,45px);
+  line-height:1.1;
+  margin:8px 0 9px;
+  letter-spacing:-1px;
+}
+h1 span {color:var(--purple)}
+.sub {
+  margin:0;
+  color:var(--muted);
+  line-height:1.6;
+}
+.live {
+  display:inline-flex;
+  align-items:center;
+  gap:9px;
+  border:1px solid #3b6150;
+  background:#13372a66;
+  color:var(--green);
+  font-weight:800;
+  padding:10px 14px;
+  border-radius:999px;
+  font-size:13px;
+}
+.dot {
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:var(--green);
+  box-shadow:0 0 15px var(--green);
+  animation:pulse 1.8s infinite;
+}
+@keyframes pulse {
+  50% {opacity:.35}
+}
+.card {
+  background:linear-gradient(160deg,#181b2bd9,#10121de8);
+  border:1px solid var(--line);
+  border-radius:22px;
+  padding:24px;
+  box-shadow:0 12px 32px #0005;
+  margin-bottom:18px;
+  backdrop-filter:blur(6px);
+}
+.login {
+  max-width:460px;
+  margin:40px auto;
+  padding:30px;
+}
+.login h2 {
+  font-size:26px;
+  margin:5px 0;
+}
+label {
+  display:block;
+  font-size:13px;
+  font-weight:750;
+  margin:18px 0 7px;
+  color:#ded7f2;
+}
+input,select {
+  font:inherit;
+  color:var(--text);
+  background:#0b0d17;
+  border:1px solid #44445b;
+  border-radius:12px;
+  padding:13px 14px;
+  min-height:48px;
+  outline:none;
+}
+input:focus,select:focus {
+  border-color:var(--purple);
+  box-shadow:0 0 0 3px #ac76ff30;
+}
+.login input {width:100%}
+button {
+  font:inherit;
+  cursor:pointer;
+  border-radius:12px;
+  border:1px solid transparent;
+  padding:12px 17px;
+  font-weight:800;
+  transition:transform .15s,filter .15s;
+}
+button:hover:not(:disabled) {
+  filter:brightness(1.12);
+  transform:translateY(-1px);
+}
+button:disabled {
+  opacity:.55;
+  cursor:wait;
+}
+.primary {
+  background:linear-gradient(115deg,#a36aff,#6946d0);
+  color:white;
+  box-shadow:0 7px 20px #6738b833;
+}
+.gold {
+  background:linear-gradient(120deg,#ffe2a0,#d99832);
+  color:#241809;
+}
+.secondary {
+  background:#242536;
+  color:#eee4ff;
+  border-color:#49445d;
+}
+.ghost {
+  background:transparent;
+  color:#cbbcf2;
+  border-color:#51445f;
+}
+.login .primary {
+  width:100%;
+  margin-top:19px;
+}
+.login .ghost {
+  width:100%;
+  margin-top:9px;
+}
+.hide {display:none!important}
+.message {
+  min-height:25px;
+  font-size:13px;
+  color:var(--muted);
+  line-height:1.6;
+}
+.error {color:#ff9aab!important}
+.topbar {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:14px;
+}
+.topbar p {
+  margin:6px 0 0;
+  color:var(--muted);
+  font-size:13px;
+}
+.actions {
+  display:flex;
+  flex-wrap:wrap;
+  gap:9px;
+}
+.stats {
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:15px;
+  margin:22px 0;
+}
+.stat {
+  margin:0;
+  min-height:142px;
+  position:relative;
+  overflow:hidden;
+}
+.stat::after {
+  content:"";
+  position:absolute;
+  right:-40px;
+  top:-55px;
+  width:140px;
+  height:140px;
+  border:2px solid currentColor;
+  border-radius:100%;
+  opacity:.09;
+}
+.stat .symbol {
+  font-size:26px;
+  display:block;
+  margin-bottom:9px;
+}
+.stat strong {
+  display:block;
+  font-size:clamp(30px,4vw,43px);
+  font-variant-numeric:tabular-nums;
+  line-height:1.1;
+}
+.stat small {
+  display:block;
+  font-size:13px;
+  color:var(--muted);
+  font-weight:700;
+  margin-top:9px;
+}
+.stat.purple {color:var(--purple)}
+.stat.pink {color:var(--pink)}
+.stat.goldtone {color:var(--gold)}
+.stat.green {color:var(--green)}
+.sectionhead {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:13px;
+  margin-bottom:20px;
+}
+h2 {
+  margin:0;
+  font-size:23px;
+}
+.sectionhead p {
+  margin:8px 0 0;
+  color:var(--muted);
+  font-size:13px;
+}
+.filters {
+  display:flex;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:10px;
+}
+.filters input {width:min(100%,280px)}
+.tablewrap {
+  overflow:auto;
+  border-radius:14px;
+  border:1px solid #343348;
+}
+table {
+  border-collapse:collapse;
+  width:100%;
+  min-width:900px;
+}
+th,td {
+  text-align:left;
+  padding:16px 13px;
+  border-bottom:1px solid #2e2f42;
+  vertical-align:middle;
+}
+th {
+  background:#242036;
+  color:#e5d7ff;
+  font-size:12px;
+  letter-spacing:.7px;
+  white-space:nowrap;
+  text-transform:uppercase;
+}
+td {
+  font-size:14px;
+  color:#eae5f5;
+}
+tr:hover td {background:#ffffff08}
+tr:last-child td {border-bottom:0}
+.name {
+  font-weight:850;
+  color:#fff;
+}
+.ticket {
+  font-family:ui-monospace,Consolas,monospace;
+  color:var(--gold);
+  letter-spacing:.7px;
+}
+.pill {
+  display:inline-block;
+  padding:7px 10px;
+  border-radius:40px;
+  font-weight:800;
+  font-size:12px;
+  white-space:nowrap;
+}
+.pill.choc {
+  background:#4e361d;
+  color:#ffe1a3;
+}
+.pill.toffee {
+  background:#49273b;
+  color:#ffabc8;
+}
+.pill.none {
+  background:#303244;
+  color:#c5c5d0;
+}
+.approved {
+  font-weight:850;
+  color:var(--green);
+}
+.when {
+  display:block;
+  color:var(--muted);
+  font-size:12px;
+  margin-top:4px;
+}
+.approve {
+  padding:9px 11px;
+  font-size:12px;
+  white-space:nowrap;
+  background:#6b3fba;
+  color:white;
+}
+.approve.choc {
+  background:#a9742c;
+  color:#fff8e7;
+}
+.empty {
+  color:var(--muted);
+  padding:25px;
+  text-align:center;
+  font-size:14px;
+}
+.foot {
+  text-align:center;
+  color:#928ba7;
+  margin:21px auto;
+  font-size:12px;
+}
+@media(max-width:900px) {
+  .stats {grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:550px) {
+  main {padding:20px 12px}
+  .card {padding:18px}
+  .stats {gap:9px}
+  .stat {min-height:134px}
+  .stat strong {font-size:31px}
+  .actions button {flex:1}
+  .filters input,.filters select {width:100%}
+}
+@media(prefers-reduced-motion:reduce) {
+  .dot {animation:none}
+  button {transition:none}
+}
+</style>
+</head>
+
+<body>
+<main>
+<header class="hero">
+  <div>
+    <div class="eyebrow">✦ EXHIBITION CONTROL ROOM ✦</div>
+    <h1>🍫 Arabic Challenge <span>ADMIN</span></h1>
+    <p class="sub">Black Edition • Live scores, toffee and chocolate rewards</p>
+  </div>
+  <span class="live">
+    <span class="dot"></span> LIVE DASHBOARD
+  </span>
+</header>
+
+<section class="card login" id="loginSection">
+  <div class="eyebrow">🔐 STAFF ACCESS</div>
+  <h2>Welcome, organizer!</h2>
+  <p class="sub">Sign in with your Firebase admin account.</p>
+
+  <form id="loginForm">
+    <label for="email">Admin email</label>
+    <input id="email" type="email"
+      placeholder="name@example.com"
+      autocomplete="username" required>
+
+    <label for="password">Password</label>
+    <input id="password" type="password"
+      placeholder="Enter password"
+      autocomplete="current-password" required>
+
+    <button class="primary" type="submit" id="signInButton">
+      🔓 Open Control Room
+    </button>
+  </form>
+
+  <button class="ghost" id="resetButton" type="button">
+    Forgot password? Email a reset link
+  </button>
+  <p id="loginMessage" class="message" role="status"></p>
+</section>
+
+<section id="dashboard" class="hide">
+
+  <div class="card topbar">
+    <div>
+      <div class="eyebrow">WELCOME BACK</div>
+      <strong id="adminEmail"></strong>
+      <p>Approve each prize only when you physically hand it out.</p>
+    </div>
+
+    <div class="actions">
+      <button id="csvButton" class="gold" type="button">
+        ⬇ Download CSV
+      </button>
+      <button id="logoutButton" class="secondary" type="button">
+        Log Out
+      </button>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="card stat purple">
+      <span class="symbol">👥</span>
+      <strong id="totalVisitors">0</strong>
+      <small>Total Visitors</small>
+    </div>
+
+    <div class="card stat pink">
+      <span class="symbol">🍬</span>
+      <strong id="toffeeCount">0</strong>
+      <small>Toffees Given Out</small>
+    </div>
+
+    <div class="card stat goldtone">
+      <span class="symbol">🍫</span>
+      <strong id="chocolateCount">0</strong>
+      <small>Chocolates Given Out</small>
+    </div>
+
+    <div class="card stat green">
+      <span class="symbol">⏳</span>
+      <strong id="pendingCount">0</strong>
+      <small>Awaiting Approval</small>
+    </div>
+  </div>
+
+  <section class="card">
+    <div class="sectionhead">
+      <div>
+        <h2>✨ Visitor Results</h2>
+        <p>Live updates • Search by player or ticket • 12-hour time</p>
+      </div>
+
+      <div class="filters">
+        <input id="search" type="search"
+          placeholder="🔎 Find name or ticket..."
+          aria-label="Search visitors">
+
+        <select id="filter" aria-label="Filter results">
+          <option value="all">All visitors</option>
+          <option value="pending">Awaiting approval</option>
+          <option value="approved">Approved prizes</option>
+          <option value="toffee">🍬 Toffee scores</option>
+          <option value="chocolate">🍫 Chocolate scores</option>
+          <option value="none">No prize</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="tablewrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Visitor</th>
+            <th>Level</th>
+            <th>Score</th>
+            <th>Prize</th>
+            <th>Ticket ID</th>
+            <th>Time Played</th>
+            <th>Admin Approval</th>
+          </tr>
+        </thead>
+        <tbody id="resultsTable"></tbody>
+      </table>
+    </div>
+    <p id="message" class="empty" role="status">
+      Connecting to Firebase…
+    </p>
+  </section>
+</section>
+
+<p class="foot">
+  Arabic Chocolate Challenge ✦ Organizer-only dashboard
+</p>
+</main>
+
+<script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore-compat.js"></script>
+<script src="firebase-config.js"></script>
+
+<script>
+const auth = firebase.auth();
+const $ = id => document.getElementById(id);
+
+let results = [];
+let approvals = new Map();
+let stopResults = null;
+let stopApprovals = null;
+let loadedResults = false;
+let loadedApprovals = false;
+let accessError = false;
+
+function prizeFor(score) {
+  return score === 3 ? "chocolate"
+    : score === 2 ? "toffee" : "none";
+}
+
+function prizeName(score) {
+  return score === 3 ? "Chocolate"
+    : score === 2 ? "Toffee" : "No prize";
+}
+
+function formatDate(stamp) {
+  if (!stamp?.toDate) return "Saving…";
+
+  return stamp.toDate().toLocaleString("en-US", {
+    year:"numeric",
+    month:"short",
+    day:"numeric",
+    hour:"numeric",
+    minute:"2-digit",
+    hour12:true
+  });
+}
+
+function showMessage(msg,isError=false) {
+  $("message").textContent = msg;
+  $("message").classList.toggle("error",isError);
+  $("message").classList.remove("hide");
+}
+
+function stopListening() {
+  if (stopResults) {
+    stopResults();
+    stopResults = null;
+  }
+  if (stopApprovals) {
+    stopApprovals();
+    stopApprovals = null;
+  }
+}
+
+$("loginForm").addEventListener("submit",async event => {
+  event.preventDefault();
+  $("loginMessage").textContent = "";
+  $("signInButton").disabled = true;
+
+  try {
+    await auth.signInWithEmailAndPassword(
+      $("email").value.trim(),
+      $("password").value
+    );
+  } catch(error) {
+    console.error(error);
+    $("loginMessage").textContent =
+      "Could not sign in. Check your email and password.";
+    $("loginMessage").classList.add("error");
+  } finally {
+    $("signInButton").disabled = false;
+  }
+});
+
+$("resetButton").addEventListener("click",async () => {
+  const email = $("email").value.trim();
+
+  if (!email) {
+    $("loginMessage").textContent = "Enter your email first.";
+    return;
+  }
+
+  try {
+    await auth.sendPasswordResetEmail(email);
+    $("loginMessage").textContent =
+      "If this account exists, check its inbox for a reset email.";
+    $("loginMessage").classList.remove("error");
+  } catch(error) {
+    console.error(error);
+    $("loginMessage").textContent =
+      "Could not send reset email. Check Firebase Authentication settings.";
+    $("loginMessage").classList.add("error");
+  }
+});
+
+$("logoutButton").addEventListener("click",() => auth.signOut());
+$("search").addEventListener("input",drawTable);
+$("filter").addEventListener("change",drawTable);
+$("csvButton").addEventListener("click",downloadCSV);
+
+auth.onAuthStateChanged(user => {
+  stopListening();
+  results = [];
+  approvals = new Map();
+  loadedResults = false;
+  loadedApprovals = false;
+  accessError = false;
+
+  if (!user) {
+    $("dashboard").classList.add("hide");
+    $("loginSection").classList.remove("hide");
+    return;
+  }
+
+  $("loginSection").classList.add("hide");
+  $("dashboard").classList.remove("hide");
+  $("adminEmail").textContent = user.email || "Admin";
+  drawTable();
+
+  stopResults = db.collection("results")
+    .orderBy("createdAt","desc")
+    .onSnapshot(snap => {
+      results = snap.docs.map(doc => ({
+        id:doc.id,
+        ...doc.data()
+      }));
+      loadedResults = true;
+      drawTable();
+    },error => {
+      accessError = true;
+      console.error(error);
+      showMessage(
+        "Cannot read results. Check this account UID in Firebase Rules.",
+        true
+      );
+    });
+
+  stopApprovals = db.collection("approvals")
+    .onSnapshot(snap => {
+      approvals = new Map(
+        snap.docs
+          .filter(doc => doc.data().accepted === true)
+          .map(doc => [doc.id,doc.data()])
+      );
+      loadedApprovals = true;
+      drawTable();
+    },error => {
+      accessError = true;
+      console.error(error);
+      showMessage(
+        "Cannot read approvals. Check Firebase Firestore Rules.",
+        true
+      );
+    });
+});
+
+async function approvePrize(person,button) {
+  if (prizeFor(person.score) === "none") return;
+
+  const label = prizeName(person.score);
+
+  if (!confirm(
+    `Hand over one ${label.toLowerCase()} to ${person.name} and approve this ticket?`
+  )) return;
+
+  button.disabled = true;
+  button.textContent = "Approving…";
+
+  try {
+    await db.runTransaction(async tx => {
+      const resultRef = db.collection("results").doc(person.id);
+      const approvalRef = db.collection("approvals").doc(person.id);
+
+      const resultDoc = await tx.get(resultRef);
+      const existing = await tx.get(approvalRef);
+
+      if (!resultDoc.exists || resultDoc.data().score < 2) {
+        throw Error("Not eligible");
+      }
+      if (existing.exists) return;
+
+      tx.set(approvalRef,{
+        accepted:true,
+        acceptedAt:firebase.firestore.FieldValue.serverTimestamp()
+      });
+    });
+  } catch(error) {
+    console.error(error);
+    alert("Approval failed. Check your Firebase rules and connection.");
+    button.disabled = false;
+    button.textContent = "Approve " + label;
+  }
+}
+
+function drawTable() {
+  if (accessError) return;
+
+  const table = $("resultsTable");
+  table.replaceChildren();
+
+  const query = $("search").value.trim().toLowerCase();
+  const selected = $("filter").value;
+
+  const visible = results.filter(p => {
+    const ptype = prizeFor(p.score);
+    const approved = approvals.has(p.id);
+
+    const matches = (
+      String(p.name || "") + " " + p.id + " " + p.id.slice(-8)
+    ).toLowerCase().includes(query);
+
+    const category =
+      selected === "all" ||
+      (selected === "pending" && ptype !== "none" && !approved) ||
+      (selected === "approved" && approved && ptype !== "none") ||
+      (selected === "none" && ptype === "none") ||
+      selected === ptype;
+
+    return matches && category;
+  });
+
+  for (const p of visible) {
+    const row = table.insertRow();
+
+    const name = row.insertCell();
+    name.className = "name";
+    name.textContent = p.name || "Visitor";
+
+    row.insertCell().textContent = p.level || "";
+    row.insertCell().textContent = `${p.score}/3`;
+
+    const prizeCell = row.insertCell();
+    const pill = document.createElement("span");
+
+    pill.className = "pill " + (
+      prizeFor(p.score) === "chocolate" ? "choc" :
+      prizeFor(p.score) === "toffee" ? "toffee" : "none"
+    );
+
+    pill.textContent = (
+      p.score === 3 ? "🍫 " : p.score === 2 ? "🍬 " : ""
+    ) + prizeName(p.score);
+
+    prizeCell.appendChild(pill);
+
+    const ticket = row.insertCell();
+    ticket.className = "ticket";
+    ticket.textContent = p.id.slice(-8).toUpperCase();
+
+    row.insertCell().textContent = formatDate(p.createdAt);
+
+    const cell = row.insertCell();
+    const approval = approvals.get(p.id);
+
+    if (prizeFor(p.score) === "none") {
+      cell.textContent = "No prize";
+    } else if (approval) {
+      const status = document.createElement("span");
+      status.className = "approved";
+      status.textContent = "✅ Approved";
+
+      const when = document.createElement("span");
+      when.className = "when";
+      when.textContent = formatDate(approval.acceptedAt);
+
+      cell.append(status,when);
+    } else {
+      const btn = document.createElement("button");
+      btn.className = "approve " + (p.score === 3 ? "choc" : "");
+      btn.textContent = "Approve " + prizeName(p.score);
+      btn.onclick = () => approvePrize(p,btn);
+      cell.appendChild(btn);
+    }
+  }
+
+  $("totalVisitors").textContent = results.length;
+
+  $("toffeeCount").textContent = results.filter(
+    p => p.score === 2 && approvals.has(p.id)
+  ).length;
+
+  $("chocolateCount").textContent = results.filter(
+    p => p.score === 3 && approvals.has(p.id)
+  ).length;
+
+  $("pendingCount").textContent = results.filter(
+    p => p.score >= 2 && !approvals.has(p.id)
+  ).length;
+
+  if (!loadedResults || !loadedApprovals) {
+    showMessage("Connecting to Firebase…");
+    return;
+  }
+
+  if (visible.length === 0) {
+    showMessage(
+      results.length ? "No visitors match this search." : "No visitors yet."
+    );
+  } else {
+    $("message").classList.add("hide");
+  }
+}
+
+function safeCSV(value) {
+  let s = String(value ?? "");
+
+  if (/^\s*[=+@\-]/.test(s)) {
+    s = "'" + s;
+  }
+
+  return '"' + s.replaceAll('"','""') + '"';
+}
+
+function downloadCSV() {
+  if (!loadedResults || !loadedApprovals || accessError) {
+    alert("Wait for the dashboard to finish loading.");
+    return;
+  }
+
+  const rows = [[
+    "Name","Level","Score","Prize","Ticket ID",
+    "Time Played","Admin Approved","Approved At",
+    "Toffees Given Out","Chocolates Given Out"
+  ]];
+
+  results.forEach(p => {
+    const approved = approvals.has(p.id) && p.score >= 2;
+    const data = approvals.get(p.id);
+
+    rows.push([
+      p.name,
+      p.level,
+      `${p.score}/3`,
+      prizeName(p.score),
+      p.id.slice(-8).toUpperCase(),
+      formatDate(p.createdAt),
+      approved ? "Yes" : "No",
+      approved ? formatDate(data.acceptedAt) : "",
+      approved && p.score === 2 ? 1 : 0,
+      approved && p.score === 3 ? 1 : 0
+    ]);
+  });
+
+  const toffees = results.filter(
+    p => p.score === 2 && approvals.has(p.id)
+  ).length;
+
+  const chocolates = results.filter(
+    p => p.score === 3 && approvals.has(p.id)
+  ).length;
+
+  rows.push([
+    "TOTAL PRIZES GIVEN OUT","","","","","","","",
+    toffees,chocolates
+  ]);
+
+  const csv = rows.map(
+    r => r.map(safeCSV).join(",")
+  ).join("\r\n");
+
+  const blob = new Blob(["\uFEFF",csv],{
+    type:"text/csv;charset=utf-8"
+  });
+
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+
+  a.href = url;
+  a.download = "arabic-challenge-prizes.csv";
+
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+
+  setTimeout(() => URL.revokeObjectURL(url),1000);
+}
+</script>
+</body>
+</html>
+
