@@ -3,753 +3,472 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Arabic Chocolate Challenge</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Arabic Chocolate Challenge | Admin</title>
 <style>
 :root {
-  --purple:#793bc5;
-  --ink:#241b42;
-  --gold:#ffce63;
+  --bg:#06070d;
+  --panel:#151827;
+  --line:#303349;
+  --text:#f6f1ff;
+  --muted:#a9a5bb;
+  --purple:#ac76ff;
+  --gold:#ffd478;
+  --green:#68e8ac;
+  --pink:#ff81b4;
 }
 * {box-sizing:border-box}
 body {
   margin:0;
   min-height:100vh;
-  padding:25px 14px;
-  font-family:"Trebuchet MS",system-ui,Arial,sans-serif;
-  color:var(--ink);
+  color:var(--text);
   background:
-    radial-gradient(circle at 10% 12%,#fff1a6,transparent 32%),
-    radial-gradient(circle at 87% 15%,#ffb7dc,transparent 28%),
-    radial-gradient(circle at 20% 85%,#c2f8ff,transparent 28%),
-    linear-gradient(135deg,#f6e1ff,#fff6d9 54%,#ecf2ff);
+    radial-gradient(ellipse at 8% -10%,#44237f70,transparent 43%),
+    radial-gradient(ellipse at 100% 0%,#5c431f45,transparent 35%),
+    var(--bg);
+  font-family:system-ui,Segoe UI,Arial,sans-serif;
 }
-body::before,body::after {
-  content:"✦ ✧ ✦ ✨";
+body::before {
+  content:"";
   position:fixed;
-  pointer-events:none;
-  font-size:27px;
-  color:#b485eb;
-  opacity:.5;
-  letter-spacing:16px;
-  animation:drift 9s ease-in-out infinite alternate;
-}
-body::before {left:3%;top:14%}
-body::after {
-  right:3%;
-  bottom:17%;
-  animation-delay:2s;
-}
-@keyframes drift {
-  to {transform:translateY(-28px) rotate(10deg)}
-}
-main {
-  max-width:610px;
-  margin:4px auto;
-  padding:28px;
-  border:3px solid #ffffffcc;
-  border-radius:32px;
-  position:relative;
-  overflow:hidden;
-  background:linear-gradient(160deg,#fffffffc,#fff9ffff);
-  box-shadow:0 20px 0 #d8b1ea66,0 33px 70px #66317a40;
-}
-main::before {
-  content:"🍬      ✨      🍫";
-  display:block;
-  text-align:center;
-  padding:8px 0 11px;
-  font-size:26px;
-  letter-spacing:14px;
-}
-h1 {
-  font-size:clamp(27px,5vw,38px);
-  line-height:1.1;
-  text-align:center;
-  margin:9px 0;
-  color:var(--purple);
-  text-shadow:2px 2px #f3d8ff;
-}
-h2 {text-align:center}
-.subtitle {
-  text-align:center;
-  color:#71617f;
-  line-height:1.55;
-  font-weight:600;
-}
-.sparkles {
-  text-align:center;
-  color:#e2ab38;
-  letter-spacing:10px;
-  font-size:20px;
-  animation:shine 3s ease-in-out infinite;
-}
-@keyframes shine {
-  50% {opacity:.4;transform:scale(1.05)}
-}
-.rules {
-  display:flex;
-  flex-wrap:wrap;
-  gap:9px;
-  justify-content:center;
-  margin:20px 0;
-}
-.rules span {
-  border:2px solid #f2daff;
-  padding:10px;
-  border-radius:99px;
-  background:linear-gradient(110deg,#fff0fe,#fff5d9);
-  font-size:12px;
-  font-weight:900;
-  box-shadow:0 5px 0 #e6cff3;
-}
-input,select,button {
-  width:100%;
-  display:block;
-  font:inherit;
-  border-radius:16px;
-  padding:15px;
-  margin:11px 0;
-}
-input,select {
-  border:2px solid #ded1f0;
-  background:white;
-  color:#33204d;
-  outline:none;
-}
-input:focus,select:focus {
-  border-color:#a366ef;
-  box-shadow:0 0 0 4px #ac7cf42d;
-}
-label {font-weight:900;color:#4b286f}
-button {
-  cursor:pointer;
-  color:white;
-  font-weight:900;
-  border:0;
-  background:linear-gradient(120deg,var(--purple),#ab54de);
-  box-shadow:0 7px 0 #4b2874;
-  transition:transform .13s,filter .13s;
-}
-button:hover:not(:disabled) {
-  filter:brightness(1.09);
-  transform:translateY(-2px);
-}
-button:active:not(:disabled) {
-  transform:translateY(4px);
-  box-shadow:0 3px 0 #4b2874;
-}
-button:disabled {
-  opacity:.63;
-  box-shadow:none;
-  cursor:default;
-}
-.hide {display:none!important}
-.small {
-  font-size:13px;
-  line-height:1.6;
-  color:#766885;
-  text-align:center;
-}
-.world {
-  margin:18px 0;
-  background:linear-gradient(135deg,#fff4d7,#f7ebff);
-  border:2px dashed #cda9e8;
-  padding:17px;
-  text-align:center;
-  border-radius:20px;
-}
-.world strong {
-  font-size:19px;
-  color:var(--purple);
-}
-.world p {margin:7px 0 2px;color:#655576}
-.progress {
-  text-align:center;
-  font-weight:900;
-  color:var(--purple);
-  margin:18px 0 10px;
-}
-.bar {
-  width:100%;
-  height:15px;
-  background:#efe2f9;
-  border:2px solid #e2c5f8;
-  overflow:hidden;
-  border-radius:99px;
-}
-.bar div {
-  height:100%;
-  width:0;
-  background:linear-gradient(90deg,#e9af36,#fc88b4,#9964ea);
-  transition:width .25s;
-}
-.picture {
-  font-size:110px;
-  text-align:center;
-  margin:23px auto 16px;
-  min-height:200px;
-  width:min(100%,290px);
-  display:grid;
-  place-items:center;
-  background:radial-gradient(circle,#fffded,#f9e4ff);
-  border:4px solid #eec0ff;
-  border-radius:28px;
-  box-shadow:0 10px 0 #dfbfe8;
-  animation:pop .4s ease;
-}
-@keyframes pop {
-  from {opacity:.3;transform:scale(.89)}
-  to {opacity:1;transform:scale(1)}
-}
-.question {
-  text-align:center;
-  font-size:23px;
-  line-height:1.5;
-  font-weight:900;
-}
-.question.arabic {
-  direction:rtl;
-  font-size:27px;
-  background:#fcf0ff;
-  border-radius:20px;
-  border:2px solid #ebcafa;
-  padding:18px;
-}
-.hint {
-  text-align:center;
-  color:#8548b9;
-  font-weight:900;
-}
-.options button {
-  direction:rtl;
-  font-size:26px;
-  background:linear-gradient(110deg,#7538c0,#9e55d5);
-  border:2px solid #c999ed;
-  box-shadow:0 5px 0 #4c257f;
-}
-.options button:disabled {opacity:.75}
-.good,.bad {
-  font-weight:900;
-  font-size:19px;
-  text-align:center;
-}
-.good {color:#16864d}
-.bad {color:#c82a56}
-#resultBox {
-  background:linear-gradient(135deg,#f8e9ff,#fffcf0);
-  padding:24px;
-  border:2px solid #e5c9f9;
-  border-radius:20px;
-  text-align:center;
-}
-.toffeeResult {
-  background:#fff4dd!important;
-  border-color:#eec774!important;
-}
-.chocolateResult {
-  background:#e3fae9!important;
-  border-color:#80d4a6!important;
-}
-#reveal {
-  font-size:88px;
-  text-align:center;
-  animation:pop .65s ease;
-}
-.status {
-  text-align:center;
-  color:#7c617c;
-  font-weight:700;
-}
-#ticket {
-  border:4px solid #e5b747;
-  border-radius:26px;
-  background:linear-gradient(135deg,#fffce5,#e6ffec);
-  padding:23px 16px;
-  text-align:center;
-  position:relative;
-  overflow:hidden;
-  box-shadow:0 12px 0 #dac68c;
-}
-#ticket.toffee {
-  background:linear-gradient(135deg,#fff2d3,#ffe7ed);
-  border-color:#dc8a44;
-}
-.stamp {font-size:70px}
-.approved {
-  color:#13814b;
-  font-size:28px;
-  font-weight:900;
-}
-.ticketBox {
-  background:white;
-  padding:16px;
-  border:2px solid #e9d8ae;
-  border-radius:18px;
-  margin:15px 0;
-}
-.ticketBox strong {
-  display:block;
-  font-size:20px;
-  overflow-wrap:anywhere;
-}
-.ticketBox small {color:#786f82}
-.ticketBanner {
-  border-radius:14px;
-  background:#19824b;
-  color:white;
-  padding:18px;
-  font-weight:900;
-}
-#ticket.toffee .ticketBanner {background:#b26c2f}
-.certificate {
-  background:#fffbea;
-  border:3px double #cda13f;
-  border-radius:17px;
-  margin:15px 0;
-  padding:18px;
-  font-size:17px;
-}
-.confetti {
-  position:absolute;
   inset:0;
   pointer-events:none;
+  opacity:.13;
+  background-image:radial-gradient(#cbb8fa 1px,transparent 1px);
+  background-size:28px 28px;
+}
+main {
+  position:relative;
+  max-width:1240px;
+  margin:auto;
+  padding:28px 18px 65px;
+}
+.hero {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:16px;
+  margin-bottom:26px;
+}
+.eyebrow {
+  color:var(--gold);
+  font-weight:800;
+  letter-spacing:3px;
+  font-size:12px;
+}
+h1 {
+  font-size:clamp(29px,4vw,45px);
+  margin:8px 0;
+}
+h1 span {color:var(--purple)}
+h2 {margin:0 0 12px}
+.sub {
+  color:var(--muted);
+  line-height:1.6;
+}
+.live {
+  border:1px solid #3b6150;
+  background:#13372a66;
+  color:var(--green);
+  padding:10px 14px;
+  border-radius:99px;
+  font-weight:800;
+}
+.dot {
+  display:inline-block;
+  height:8px;
+  width:8px;
+  border-radius:50%;
+  background:var(--green);
+  box-shadow:0 0 15px var(--green);
+}
+.card {
+  background:linear-gradient(160deg,#181b2be8,#10121d);
+  border:1px solid var(--line);
+  border-radius:22px;
+  padding:24px;
+  box-shadow:0 12px 32px #0005;
+  margin-bottom:18px;
+}
+.login {
+  max-width:460px;
+  margin:40px auto;
+}
+label {
+  display:block;
+  margin:16px 0 7px;
+  font-weight:800;
+  font-size:13px;
+}
+input,select {
+  color:white;
+  background:#0b0d17;
+  border:1px solid #44445b;
+  border-radius:12px;
+  padding:13px;
+  font:inherit;
+}
+input:focus,select:focus {
+  outline:2px solid var(--purple);
+}
+.login input {
+  width:100%;
+  display:block;
+}
+button {
+  font:inherit;
+  cursor:pointer;
+  border:1px solid transparent;
+  border-radius:12px;
+  padding:12px 17px;
+  font-weight:800;
+  transition:transform .15s,filter .15s;
+}
+button:hover:not(:disabled) {
+  filter:brightness(1.13);
+  transform:translateY(-1px);
+}
+button:disabled {opacity:.55;cursor:default}
+.primary {
+  color:white;
+  background:linear-gradient(115deg,#a36aff,#6946d0);
+}
+.gold {
+  color:#241809;
+  background:linear-gradient(120deg,#ffe2a0,#d99832);
+}
+.secondary {
+  color:#eee4ff;
+  background:#242536;
+  border-color:#49445d;
+}
+.ghost {
+  color:#cbbcf2;
+  background:transparent;
+  border-color:#51445f;
+}
+.login button {
+  width:100%;
+  margin-top:12px;
+}
+.hide {display:none!important}
+.message {
+  font-size:13px;
+  color:var(--muted);
+  line-height:1.6;
+}
+.error {color:#ff9aab!important}
+.topbar {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  flex-wrap:wrap;
+}
+.actions {
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+}
+.stats {
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:15px;
+  margin:22px 0;
+}
+.stat {
+  position:relative;
   overflow:hidden;
+  min-height:145px;
+  margin:0;
 }
-.confetti i {
+.stat::after {
+  content:"";
   position:absolute;
-  top:-12%;
-  width:9px;
-  height:14px;
-  animation:rain 3s ease-in forwards;
+  right:-40px;
+  top:-55px;
+  height:140px;
+  width:140px;
+  border:2px solid currentColor;
+  border-radius:100%;
+  opacity:.1;
 }
-@keyframes rain {
-  to {
-    transform:translateY(750px) rotate(700deg);
-    opacity:0;
-  }
+.stat .emoji {
+  font-size:27px;
+  display:block;
+  margin-bottom:8px;
 }
-main[data-level="beginner"] {--purple:#178f79}
-main[data-level="intermediate"] {--purple:#266dbb}
-main[data-level="advanced"] {--purple:#7f35c1}
-@media(prefers-reduced-motion:reduce) {
-  *,*::before,*::after {
-    animation:none!important;
-    transition:none!important;
-  }
+.stat strong {
+  display:block;
+  font-size:clamp(30px,4vw,43px);
+}
+.stat small {
+  display:block;
+  margin-top:8px;
+  color:var(--muted);
+  font-weight:700;
+}
+.purple {color:var(--purple)}
+.pink {color:var(--pink)}
+.goldText {color:var(--gold)}
+.green {color:var(--green)}
+.sectionhead {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:15px;
+  margin-bottom:20px;
+}
+.filters {
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+}
+.filters input {width:270px}
+.tablewrap {
+  overflow:auto;
+  border-radius:14px;
+  border:1px solid #343348;
+}
+table {
+  width:100%;
+  min-width:900px;
+  border-collapse:collapse;
+}
+th,td {
+  text-align:left;
+  padding:15px 12px;
+  border-bottom:1px solid #2e2f42;
+}
+th {
+  color:#e5d7ff;
+  background:#242036;
+  font-size:12px;
+  white-space:nowrap;
+}
+td {
+  color:#eae5f5;
+  font-size:14px;
+}
+tr:hover td {background:#ffffff08}
+.name {font-weight:900;color:white}
+.ticket {
+  color:var(--gold);
+  font-family:Consolas,monospace;
+}
+.pill {
+  display:inline-block;
+  border-radius:30px;
+  padding:7px 10px;
+  font-size:12px;
+  font-weight:800;
+}
+.choc {
+  background:#4e361d;
+  color:#ffe1a3;
+}
+.toffee {
+  background:#49273b;
+  color:#ffabc8;
+}
+.none {
+  background:#303244;
+  color:#c5c5d0;
+}
+.approved {
+  font-weight:800;
+  color:var(--green);
+}
+.when {
+  display:block;
+  color:var(--muted);
+  font-size:12px;
+  margin-top:5px;
+}
+.approve {
+  padding:10px;
+  background:#6b3fba;
+  color:white;
+}
+.approve.chocolate {
+  background:#a9742c;
+}
+.empty {
+  color:var(--muted);
+  padding:24px;
+  text-align:center;
+}
+.foot {
+  text-align:center;
+  color:#928ba7;
+  font-size:12px;
+}
+@media(max-width:900px) {
+  .stats {grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:550px) {
+  main {padding:16px 10px}
+  .card {padding:17px}
+  .stats {gap:9px}
+  .stat strong {font-size:31px}
+  .filters input,.filters select {width:100%}
 }
 </style>
 </head>
 <body>
-<main id="game">
-  <div class="sparkles">✦ ✧ ✦ ✧ ✦</div>
-  <h1>🍫 Arabic Chocolate Challenge</h1>
-  <p class="subtitle">Three magical questions. A surprise prize awaits!</p>
-  <div class="rules">
-    <span>0/3–1/3: No prize</span>
-    <span>2/3: 🍬 Toffee</span>
-    <span>3/3: 🍫 Chocolate</span>
+<main>
+
+<header class="hero">
+  <div>
+    <div class="eyebrow">✦ EXHIBITION CONTROL ROOM ✦</div>
+    <h1>🍫 Arabic Challenge <span>ADMIN</span></h1>
+    <p class="sub">
+      Black Neon Edition · Live prizes and visitor results
+    </p>
+  </div>
+  <div class="live">
+    <span class="dot"></span> LIVE DASHBOARD
+  </div>
+</header>
+
+<section id="loginSection" class="card login">
+  <div class="eyebrow">🔐 STAFF ACCESS</div>
+  <h2>Welcome, organizer!</h2>
+  <p class="sub">Sign in using your Firebase admin account.</p>
+
+  <form id="loginForm">
+    <label for="email">Admin email</label>
+    <input id="email" type="email" required
+      placeholder="Admin email" autocomplete="username">
+
+    <label for="password">Password</label>
+    <input id="password" type="password" required
+      placeholder="Password" autocomplete="current-password">
+
+    <button class="primary" type="submit" id="signIn">
+      🔓 Open Control Room
+    </button>
+  </form>
+
+  <button id="reset" class="ghost" type="button">
+    Forgot password? Send reset email
+  </button>
+
+  <p id="loginMessage" class="message"></p>
+</section>
+
+<section id="dashboard" class="hide">
+
+  <div class="card topbar">
+    <div>
+      <div class="eyebrow">WELCOME BACK</div>
+      <strong id="adminEmail"></strong>
+      <p class="sub">
+        Click Approve when handing out the prize.
+      </p>
+    </div>
+    <div class="actions">
+      <button id="csv" class="gold">⬇ Download CSV</button>
+      <button id="logout" class="secondary">Log Out</button>
+    </div>
   </div>
 
-  <section id="welcome">
-    <label for="name">Your first name or nickname</label>
-    <input id="name" maxlength="35"
-      autocomplete="off" placeholder="Enter your name">
+  <div class="stats">
+    <div class="card stat purple">
+      <span class="emoji">👥</span>
+      <strong id="visitors">0</strong>
+      <small>Total Visitors</small>
+    </div>
 
-    <label for="level">Choose your level</label>
-    <select id="level" onchange="updateWorld()">
-      <option value="beginner">🌱 Beginner</option>
-      <option value="intermediate">⚡ Intermediate</option>
-      <option value="advanced">👑 Advanced</option>
-    </select>
+    <div class="card stat pink">
+      <span class="emoji">🍬</span>
+      <strong id="toffees">0</strong>
+      <small>Toffees Given Out</small>
+    </div>
 
-    <div id="world" class="world"></div>
-    <button onclick="startQuiz()">🚀 Enter the Challenge</button>
-    <p class="small">
-      No email needed. Reopen the website to start a new quiz.
-      Keep the result screen open for prize approval.
-    </p>
+    <div class="card stat goldText">
+      <span class="emoji">🍫</span>
+      <strong id="chocolates">0</strong>
+      <small>Chocolates Given Out</small>
+    </div>
+
+    <div class="card stat green">
+      <span class="emoji">⏳</span>
+      <strong id="pending">0</strong>
+      <small>Awaiting Approval</small>
+    </div>
+  </div>
+
+  <section class="card">
+    <div class="sectionhead">
+      <div>
+        <h2>✨ Visitor Results</h2>
+        <p class="sub">
+          Live results · Search by name or ticket ID
+        </p>
+      </div>
+
+      <div class="filters">
+        <input id="search" type="search"
+          placeholder="🔎 Search visitor...">
+
+        <select id="filter">
+          <option value="all">All Visitors</option>
+          <option value="pending">Awaiting Approval</option>
+          <option value="approved">Approved Prizes</option>
+          <option value="toffee">🍬 Toffee</option>
+          <option value="chocolate">🍫 Chocolate</option>
+          <option value="none">No Prize</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="tablewrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Visitor</th>
+            <th>Level</th>
+            <th>Score</th>
+            <th>Prize</th>
+            <th>Ticket ID</th>
+            <th>Time Played</th>
+            <th>Admin Approval</th>
+          </tr>
+        </thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+
+    <p id="message" class="empty">Connecting to Firebase...</p>
   </section>
 
-  <section id="quiz" class="hide">
-    <p id="progress" class="progress"></p>
-    <div class="bar"><div id="fill"></div></div>
-    <div id="picture" class="picture"></div>
-    <p id="hint" class="hint"></p>
-    <p id="question" class="question"></p>
-    <div id="options" class="options"></div>
-    <p id="feedback" role="status"></p>
-    <button id="next" class="hide" onclick="nextQuestion()">
-      Next ➜
-    </button>
-  </section>
+</section>
 
-  <section id="result" class="hide">
-    <div id="reveal">🎁</div>
-    <h2 id="scoreTitle"></h2>
-    <div id="resultBox">
-      <h2 id="resultTitle"></h2>
-      <p id="resultInfo"></p>
-    </div>
-    <p id="saveStatus" class="status"></p>
-  </section>
+<p class="foot">
+  Arabic Chocolate Challenge ✦ Organizer Control Room
+</p>
 
-  <section id="ticket" class="hide">
-    <div class="confetti" id="confetti"></div>
-    <div class="stamp" id="ticketIcon">🏆🍫</div>
-    <div class="approved">✅ ADMIN APPROVED!</div>
-    <h2 id="ticketPrize"></h2>
-    <div class="ticketBox">
-      <strong id="ticketName"></strong>
-      <span id="ticketScore"></span>
-      <span id="ticketLevel"></span>
-    </div>
-    <div class="ticketBox">
-      <small>PRIZE TICKET ID</small>
-      <strong id="ticketId"></strong>
-    </div>
-    <div class="ticketBox">
-      <small>APPROVED AT</small>
-      <strong id="ticketTime"></strong>
-    </div>
-    <div id="certificate" class="certificate hide">
-      👑 <b>ARABIC CHAMPION CERTIFICATE</b>
-      <p>Congratulations on a perfect 3/3 score!</p>
-    </div>
-    <div class="ticketBanner" id="ticketBanner"></div>
-    <p class="small">
-      Show this ticket to your organizer.
-      One prize per approved ticket.
-    </p>
-  </section>
 </main>
 
 <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore-compat.js"></script>
 <script src="firebase-config.js"></script>
 
 <script>
-// 150 picture questions: 50 for each level.
-const pictureBankText = {
-beginner: `🐎|حصان
-🍎|تفاحة
-☀️|شمس
-🐈|قطة
-🐕|كلب
-🐟|سمكة
-🏠|بيت
-🚗|سيارة
-📖|كتاب
-🌙|قمر
-🌳|شجرة
-🌸|زهرة
-🍌|موز
-🍇|عنب
-🍉|بطيخ
-🥕|جزر
-🥛|حليب
-🍞|خبز
-🥚|بيضة
-🚪|باب
-🪟|نافذة
-🪑|كرسي
-🛏️|سرير
-✏️|قلم رصاص
-🖊️|قلم
-👟|حذاء
-👕|قميص
-🎩|قبعة
-⚽|كرة
-🚲|دراجة
-🚌|حافلة
-🚂|قطار
-✈️|طائرة
-🚢|سفينة
-🐘|فيل
-🦁|أسد
-🐒|قرد
-🐻|دب
-🐇|أرنب
-🦆|بطة
-🐓|ديك
-🐄|بقرة
-🐑|خروف
-🐐|ماعز
-🐝|نحلة
-🦋|فراشة
-🌧️|مطر
-❄️|ثلج
-🔥|نار
-⭐|نجمة`,
+const el=id=>document.getElementById(id);
+const auth=firebase.auth();
 
-intermediate: `🔑|مفتاح
-🌉|جسر
-🏥|مستشفى
-🏫|مدرسة
-🏦|بنك
-🏰|قلعة
-🏟️|ملعب
-🏖️|شاطئ
-🏜️|صحراء
-⛰️|جبل
-🌋|بركان
-🏝️|جزيرة
-🗺️|خريطة
-🧳|حقيبة سفر
-🎒|حقيبة ظهر
-☂️|مظلة
-🧤|قفاز
-🧣|وشاح
-🧥|معطف
-👓|نظارة
-⌚|ساعة يد
-📷|كاميرا
-📱|هاتف
-💻|حاسوب محمول
-🖥️|شاشة
-⌨️|لوحة مفاتيح
-🖨️|طابعة
-🎧|سماعات
-🎤|ميكروفون
-🎸|غيتار
-🎻|كمان
-🥁|طبل
-🎺|بوق
-🔔|جرس
-🕯️|شمعة
-💡|مصباح
-🔦|مصباح يدوي
-🧲|مغناطيس
-🔨|مطرقة
-🪓|فأس
-🪚|منشار
-🪜|سلم
-🧹|مكنسة
-🪣|دلو
-🧺|سلة
-🪞|مرآة
-🪥|فرشاة أسنان
-🧼|صابون
-🧽|إسفنجة
-🪴|نبات منزلي`,
-
-advanced: `🧭|بوصلة
-🔬|مجهر
-⚖️|ميزان
-🧪|أنبوب اختبار
-🧬|حمض نووي
-🛰️|قمر صناعي
-🔭|تلسكوب
-🧯|طفاية حريق
-🩺|سماعة طبية
-💉|حقنة
-🩻|صورة أشعة
-🩹|ضمادة
-🦠|ميكروب
-🧫|طبق بتري
-🪫|بطارية فارغة
-🔋|بطارية
-🪛|مفك براغي
-🔧|مفتاح ربط
-🗜️|مشبك
-⛓️|سلسلة
-⚙️|ترس
-🧱|طوب
-🪨|صخرة
-🪵|خشب
-🪝|خطاف
-🧷|دبوس أمان
-🪡|إبرة خياطة
-🧵|خيط
-🪢|عقدة
-📐|مثلث هندسي
-📏|مسطرة
-🧮|معداد
-📊|رسم بياني
-📈|مخطط صاعد
-🗃️|خزانة ملفات
-🗄️|خزانة أدراج
-📜|مخطوطة
-🗞️|صحيفة
-🪧|لافتة
-🛡️|درع
-⚓|مرساة
-🛟|طوق نجاة
-🚦|إشارة مرور
-🛤️|سكة حديد
-🏗️|رافعة بناء
-🪂|مظلة هبوط
-🚁|مروحية
-🚀|صاروخ
-🛸|طبق طائر
-🪐|كوكب ذو حلقات`
-};
-
-const wordBanks = Object.fromEntries(
-  Object.entries(pictureBankText).map(([key,text]) => [
-    key,
-    text.trim().split("\n").map(line => line.split("|"))
-  ])
-);
-
-// 100 sentence patterns with 3 subjects each = 300 sentences.
-const rareSentences = [];
-
-function addRare(subjects, text) {
-  text.trim().split("\n").forEach(line => {
-    const [sentence,right,wrong1,wrong2] = line.split("|");
-    subjects.forEach(who => {
-      rareSentences.push({
-        sentence:sentence.replace("{who}",who),
-        correct:right,
-        options:[right,wrong1,wrong2]
-      });
-    });
-  });
-}
-
-addRare(["الباحث","العالِم","الطالب"],`
-راقب {who} ____ وهي تجمع الرحيق من الأزهار.|النحلة|السمكة|السلحفاة
-استخدم {who} ____ لقياس درجة حرارة الماء.|المحرار|المسطرة|البوصلة
-وضع {who} العينة تحت ____ لرؤية خلاياها.|المجهر|التلسكوب|الميزان
-سجّل {who} ملاحظاته في ____ خاص بالتجارب.|دفتر|كوب|معطف
-فحص {who} حركة ____ حول الشمس.|الكواكب|الأسماك|القطارات
-قارن {who} بين لونين باستخدام ____ مناسب.|ضوء|مفتاح|حذاء
-رصد {who} آثار ____ على الصخور الساحلية.|التعرية|القراءة|القيادة
-اكتشف {who} أن ____ ضروري لنمو النبات.|الضوء|الحديد|الملح
-فسّر {who} سبب تكوّن ____ في السماء بعد المطر.|قوس قزح|الزلزال|الضباب الدخاني
-دوّن {who} ____ التجربة قبل إعلان النتائج.|فرضية|تذكرة|خريطة
-`);
-
-addRare(["الطالب","المعلم","المشرف"],`
-راجع {who} ____ قبل بدء الامتحان.|الملخص|المنشفة|المظلة
-قرأ {who} السؤال ____ قبل اختيار الإجابة.|بعناية|بعنف|بكسل
-رتّب {who} الأفكار وفق ____ واضح.|تسلسل|ضجيج|زحام
-قدّم {who} ____ يشرح خطوات المشروع.|عرضًا|حذاءً|طعامًا
-استمع {who} إلى ____ زميله دون مقاطعة.|رأي|لون|وزن
-صحّح {who} ____ الإملائية في النص.|الأخطاء|الأبواب|الأشجار
-استخدم {who} ____ للعثور على معنى الكلمة.|المعجم|المقص|الميزان
-قسم {who} المهمة إلى ____ صغيرة.|خطوات|أمواج|نجوم
-كتب {who} ____ في نهاية البحث.|الخاتمة|العنوان البريدي|الفاتورة
-ناقش {who} ____ الفكرة مع زملائه.|أهمية|مسافة|رائحة
-`);
-
-addRare(["المسافر","السائح","المرشد"],`
-فحص {who} ____ قبل دخول المطار.|جواز السفر|دفتر الرسم|وصفة الطبخ
-قرأ {who} ____ لتحديد الطريق الصحيح.|الخريطة|الوصفة|القصة
-وصل {who} إلى ____ قبل موعد الإقلاع.|المطار|المخبز|المكتبة
-حجز {who} ____ في القطار قبل الرحلة.|مقعدًا|نافذةً|طاولةً
-التقط {who} ____ للمنظر الجميل عند الغروب.|صورةً|تذكرةً|مفتاحًا
-سأل {who} عن ____ الحافلة التالية.|موعد|لون|طعم
-جهّز {who} ____ قبل مغادرة الفندق.|الحقيبة|السبورة|المجهر
-اتبع {who} ____ السلامة أثناء الرحلة.|تعليمات|أغاني|رسومات
-توقّف {who} عند ____ لمشاهدة الآثار القديمة.|المتحف|المغسلة|المزرعة
-استعان {who} بـ ____ لمعرفة اتجاه الشمال.|البوصلة|الفرشاة|الملعقة
-`);
-
-addRare(["القارئ","الكاتب","الطالب"],`
-بحث {who} عن ____ الكلمة في القاموس.|معنى|وزن|لون
-تأمل {who} ____ القصة قبل مناقشتها.|أحداث|أسعار|مقاسات
-قرأ {who} ____ الكتاب ليعرف موضوعه.|مقدمة|غلاف|سعر
-لاحظ {who} أن ____ يعبّر عن الفكرة الأساسية.|العنوان|الحذاء|المقعد
-استخرج {who} ____ المهمة من الفقرة.|الأفكار|الحجارة|الألوان
-ميّز {who} بين الحقيقة و____ في المقال.|الرأي|العدد|الساعة
-اختار {who} ____ مناسبًا للنص الأدبي.|عنوانًا|مفتاحًا|طبقًا
-رتّب {who} ____ القصة حسب وقوعها.|أحداث|أدوات|أطعمة
-فسّر {who} ____ الشخصية من خلال تصرفاتها.|مشاعر|ملابس|أطوال
-كتب {who} ____ قصيرة تلخّص الرسالة.|فقرةً|فاتورةً|قائمةً
-`);
-
-addRare(["المبرمج","المهندس","الطالب"],`
-اكتشف {who} ____ في البرنامج وأصلحه.|خطأً|نافذةً|بطاريةً
-حفظ {who} نسخة ____ من ملفاته المهمة.|احتياطيةً|خشبيةً|ورقيةً
-تأكّد {who} من ____ قبل فتح الرابط المجهول.|المصدر|الحجم|اللون
-حافظ {who} على سرية ____ حسابه الإلكتروني.|كلمة مرور|صورة خلفية|عنوان كتاب
-استخدم {who} ____ لتوصيل الجهاز بالشبكة.|الاتصال|الطباشير|المطرقة
-اختبر {who} ____ الموقع على شاشة الهاتف.|تصميم|رائحة|مذاق
-راجع {who} ____ المستخدمين لتحسين التطبيق.|ملاحظات|عناوين|مفاتيح
-ضبط {who} ____ الصوت قبل بدء التسجيل.|مستوى|رائحة|مسافة
-أنشأ {who} ____ لتنظيم الملفات داخل الحاسوب.|مجلدًا|منزلًا|ملعبًا
-فصل {who} الجهاز عن ____ قبل تنظيفه.|الكهرباء|الإنترنت اللاسلكي|الطابعة
-`);
-
-addRare(["الطبيب","الممرض","المتدرب"],`
-غسل {who} يديه بالماء و____ قبل الفحص.|الصابون|الرمل|العطر
-قرأ {who} ____ الدواء للتأكد من التعليمات.|ملصق|جريدة|لوحة فنية
-قاس {who} ____ الجسم باستخدام جهاز مناسب.|حرارة|طول الشعر|لون العين
-سجّل {who} ____ المريض في ملفه.|الأعراض|الهوايات|المقاسات
-طلب {who} من المريض شرب ____ بانتظام.|الماء|الحبر|الطلاء
-ارتدى {who} ____ طبية قبل لمس الأدوات المعقمة.|قفازات|جوارب|نظارات شمسية
-تحقّق {who} من ____ الموعد قبل استقبال المريض.|تاريخ|طعم|ارتفاع
-شرح {who} أهمية ____ الجيد لصحة الجسم.|النوم|الضجيج|السهر
-وضع {who} ____ نظيفة على الجرح الصغير.|ضمادة|مفكرة|خريطة
-نصح {who} بممارسة ____ بانتظام للحفاظ على النشاط.|الرياضة|التدخين|السهر
-`);
-
-addRare(["المتطوع","الطالب","الباحث"],`
-جمع {who} ____ البلاستيكية من الشاطئ.|النفايات|الغيوم|النجوم
-زرع {who} ____ صغيرة قرب المدرسة.|شجرةً|صخرةً|مصباحًا
-أغلق {who} ____ الماء بعد غسل يديه.|صنبور|نافذة|حقيبة
-استخدم {who} ____ قابلة لإعادة الاستخدام بدل الأكياس.|حقيبةً|بطاريةً|مرآةً
-فصل {who} ____ الورقية عن المواد الزجاجية.|المخلفات|الأسماك|المفاتيح
-لاحظ {who} أن ____ الهواء يؤثر في صحة الناس.|تلوث|نقاء اللون|برودة الزجاج
-شجّع {who} أصدقاءه على ____ الكهرباء.|ترشيد|إهدار|تلوين
-راقب {who} ____ الطيور في محمية طبيعية.|هجرة|صناعة|كتابة
-شرح {who} أهمية حماية ____ من التلوث.|الأنهار|الكتب|الألعاب
-شارك {who} في حملة ____ الحي وتنظيفه.|تشجير|تصوير|تزيين الملابس
-`);
-
-addRare(["الفنان","المصمم","الطالب"],`
-مزج {who} اللونين الأزرق والأصفر ليحصل على ____ .|الأخضر|الأحمر|الأسود
-رسم {who} ____ أولية قبل تنفيذ اللوحة.|مسودةً|فاتورةً|خريطةً
-استخدم {who} ____ لرسم خطوط مستقيمة.|مسطرةً|مكواةً|وسادةً
-اختار {who} ____ مناسبًا لإبراز العنوان.|خطًا|صوتًا|طعامًا
-علّق {who} ____ على جدار المعرض.|لوحةً|مفتاحًا|قارورةً
-راقب {who} ____ الشمس على سطح الماء.|انعكاس|مذاق|صوت
-أضاف {who} ____ ناعمة إلى أطراف الرسم.|ظلالًا|أرقامًا|روائح
-قارن {who} بين ____ الدافئة والباردة.|الألوان|الأصوات|الأطعمة
-رتّب {who} ____ الصور داخل المعرض.|إطارات|أكواب|أدوية
-عرض {who} ____ عمله أمام الزوار.|فكرة|حرارة|طول
-`);
-
-addRare(["المنظّم","المشارك","المتطوع"],`
-تأكد {who} من ____ الضيوف قبل بدء اللقاء.|حضور|طول|مذاق
-وزّع {who} ____ على المقاعد بالتساوي.|البطاقات|الأحذية|الملاعق
-تعاون {who} مع الفريق لتحقيق ____ مشترك.|هدف|لون|حجم
-استمع {who} إلى ____ الآخرين باحترام.|آراء|سيارات|ملابس
-دوّن {who} ____ الاجتماع في نهاية الجلسة.|محضر|طبق|مفتاح
-أعلن {who} ____ الفعالية عند المدخل.|برنامج|ثمن|رائحة
-ساعد {who} في ____ القاعة قبل وصول الزوار.|تنظيم|هدم|إغلاق دائم
-شكر {who} ____ على مساهمتهم في النجاح.|المتطوعين|الجدران|الطاولات
-احترم {who} ____ الحديث أثناء النقاش.|دور|لون|وزن
-راجع {who} ____ السلامة قبل فتح المعرض.|إجراءات|أغاني|صور
-`);
-
-addRare(["القاضي","المعلم","المدير"],`
-استمع {who} إلى الطرفين قبل اتخاذ ____ .|قرار|استراحة|وجبة
-طلب {who} ____ واضحة تدعم الكلام.|أدلةً|ألوانًا|أطباقًا
-اختار {who} كلمات ____ لتوضيح وجهة نظره.|دقيقةً|ثقيلةً|مرتفعةً
-حافظ {who} على ____ عند مناقشة المشكلة.|الهدوء|الضجيج|التسرع
-فصل {who} بين ____ والحقائق عند التقييم.|الآراء|الأرقام|الوثائق
-أوضح {who} ____ السؤال قبل الإجابة عنه.|مقصود|طول|سعر
-قارن {who} بين ____ المتاحة قبل الاختيار.|البدائل|الأثاث|الأطعمة
-راجع {who} ____ السابقة قبل إصدار الحكم.|الوقائع|المواعيد|الرحلات
-شرح {who} سبب ____ الخطة بعد ظهور معلومات جديدة.|تعديل|تلوين|تصوير
-تجنّب {who} ____ إلى النتائج دون دليل.|القفز|المشي|النوم
-`);
-
-const el = id => document.getElementById(id);
-let game = null;
-let stopApproval = null;
-
-function shuffle(list) {
-  const a = [...list];
-  for (let i=a.length-1;i>0;i--) {
-    const j = Math.floor(Math.random()*(i+1));
-    [a[i],a[j]] = [a[j],a[i]];
-  }
-  return a;
-}
+let results=[];
+let approvals=new Map();
+let stopResults=null;
+let stopApprovals=null;
+let resultsReady=false;
+let approvalsReady=false;
+let errorMessage="";
 
 function prizeFor(score) {
   if(score===3)return "chocolate";
@@ -757,8 +476,16 @@ function prizeFor(score) {
   return "none";
 }
 
-function niceTime(date) {
-  return date.toLocaleString("en-US",{
+function prizeName(score) {
+  if(score===3)return "Chocolate";
+  if(score===2)return "Toffee";
+  return "No prize";
+}
+
+function formatTime(time) {
+  if(!time?.toDate)return "Saving...";
+
+  return time.toDate().toLocaleString("en-US",{
     year:"numeric",
     month:"short",
     day:"numeric",
@@ -768,325 +495,354 @@ function niceTime(date) {
   });
 }
 
-function updateWorld() {
-  const level = el("level").value;
-  el("game").dataset.level = level;
-
-  const worlds = {
-    beginner:[
-      "🌱 Explorer Garden",
-      "Discover animals, food and everyday objects."
-    ],
-    intermediate:[
-      "⚡ Adventure Bazaar",
-      "Explore places, tools and travel words."
-    ],
-    advanced:[
-      "👑 Royal Knowledge Hall",
-      "Advanced pictures and a very rare Arabic sentence surprise."
-    ]
-  };
-
-  const [title,description] = worlds[level];
-  el("world").replaceChildren();
-
-  const a = document.createElement("strong");
-  const b = document.createElement("p");
-
-  a.textContent = title;
-  b.textContent = description;
-
-  el("world").append(a,b);
-}
-
-function makeQuestions(level) {
-  const pool = wordBanks[level];
-
-  const questions = shuffle(pool).slice(0,3).map(
-    ([picture,answer]) => {
-      const wrong = shuffle(
-        pool.filter(item=>item[1]!==answer)
-      ).slice(0,2).map(item=>item[1]);
-
-      const options = shuffle([answer,...wrong]);
-
-      return {
-        kind:"picture",
-        picture,
-        options,
-        correct:options.indexOf(answer)
-      };
-    }
-  );
-
-  // 1-in-159 chance for Advanced players only.
-  if(level==="advanced" && Math.floor(Math.random()*159)===0) {
-    const chosen = rareSentences[
-      Math.floor(Math.random()*rareSentences.length)
-    ];
-    const options = shuffle(chosen.options);
-    const position = Math.floor(Math.random()*3);
-
-    questions[position] = {
-      kind:"sentence",
-      sentence:chosen.sentence,
-      options,
-      correct:options.indexOf(chosen.correct)
-    };
+function stopListening() {
+  if(stopResults) {
+    stopResults();
+    stopResults=null;
   }
 
-  return questions;
+  if(stopApprovals) {
+    stopApprovals();
+    stopApprovals=null;
+  }
 }
 
-function startQuiz() {
-  if(game) return;
+el("loginForm").addEventListener("submit",async event=>{
+  event.preventDefault();
+  el("loginMessage").textContent="";
+  el("signIn").disabled=true;
 
-  const name = el("name").value.trim().replace(/\s+/g," ");
-  if(!name) {
-    alert("Enter your first name or nickname.");
+  try {
+    await auth.signInWithEmailAndPassword(
+      el("email").value.trim(),
+      el("password").value
+    );
+  } catch(error) {
+    console.error(error);
+    el("loginMessage").textContent =
+      "Login failed. Check your email and password.";
+  } finally {
+    el("signIn").disabled=false;
+  }
+});
+
+el("reset").addEventListener("click",async()=>{
+  const email=el("email").value.trim();
+
+  if(!email) {
+    el("loginMessage").textContent =
+      "Enter your admin email first.";
     return;
   }
 
-  const level = el("level").value;
-  game = {
-    name,
-    level,
-    score:0,
-    number:0,
-    selected:null,
-    stage:"playing",
-    questions:makeQuestions(level)
-  };
-
-  el("welcome").classList.add("hide");
-  el("quiz").classList.remove("hide");
-  renderQuestion();
-}
-
-function renderQuestion() {
-  const q = game.questions[game.number];
-  const answered = game.selected !== null;
-
-  el("progress").textContent =
-    `Question ${game.number+1} of 3 · ${game.score} correct`;
-
-  el("fill").style.width =
-    ((game.number+(answered?1:0))/3*100)+"%";
-
-  el("picture").textContent =
-    q.kind==="sentence"?"✍️":q.picture;
-
-  el("hint").textContent =
-    q.kind==="sentence"
-    ?"RARE ADVANCED CHALLENGE — Choose the missing Arabic word!"
-    :"";
-
-  el("question").textContent =
-    q.kind==="sentence"
-    ?q.sentence
-    :"What is the Arabic word for this picture?";
-
-  el("question").classList.toggle(
-    "arabic",q.kind==="sentence"
-  );
-
-  el("options").replaceChildren();
-
-  q.options.forEach((option,i) => {
-    const button = document.createElement("button");
-    button.textContent = option;
-    button.dir = "rtl";
-    button.disabled = answered;
-    button.onclick = () => chooseAnswer(i);
-    el("options").appendChild(button);
-  });
-
-  el("feedback").textContent = answered
-    ?(game.selected===q.correct
-      ?"✅ Correct!"
-      :"❌ Wrong! Correct answer: "+q.options[q.correct])
-    :"";
-
-  el("feedback").className = answered
-    ?(game.selected===q.correct?"good":"bad")
-    :"";
-
-  el("next").textContent =
-    game.number===2?"Reveal My Prize 🎁":"Next ➜";
-
-  el("next").classList.toggle("hide",!answered);
-}
-
-function chooseAnswer(i) {
-  if(game.stage!=="playing"||game.selected!==null)return;
-
-  if(i===game.questions[game.number].correct)game.score++;
-  game.selected = i;
-  renderQuestion();
-}
-
-function nextQuestion() {
-  if(game.stage!=="playing"||game.selected===null)return;
-
-  if(game.number<2) {
-    game.number++;
-    game.selected=null;
-    renderQuestion();
-  } else {
-    finishQuiz();
-  }
-}
-
-function showResult() {
-  el("quiz").classList.add("hide");
-  el("result").classList.remove("hide");
-
-  const reward = prizeFor(game.score);
-
-  el("scoreTitle").textContent =
-    `${game.name}, you scored ${game.score}/3!`;
-
-  el("reveal").textContent =
-    reward==="toffee"?"🍬":
-    reward==="chocolate"?"🏆🍫":"🌟";
-
-  el("resultBox").className =
-    reward==="toffee"?"toffeeResult":
-    reward==="chocolate"?"chocolateResult":"";
-
-  el("resultTitle").textContent =
-    reward==="toffee"?"🍬 TOFFEE STAR!":
-    reward==="chocolate"?"🍫 CHOCOLATE CHAMPION!":
-    "Thank you for playing!";
-
-  el("resultInfo").textContent =
-    reward==="none"
-    ?"Thank you for participating. No prize for this score."
-    :`You earned one ${reward}! Waiting for admin approval. Keep this page open.`;
-
-  el("saveStatus").textContent =
-    game.stage==="saving"?"Saving your result…":
-    game.stage==="failed"?"⚠️ Result not saved. Ask the organizer for help.":
-    "✅ Result saved!";
-}
-
-async function finishQuiz() {
-  if(game.stage!=="playing")return;
-
-  game.stage="saving";
-  showResult();
-
   try {
-    const ref = db.collection("results").doc();
+    await auth.sendPasswordResetEmail(email);
+    el("loginMessage").textContent =
+      "If the email is registered, check its inbox for a reset link.";
+  } catch(error) {
+    console.error(error);
+    el("loginMessage").textContent =
+      "Password reset failed. Check Firebase Authentication.";
+  }
+});
 
-    game.resultId=ref.id;
-    await ref.set({
-      name:game.name,
-      level:game.level,
-      score:game.score,
-      total:3,
-      won:game.score>=2,
-      createdAt:firebase.firestore.FieldValue.serverTimestamp()
+el("logout").addEventListener("click",()=>{
+  auth.signOut();
+});
+
+el("search").addEventListener("input",drawTable);
+el("filter").addEventListener("change",drawTable);
+el("csv").addEventListener("click",downloadCSV);
+
+auth.onAuthStateChanged(user=>{
+  stopListening();
+
+  results=[];
+  approvals=new Map();
+  resultsReady=false;
+  approvalsReady=false;
+  errorMessage="";
+
+  if(!user) {
+    el("dashboard").classList.add("hide");
+    el("loginSection").classList.remove("hide");
+    return;
+  }
+
+  el("loginSection").classList.add("hide");
+  el("dashboard").classList.remove("hide");
+  el("adminEmail").textContent=user.email||"Admin";
+
+  drawTable();
+
+  stopResults=db.collection("results")
+    .orderBy("createdAt","desc")
+    .onSnapshot(snapshot=>{
+      results=snapshot.docs.map(doc=>({
+        id:doc.id,
+        ...doc.data()
+      }));
+      resultsReady=true;
+      drawTable();
+    },error=>{
+      console.error(error);
+      errorMessage="Cannot read results. Check Firebase admin permissions.";
+      drawTable();
     });
 
-    game.stage="finished";
-    showResult();
+  stopApprovals=db.collection("approvals")
+    .onSnapshot(snapshot=>{
+      approvals=new Map(
+        snapshot.docs
+          .filter(doc=>doc.data().accepted===true)
+          .map(doc=>[doc.id,doc.data()])
+      );
+      approvalsReady=true;
+      drawTable();
+    },error=>{
+      console.error(error);
+      errorMessage="Cannot read approvals. Check Firebase rules.";
+      drawTable();
+    });
+});
 
-    if(game.score>=2)watchApproval();
+// No confirmation dialog. One click starts approval.
+async function approvePrize(person,button) {
+  if(prizeFor(person.score)==="none")return;
+
+  button.disabled=true;
+  button.textContent="Approving...";
+
+  try {
+    await db.runTransaction(async transaction=>{
+      const resultRef=db.collection("results").doc(person.id);
+      const approvalRef=db.collection("approvals").doc(person.id);
+
+      const resultDoc=await transaction.get(resultRef);
+      const existing=await transaction.get(approvalRef);
+
+      if(!resultDoc.exists || resultDoc.data().score<2) {
+        throw new Error("Not eligible");
+      }
+
+      if(existing.exists)return;
+
+      transaction.set(approvalRef,{
+        accepted:true,
+        acceptedAt:firebase.firestore.FieldValue.serverTimestamp()
+      });
+    });
 
   } catch(error) {
     console.error(error);
-    game.stage="failed";
-    showResult();
+    button.disabled=false;
+    button.textContent="Approve "+prizeName(person.score);
+    errorMessage="Approval failed. Check your Firebase connection or rules.";
+    drawTable();
   }
 }
 
-function watchApproval() {
-  if(stopApproval)stopApproval();
+function drawTable() {
+  const table=el("rows");
+  table.replaceChildren();
 
-  stopApproval=db.collection("approvals")
-    .doc(game.resultId)
-    .onSnapshot(snapshot => {
-      if(snapshot.exists && snapshot.data().accepted===true) {
-        const at=snapshot.data().acceptedAt;
+  const search=el("search").value.trim().toLowerCase();
+  const filter=el("filter").value;
 
-        game.approvedAt=at?.toDate
-          ?at.toDate()
-          :new Date();
+  const visible=results.filter(person=>{
+    const reward=prizeFor(person.score);
+    const approved=approvals.has(person.id);
 
-        game.stage="approved";
-        showTicket();
+    const nameAndTicket=(
+      String(person.name||"")+" "+person.id
+    ).toLowerCase();
 
-        if(stopApproval) {
-          stopApproval();
-          stopApproval=null;
-        }
-      }
-    },error => {
-      console.error(error);
-      el("saveStatus").textContent =
-        "Approval status unavailable. Please ask the organizer.";
-    });
-}
+    const matchesSearch=nameAndTicket.includes(search);
 
-function celebrate() {
-  const box=el("confetti");
-  box.replaceChildren();
+    const matchesFilter=
+      filter==="all" ||
+      (filter==="pending" && reward!=="none" && !approved) ||
+      (filter==="approved" && reward!=="none" && approved) ||
+      filter===reward;
 
-  const colors=["#e6aa37","#8f52d2","#2bbd83","#d86fae"];
+    return matchesSearch && matchesFilter;
+  });
 
-  for(let i=0;i<28;i++) {
-    const piece=document.createElement("i");
-    piece.style.left=(2+(i*37)%96)+"%";
-    piece.style.backgroundColor=colors[i%4];
-    piece.style.animationDelay=(i%8*.12)+"s";
-    box.appendChild(piece);
+  visible.forEach(person=>{
+    const row=table.insertRow();
+
+    const name=row.insertCell();
+    name.className="name";
+    name.textContent=person.name||"Visitor";
+
+    row.insertCell().textContent=person.level||"";
+    row.insertCell().textContent=person.score+"/3";
+
+    const prizeCell=row.insertCell();
+    const label=document.createElement("span");
+
+    const reward=prizeFor(person.score);
+    label.className="pill "+(
+      reward==="chocolate"?"choc":
+      reward==="toffee"?"toffee":"none"
+    );
+
+    label.textContent=
+      reward==="chocolate"?"🍫 Chocolate":
+      reward==="toffee"?"🍬 Toffee":"No prize";
+
+    prizeCell.appendChild(label);
+
+    const ticket=row.insertCell();
+    ticket.className="ticket";
+    ticket.textContent=person.id.slice(-8).toUpperCase();
+
+    row.insertCell().textContent=formatTime(person.createdAt);
+
+    const approvalCell=row.insertCell();
+    const approval=approvals.get(person.id);
+
+    if(reward==="none") {
+      approvalCell.textContent="No prize";
+    } else if(approval) {
+      const yes=document.createElement("strong");
+      yes.className="approved";
+      yes.textContent="✅ Approved";
+
+      const time=document.createElement("span");
+      time.className="when";
+      time.textContent=formatTime(approval.acceptedAt);
+
+      approvalCell.append(yes,time);
+    } else {
+      const button=document.createElement("button");
+      button.className="approve"+
+        (reward==="chocolate"?" chocolate":"");
+
+      button.textContent="Approve "+prizeName(person.score);
+      button.onclick=()=>approvePrize(person,button);
+
+      approvalCell.appendChild(button);
+    }
+  });
+
+  el("visitors").textContent=results.length;
+
+  el("toffees").textContent=results.filter(
+    p=>p.score===2 && approvals.has(p.id)
+  ).length;
+
+  el("chocolates").textContent=results.filter(
+    p=>p.score===3 && approvals.has(p.id)
+  ).length;
+
+  el("pending").textContent=results.filter(
+    p=>p.score>=2 && !approvals.has(p.id)
+  ).length;
+
+  if(errorMessage) {
+    el("message").classList.remove("hide");
+    el("message").textContent=errorMessage;
+    el("message").classList.add("error");
+  } else if(!resultsReady || !approvalsReady) {
+    el("message").classList.remove("hide");
+    el("message").textContent="Connecting to Firebase...";
+  } else if(visible.length===0) {
+    el("message").classList.remove("hide");
+    el("message").textContent=results.length
+      ?"No matching visitors."
+      :"No visitors yet.";
+  } else {
+    el("message").classList.add("hide");
   }
 }
 
-function showTicket() {
-  el("result").classList.add("hide");
-  el("ticket").classList.remove("hide");
+function safeCSV(value) {
+  let text=String(value??"");
 
-  const reward=prizeFor(game.score);
-  el("ticket").classList.toggle("toffee",reward==="toffee");
+  if(/^\s*[=+\-@]/.test(text)) {
+    text="'"+text;
+  }
 
-  el("ticketIcon").textContent =
-    reward==="toffee"?"🌟🍬":"🏆🍫";
-
-  el("ticketPrize").textContent =
-    reward==="toffee"
-    ?"TOFFEE STAR TICKET"
-    :"CHOCOLATE CHAMPION TICKET";
-
-  el("ticketName").textContent=game.name;
-  el("ticketScore").textContent=game.score+"/3";
-  el("ticketLevel").textContent=game.level;
-
-  el("ticketId").textContent =
-    game.resultId.slice(-8).toUpperCase();
-
-  el("ticketTime").textContent=niceTime(game.approvedAt);
-
-  el("ticketBanner").textContent =
-    "SHOW THIS SCREEN TO COLLECT YOUR "+reward.toUpperCase();
-
-  el("certificate").classList.toggle(
-    "hide",reward!=="chocolate"
-  );
-
-  celebrate();
+  return '"'+text.replaceAll('"','""')+'"';
 }
 
-// Remove the old version's browser lock.
-try {
-  localStorage.removeItem("arabic_chocolate_once_2026_v1");
-} catch(error) {
-  console.warn(error);
-}
+function downloadCSV() {
+  if(!resultsReady || !approvalsReady || errorMessage) {
+    el("message").classList.remove("hide");
+    el("message").textContent=
+      "Wait until all results have loaded before downloading.";
+    return;
+  }
 
-// Every page load starts fresh.
-updateWorld();
+  const rows=[[
+    "Name",
+    "Level",
+    "Score",
+    "Prize",
+    "Ticket ID",
+    "Time Played",
+    "Admin Approved",
+    "Approved At",
+    "Toffees Given Out",
+    "Chocolates Given Out"
+  ]];
+
+  results.forEach(person=>{
+    const approved=approvals.has(person.id) &&
+      person.score>=2;
+
+    const approval=approvals.get(person.id);
+
+    rows.push([
+      person.name,
+      person.level,
+      person.score+"/3",
+      prizeName(person.score),
+      person.id.slice(-8).toUpperCase(),
+      formatTime(person.createdAt),
+      approved?"Yes":"No",
+      approved?formatTime(approval.acceptedAt):"",
+      approved&&person.score===2?1:0,
+      approved&&person.score===3?1:0
+    ]);
+  });
+
+  const totalToffees=results.filter(
+    p=>p.score===2 && approvals.has(p.id)
+  ).length;
+
+  const totalChocolates=results.filter(
+    p=>p.score===3 && approvals.has(p.id)
+  ).length;
+
+  rows.push([
+    "TOTAL PRIZES GIVEN OUT",
+    "","","","","","","",
+    totalToffees,
+    totalChocolates
+  ]);
+
+  const csv=rows.map(row=>
+    row.map(safeCSV).join(",")
+  ).join("\r\n");
+
+  const blob=new Blob(["\uFEFF",csv],{
+    type:"text/csv;charset=utf-8"
+  });
+
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement("a");
+
+  a.href=url;
+  a.download="arabic-challenge-prizes.csv";
+
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
 </script>
 </body>
 </html>
