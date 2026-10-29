@@ -1,81 +1,1055 @@
 
-rules_version = '2';
-
-service cloud.firestore {
-  match /databases/{database}/documents {
-
-    function isOwner() {
-      return request.auth != null &&
-        request.auth.uid == 'DWoqJv8nnNhp84t4mwz6uD5q8HQ2';
-    }
-
-    function isAdmin() {
-      return request.auth != null &&
-        request.auth.uid in [
-          'DWoqJv8nnNhp84t4mwz6uD5q8HQ2'
-
-          // Add your friends' existing UIDs here
-          // with commas between entries if needed.
-        ];
-    }
-
-    match /results/{resultId} {
-
-      allow create: if
-        request.resource.data.keys().hasOnly([
-          'name',
-          'level',
-          'score',
-          'total',
-          'won',
-          'createdAt'
-        ]) &&
-        request.resource.data.name is string &&
-        request.resource.data.name.size() >= 1 &&
-        request.resource.data.name.size() <= 35 &&
-        request.resource.data.level in [
-          'beginner',
-          'intermediate',
-          'advanced'
-        ] &&
-        request.resource.data.score is int &&
-        request.resource.data.score >= 0 &&
-        request.resource.data.score <= 3 &&
-        request.resource.data.total == 3 &&
-        request.resource.data.won ==
-          (request.resource.data.score >= 2) &&
-        request.resource.data.createdAt == request.time;
-
-      allow read: if isAdmin();
-
-      allow update: if false;
-
-      // Only the original owner can clear visitor records.
-      allow delete: if isOwner();
-    }
-
-    match /approvals/{resultId} {
-
-      allow get: if true;
-
-      allow list: if isAdmin();
-
-      allow create, update: if isAdmin() &&
-        exists(
-          /databases/$(database)/documents/results/$(resultId)
-        ) &&
-        get(
-          /databases/$(database)/documents/results/$(resultId)
-        ).data.score >= 2 &&
-        request.resource.data.keys().hasOnly([
-          'accepted',
-          'acceptedAt'
-        ]) &&
-        request.resource.data.accepted == true &&
-        request.resource.data.acceptedAt == request.time;
-
-      // Only the original owner can clear prize approvals.
-      allow delete: if isOwner();
-    }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Arabic Chocolate Challenge | Admin</title>
+<style>
+:root {
+  --bg:#07080f;
+  --panel:#161928;
+  --line:#35364d;
+  --text:#f7f2ff;
+  --muted:#a9a5bb;
+  --purple:#b18bff;
+  --gold:#ffda84;
+  --pink:#ff8bbd;
+  --green:#70e8b4;
+  --red:#ff8c9c;
+}
+* {box-sizing:border-box}
+body {
+  margin:0;
+  min-height:100vh;
+  color:var(--text);
+  background:
+    radial-gradient(ellipse at 10% -5%,#47248980,transparent 40%),
+    radial-gradient(ellipse at 100% 10%,#5f451f55,transparent 35%),
+    var(--bg);
+  font-family:system-ui,Segoe UI,Arial,sans-serif;
+}
+body::before {
+  content:"";
+  position:fixed;
+  inset:0;
+  opacity:.12;
+  pointer-events:none;
+  background-image:radial-gradient(#e0cafa 1px,transparent 1px);
+  background-size:28px 28px;
+}
+main {
+  max-width:1250px;
+  margin:auto;
+  padding:25px 17px 60px;
+  position:relative;
+}
+.hero,.topbar,.sectionhead {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:16px;
+  flex-wrap:wrap;
+}
+.hero {margin-bottom:25px}
+.eyebrow {
+  font-size:12px;
+  font-weight:850;
+  color:var(--gold);
+  letter-spacing:2px;
+}
+h1 {
+  font-size:clamp(28px,4vw,43px);
+  margin:7px 0;
+}
+h1 span {color:var(--purple)}
+h2 {margin:0 0 9px}
+.sub {
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.6;
+}
+.live {
+  display:inline-flex;
+  align-items:center;
+  gap:9px;
+  color:var(--green);
+  background:#15332680;
+  border:1px solid #3b6b52;
+  border-radius:99px;
+  padding:10px 14px;
+  font-weight:bold;
+  font-size:13px;
+}
+.dot {
+  height:8px;
+  width:8px;
+  border-radius:50%;
+  background:var(--green);
+  box-shadow:0 0 15px var(--green);
+}
+.card {
+  background:linear-gradient(150deg,#1c1e30f0,#10121cef);
+  border:1px solid var(--line);
+  border-radius:21px;
+  padding:22px;
+  margin-bottom:17px;
+  box-shadow:0 12px 30px #0005;
+}
+.login {
+  max-width:465px;
+  margin:35px auto;
+}
+label {
+  font-size:13px;
+  font-weight:800;
+  display:block;
+  margin:15px 0 7px;
+}
+input,select {
+  font:inherit;
+  color:white;
+  background:#0c0e18;
+  border:1px solid #505068;
+  border-radius:12px;
+  padding:12px;
+  min-height:46px;
+}
+input:focus,select:focus {
+  outline:2px solid var(--purple);
+}
+.login input {width:100%}
+button {
+  font:inherit;
+  cursor:pointer;
+  border:1px solid transparent;
+  border-radius:12px;
+  padding:11px 15px;
+  font-weight:800;
+}
+button:disabled {
+  opacity:.55;
+  cursor:default;
+}
+.primary {
+  background:linear-gradient(120deg,#a970f6,#6848ce);
+  color:white;
+}
+.gold {
+  background:linear-gradient(110deg,#ffe1a1,#d99a35);
+  color:#201508;
+}
+.secondary {
+  background:#28293a;
+  border-color:#4d4861;
+  color:white;
+}
+.danger {
+  background:#56202d;
+  border-color:#d55b79;
+  color:#ffced7;
+}
+.ghost {
+  background:transparent;
+  border-color:#534764;
+  color:#dbccf5;
+}
+.login button {
+  display:block;
+  width:100%;
+  margin-top:12px;
+}
+.hide {display:none!important}
+.error {color:var(--red)!important}
+.status {
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.5;
+}
+.actions,.filters {
+  display:flex;
+  gap:9px;
+  flex-wrap:wrap;
+}
+.stats {
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:13px;
+  margin:18px 0;
+}
+.stat {
+  margin:0;
+  min-height:143px;
+}
+.stat strong {
+  font-size:clamp(28px,4vw,43px);
+  display:block;
+  margin-top:11px;
+}
+.stat small {
+  display:block;
+  color:var(--muted);
+  font-weight:700;
+  margin-top:5px;
+}
+.purple {color:var(--purple)}
+.pink {color:var(--pink)}
+.goldText {color:var(--gold)}
+.green {color:var(--green)}
+.sectionhead {margin-bottom:17px}
+.filters input {width:260px}
+.tablewrap {
+  overflow:auto;
+  border:1px solid var(--line);
+  border-radius:13px;
+}
+table {
+  width:100%;
+  min-width:890px;
+  border-collapse:collapse;
+}
+th,td {
+  padding:13px 12px;
+  text-align:left;
+  border-bottom:1px solid #303142;
+  vertical-align:middle;
+}
+th {
+  background:#262039;
+  color:#eadbff;
+  font-size:12px;
+  white-space:nowrap;
+}
+td {font-size:14px}
+tr:hover td {background:#ffffff09}
+.player {font-weight:850}
+.ticket {
+  font-family:Consolas,monospace;
+  color:var(--gold);
+}
+.pill {
+  display:inline-block;
+  border-radius:30px;
+  padding:7px 10px;
+  font-size:12px;
+  font-weight:800;
+}
+.chocolate {
+  color:#ffe2a7;
+  background:#4e351d;
+}
+.toffee {
+  color:#ffb0d0;
+  background:#4a2941;
+}
+.none {
+  color:#c6c5d0;
+  background:#333448;
+}
+.approved {
+  font-weight:800;
+  color:var(--green);
+}
+.when {
+  font-size:12px;
+  display:block;
+  color:var(--muted);
+  margin-top:4px;
+}
+.approve {
+  background:#6d43ba;
+  color:white;
+}
+.approve.choc {background:#a57531}
+.empty {
+  color:var(--muted);
+  text-align:center;
+  padding:17px;
+  font-size:13px;
+}
+.reset-panel {
+  border-color:#a5455b;
+  background:linear-gradient(130deg,#341b2a,#17131e);
+  max-width:650px;
+  margin:22px auto;
+}
+.reset-panel h2 {color:#ffb4c1}
+.reset-panel p {line-height:1.6}
+.reset-panel input {
+  width:100%;
+  max-width:420px;
+}
+.reset-panel .actions {margin-top:15px}
+.foot {
+  text-align:center;
+  color:#8f86a8;
+  font-size:12px;
+}
+@media(max-width:900px) {
+  .stats {
+    grid-template-columns:repeat(2,minmax(0,1fr));
   }
 }
+@media(max-width:540px) {
+  main {padding:13px 10px}
+  .card {padding:16px}
+  .stat strong {font-size:30px}
+  .filters input,.filters select {width:100%}
+  .actions button {flex:1}
+}
+</style>
+</head>
+
+<body>
+<main>
+
+<header class="hero">
+  <div>
+    <div class="eyebrow">✦ EXHIBITION CONTROL ROOM ✦</div>
+    <h1>🍫 Arabic Challenge <span>ADMIN</span></h1>
+    <p class="sub">
+      Black Neon Edition · Live quiz results and prizes
+    </p>
+  </div>
+  <span class="live">
+    <span class="dot"></span> LIVE DASHBOARD
+  </span>
+</header>
+
+<section id="loginSection" class="card login">
+  <div class="eyebrow">🔒 STAFF ACCESS</div>
+  <h2>Welcome, organizer!</h2>
+  <p class="sub">Log in with your Firebase admin account.</p>
+
+  <form id="loginForm">
+    <label for="email">Admin email</label>
+    <input id="email" type="email"
+      autocomplete="username"
+      required placeholder="Your admin email">
+
+    <label for="password">Password</label>
+    <input id="password" type="password"
+      autocomplete="current-password"
+      required placeholder="Your password">
+
+    <button id="signIn" type="submit" class="primary">
+      🔓 Open Control Room
+    </button>
+  </form>
+
+  <button id="resetPasswordEmail"
+    class="ghost" type="button">
+    Forgot password? Email a reset link
+  </button>
+
+  <p id="loginMessage" class="status" role="status"></p>
+</section>
+
+<section id="dashboard" class="hide">
+
+  <div class="card topbar">
+    <div>
+      <div class="eyebrow">WELCOME BACK</div>
+      <strong id="adminEmail"></strong>
+      <p class="sub">
+        Approving a prize counts it as handed out.
+      </p>
+    </div>
+
+    <div class="actions">
+      <button id="csv" class="gold">
+        ⬇ Download CSV
+      </button>
+
+      <button id="resetVisitors" class="danger hide">
+        🗑 Reset All Visitors
+      </button>
+
+      <button id="logout" class="secondary">
+        Log Out
+      </button>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="card stat purple">
+      👥
+      <strong id="visitors">0</strong>
+      <small>Total Visitors</small>
+    </div>
+
+    <div class="card stat pink">
+      🍬
+      <strong id="toffees">0</strong>
+      <small>Toffees Given Out</small>
+    </div>
+
+    <div class="card stat goldText">
+      🍫
+      <strong id="chocolates">0</strong>
+      <small>Chocolates Given Out</small>
+    </div>
+
+    <div class="card stat green">
+      ⏳
+      <strong id="pending">0</strong>
+      <small>Awaiting Approval</small>
+    </div>
+  </div>
+
+  <section id="resetPanel"
+    class="card reset-panel hide"
+    aria-label="Reset all visitors">
+
+    <h2>🛑 Reset all visitor results?</h2>
+
+    <p>
+      <strong>
+        This permanently deletes every visitor's score
+        and every prize approval.
+      </strong>
+      All four counters will return to zero.
+      This cannot be undone.
+    </p>
+
+    <p class="sub">
+      Download a CSV backup first, and do this
+      only when no one is using the quiz.
+      Your quiz website, QR codes and admin
+      accounts will NOT be deleted.
+    </p>
+
+    <label for="resetPassword">
+      Enter YOUR current Firebase admin password to confirm
+    </label>
+
+    <input id="resetPassword" type="password"
+      autocomplete="current-password"
+      placeholder="Type admin password">
+
+    <div class="actions">
+      <button id="performReset" class="danger">
+        Yes, delete all visitor results
+      </button>
+
+      <button id="cancelReset" class="secondary">
+        Cancel
+      </button>
+    </div>
+
+    <p id="resetStatus" class="status" role="status"></p>
+  </section>
+
+  <section class="card">
+
+    <div class="sectionhead">
+      <div>
+        <h2>✨ Visitor Results</h2>
+        <p class="sub">
+          Live updates · Search by name or ticket ID ·
+          12-hour time
+        </p>
+      </div>
+
+      <div class="filters">
+        <input id="search" type="search"
+          placeholder="🔎 Search visitor..."
+          aria-label="Search visitor">
+
+        <select id="filter" aria-label="Filter visitors">
+          <option value="all">All Visitors</option>
+          <option value="pending">Awaiting Approval</option>
+          <option value="approved">Approved Prizes</option>
+          <option value="toffee">🍬 Toffee</option>
+          <option value="chocolate">🍫 Chocolate</option>
+          <option value="none">No Prize</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="tablewrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Visitor</th>
+            <th>Level</th>
+            <th>Score</th>
+            <th>Prize</th>
+            <th>Ticket ID</th>
+            <th>Time Played</th>
+            <th>Admin Approval</th>
+          </tr>
+        </thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+
+    <p id="message" class="empty">
+      Connecting to Firebase...
+    </p>
+  </section>
+</section>
+
+<p class="foot">
+  Arabic Chocolate Challenge ✦ Organizer Control Room
+</p>
+
+</main>
+
+<script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore-compat.js"></script>
+<script src="firebase-config.js"></script>
+
+<script>
+const el=id=>document.getElementById(id);
+const auth=firebase.auth();
+
+// Only your original admin account can reset visitors.
+const OWNER_UID="DWoqJv8nnNhp84t4mwz6uD5q8HQ2";
+
+let results=[];
+let approvals=new Map();
+
+let stopResults=null;
+let stopApprovals=null;
+
+let resultsReady=false;
+let approvalsReady=false;
+
+let errorMessage="";
+let resetInProgress=false;
+
+function prizeFor(score) {
+  if(score===3)return "chocolate";
+  if(score===2)return "toffee";
+  return "none";
+}
+
+function prizeName(score) {
+  if(score===3)return "Chocolate";
+  if(score===2)return "Toffee";
+  return "No prize";
+}
+
+function formatTime(time) {
+  if(!time?.toDate)return "Saving...";
+
+  return time.toDate().toLocaleString("en-US",{
+    year:"numeric",
+    month:"short",
+    day:"numeric",
+    hour:"numeric",
+    minute:"2-digit",
+    hour12:true
+  });
+}
+
+function stopListening() {
+  if(stopResults) {
+    stopResults();
+    stopResults=null;
+  }
+
+  if(stopApprovals) {
+    stopApprovals();
+    stopApprovals=null;
+  }
+}
+
+function showLoginMessage(value) {
+  el("loginMessage").textContent=value;
+}
+
+function showResetMessage(value,isError=false) {
+  el("resetStatus").textContent=value;
+  el("resetStatus").classList.toggle("error",isError);
+}
+
+el("loginForm").addEventListener("submit",async event=>{
+  event.preventDefault();
+
+  el("signIn").disabled=true;
+  showLoginMessage("");
+
+  try {
+    await auth.signInWithEmailAndPassword(
+      el("email").value.trim(),
+      el("password").value
+    );
+  } catch(error) {
+    console.error(error);
+    showLoginMessage(
+      "Login failed. Check email and password."
+    );
+  } finally {
+    el("signIn").disabled=false;
+  }
+});
+
+el("resetPasswordEmail").addEventListener("click",async()=>{
+  const email=el("email").value.trim();
+
+  if(!email) {
+    showLoginMessage("Enter your admin email first.");
+    return;
+  }
+
+  try {
+    await auth.sendPasswordResetEmail(email);
+
+    showLoginMessage(
+      "If this email is registered, check its inbox for a reset link."
+    );
+  } catch(error) {
+    console.error(error);
+    showLoginMessage("Could not send reset email.");
+  }
+});
+
+el("logout").addEventListener("click",()=>{
+  if(!resetInProgress)auth.signOut();
+});
+
+el("search").addEventListener("input",drawTable);
+el("filter").addEventListener("change",drawTable);
+el("csv").addEventListener("click",downloadCSV);
+
+auth.onAuthStateChanged(user=>{
+  stopListening();
+
+  results=[];
+  approvals=new Map();
+
+  resultsReady=false;
+  approvalsReady=false;
+  errorMessage="";
+
+  el("resetPanel").classList.add("hide");
+  el("resetPassword").value="";
+  showResetMessage("");
+
+  if(!user) {
+    el("dashboard").classList.add("hide");
+    el("loginSection").classList.remove("hide");
+    return;
+  }
+
+  el("loginSection").classList.add("hide");
+  el("dashboard").classList.remove("hide");
+  el("adminEmail").textContent=user.email||"Admin";
+
+  el("resetVisitors").classList.toggle(
+    "hide",user.uid!==OWNER_UID
+  );
+
+  drawTable();
+
+  stopResults=db.collection("results")
+    .orderBy("createdAt","desc")
+    .onSnapshot(snapshot=>{
+      results=snapshot.docs.map(doc=>({
+        id:doc.id,
+        ...doc.data()
+      }));
+
+      resultsReady=true;
+      drawTable();
+
+    },error=>{
+      console.error(error);
+      errorMessage=
+        "Cannot read results. Check Firebase permissions.";
+      drawTable();
+    });
+
+  stopApprovals=db.collection("approvals")
+    .onSnapshot(snapshot=>{
+      approvals=new Map(
+        snapshot.docs
+          .filter(doc=>doc.data().accepted===true)
+          .map(doc=>[doc.id,doc.data()])
+      );
+
+      approvalsReady=true;
+      drawTable();
+
+    },error=>{
+      console.error(error);
+      errorMessage=
+        "Cannot read approvals. Check Firebase rules.";
+      drawTable();
+    });
+});
+
+// Prize approval: one click, no OK/Cancel popup.
+async function approvePrize(person,button) {
+  if(resetInProgress || prizeFor(person.score)==="none")return;
+
+  button.disabled=true;
+  button.textContent="Approving...";
+
+  try {
+    await db.runTransaction(async tx=>{
+      const resultRef=db.collection("results").doc(person.id);
+      const approvalRef=db.collection("approvals").doc(person.id);
+
+      const resultDoc=await tx.get(resultRef);
+      const existing=await tx.get(approvalRef);
+
+      if(!resultDoc.exists || resultDoc.data().score<2) {
+        throw Error("Not eligible");
+      }
+
+      if(!existing.exists) {
+        tx.set(approvalRef,{
+          accepted:true,
+          acceptedAt:
+            firebase.firestore.FieldValue.serverTimestamp()
+        });
+      }
+    });
+
+  } catch(error) {
+    console.error(error);
+
+    button.disabled=false;
+    button.textContent="Approve "+prizeName(person.score);
+
+    errorMessage="Approval failed. Check your Firebase rules.";
+    drawTable();
+  }
+}
+
+function drawTable() {
+  const body=el("rows");
+  body.replaceChildren();
+
+  const term=el("search").value.trim().toLowerCase();
+  const filter=el("filter").value;
+
+  const visible=results.filter(p=>{
+    const reward=prizeFor(p.score);
+    const approved=approvals.has(p.id);
+
+    const matches=(
+      String(p.name||"")+" "+p.id
+    ).toLowerCase().includes(term);
+
+    const matchesFilter=
+      filter==="all" ||
+      (filter==="pending" &&
+        reward!=="none" && !approved) ||
+      (filter==="approved" &&
+        approved && reward!=="none") ||
+      filter===reward;
+
+    return matches && matchesFilter;
+  });
+
+  for(const p of visible) {
+    const row=body.insertRow();
+
+    const name=row.insertCell();
+    name.className="player";
+    name.textContent=p.name||"Visitor";
+
+    row.insertCell().textContent=p.level||"";
+    row.insertCell().textContent=p.score+"/3";
+
+    const prizeCell=row.insertCell();
+    const pill=document.createElement("span");
+
+    pill.className="pill "+prizeFor(p.score);
+
+    pill.textContent=
+      (p.score===3?"🍫 ":p.score===2?"🍬 ":"")+
+      prizeName(p.score);
+
+    prizeCell.appendChild(pill);
+
+    const ticket=row.insertCell();
+    ticket.className="ticket";
+    ticket.textContent=p.id.slice(-8).toUpperCase();
+
+    row.insertCell().textContent=formatTime(p.createdAt);
+
+    const cell=row.insertCell();
+    const approval=approvals.get(p.id);
+
+    if(prizeFor(p.score)==="none") {
+      cell.textContent="No prize";
+
+    } else if(approval) {
+      const yes=document.createElement("strong");
+      yes.className="approved";
+      yes.textContent="✅ Approved";
+
+      const time=document.createElement("span");
+      time.className="when";
+      time.textContent=formatTime(approval.acceptedAt);
+
+      cell.append(yes,time);
+
+    } else {
+      const btn=document.createElement("button");
+      btn.className="approve"+
+        (p.score===3?" choc":"");
+
+      btn.textContent="Approve "+prizeName(p.score);
+      btn.disabled=resetInProgress;
+
+      btn.onclick=()=>approvePrize(p,btn);
+      cell.appendChild(btn);
+    }
+  }
+
+  el("visitors").textContent=results.length;
+
+  el("toffees").textContent=results.filter(
+    p=>p.score===2 && approvals.has(p.id)
+  ).length;
+
+  el("chocolates").textContent=results.filter(
+    p=>p.score===3 && approvals.has(p.id)
+  ).length;
+
+  el("pending").textContent=results.filter(
+    p=>p.score>=2 && !approvals.has(p.id)
+  ).length;
+
+  el("message").textContent=
+    errorMessage ||
+    (!resultsReady||!approvalsReady
+      ?"Connecting to Firebase..."
+      :visible.length
+        ?""
+        :results.length
+          ?"No matching visitors."
+          :"No visitors yet.");
+
+  el("message").classList.toggle(
+    "hide",
+    !!visible.length &&
+    !errorMessage &&
+    resultsReady &&
+    approvalsReady
+  );
+
+  el("message").classList.toggle(
+    "error",!!errorMessage
+  );
+}
+
+function safeCSV(value) {
+  let s=String(value??"");
+
+  if(/^\s*[=+@\-]/.test(s))s="'"+s;
+
+  return '"'+s.replaceAll('"','""')+'"';
+}
+
+function downloadCSV() {
+  if(!resultsReady||!approvalsReady||errorMessage) {
+    alert("Dashboard is not ready.");
+    return;
+  }
+
+  const rows=[[
+    "Name",
+    "Level",
+    "Score",
+    "Prize",
+    "Ticket ID",
+    "Time Played",
+    "Admin Approved",
+    "Approved At",
+    "Toffees Given Out",
+    "Chocolates Given Out"
+  ]];
+
+  for(const p of results) {
+    const a=approvals.get(p.id);
+    const approved=!!a && p.score>=2;
+
+    rows.push([
+      p.name,
+      p.level,
+      p.score+"/3",
+      prizeName(p.score),
+      p.id.slice(-8).toUpperCase(),
+      formatTime(p.createdAt),
+      approved?"Yes":"No",
+      approved?formatTime(a.acceptedAt):"",
+      approved&&p.score===2?1:0,
+      approved&&p.score===3?1:0
+    ]);
+  }
+
+  const totalToffees=results.filter(
+    p=>p.score===2 && approvals.has(p.id)
+  ).length;
+
+  const totalChocolates=results.filter(
+    p=>p.score===3 && approvals.has(p.id)
+  ).length;
+
+  rows.push([
+    "TOTAL PRIZES GIVEN OUT",
+    "","","","","","","",
+    totalToffees,
+    totalChocolates
+  ]);
+
+  const csv=rows.map(
+    row=>row.map(safeCSV).join(",")
+  ).join("\r\n");
+
+  const blob=new Blob(["\uFEFF",csv],{
+    type:"text/csv;charset=utf-8"
+  });
+
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement("a");
+
+  a.href=url;
+  a.download="arabic-challenge-prizes.csv";
+
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+
+// Open the reset panel only for the original owner.
+el("resetVisitors").addEventListener("click",()=>{
+  if(auth.currentUser?.uid!==OWNER_UID)return;
+
+  el("resetPanel").classList.remove("hide");
+  el("resetPassword").value="";
+  showResetMessage("");
+  el("resetPassword").focus();
+});
+
+el("cancelReset").addEventListener("click",()=>{
+  if(resetInProgress)return;
+
+  el("resetPanel").classList.add("hide");
+  el("resetPassword").value="";
+});
+
+// Delete documents in small batches.
+// This works for more than 500 visitors too.
+async function deleteCollectionInBatches(collectionName) {
+  let deleted=0;
+
+  while(true) {
+    const page=await db.collection(collectionName)
+      .limit(200)
+      .get({source:"server"});
+
+    if(page.empty)break;
+
+    const batch=db.batch();
+
+    page.docs.forEach(doc=>{
+      batch.delete(doc.ref);
+    });
+
+    await batch.commit();
+
+    deleted+=page.size;
+
+    showResetMessage(
+      `Deleting ${collectionName}... ${deleted} removed`
+    );
+  }
+
+  return deleted;
+}
+
+// Verify the Firebase password BEFORE deleting.
+el("performReset").addEventListener("click",async()=>{
+  const user=auth.currentUser;
+
+  if(resetInProgress || !user || user.uid!==OWNER_UID)return;
+
+  const password=el("resetPassword").value;
+
+  if(!password) {
+    showResetMessage(
+      "Please type your current admin password.",true
+    );
+    return;
+  }
+
+  resetInProgress=true;
+
+  el("performReset").disabled=true;
+  el("cancelReset").disabled=true;
+  el("logout").disabled=true;
+  el("resetVisitors").disabled=true;
+  el("resetPassword").disabled=true;
+
+  try {
+    showResetMessage("Checking your password...");
+
+    const credential=
+      firebase.auth.EmailAuthProvider.credential(
+        user.email,password
+      );
+
+    await user.reauthenticateWithCredential(credential);
+
+    el("resetPassword").value="";
+
+    showResetMessage(
+      "Password correct. Deleting old prize approvals and visitor records..."
+    );
+
+    const approvalsDeleted=
+      await deleteCollectionInBatches("approvals");
+
+    const resultsDeleted=
+      await deleteCollectionInBatches("results");
+
+    showResetMessage(
+      `✅ Reset complete! Deleted ${resultsDeleted} visitor results and `+
+      `${approvalsDeleted} approvals. Everything is back to zero.`
+    );
+
+    el("resetPanel").classList.remove("hide");
+
+  } catch(error) {
+    console.error(error);
+    el("resetPassword").value="";
+
+    const wrongPassword=
+      error.code==="auth/wrong-password" ||
+      error.code==="auth/invalid-credential";
+
+    showResetMessage(
+      "❌ Reset stopped: "+
+      (wrongPassword
+        ?"Incorrect password."
+        :error.message||"Check Firebase Rules.")+
+      " If any records were deleted, check your dashboard before retrying.",
+      true
+    );
+
+  } finally {
+    resetInProgress=false;
+
+    el("performReset").disabled=false;
+    el("cancelReset").disabled=false;
+    el("logout").disabled=false;
+    el("resetVisitors").disabled=false;
+    el("resetPassword").disabled=false;
+
+    drawTable();
+  }
+});
+</script>
+</body>
+</html>
