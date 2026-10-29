@@ -6,167 +6,293 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Arabic Chocolate Challenge</title>
 <style>
-*{box-sizing:border-box}
-body{
+:root {
+  --purple:#6c3cb4;
+  --ink:#31243d;
+  --green:#127344;
+}
+* {box-sizing:border-box}
+body {
   margin:0;
-  padding:20px;
+  padding:22px;
+  min-height:100vh;
   font-family:Arial,sans-serif;
-  background:linear-gradient(145deg,#fff4db,#f2eaff);
-  color:#30243d;
+  color:var(--ink);
+  background:linear-gradient(145deg,#fff5d9,#f2e7ff);
 }
-main{
+main {
   max-width:580px;
-  margin:15px auto;
+  margin:12px auto;
+  padding:28px;
   background:white;
-  border-radius:25px;
-  padding:26px;
-  box-shadow:0 12px 35px #0002;
+  border-radius:26px;
+  box-shadow:0 14px 36px #0002;
+  position:relative;
+  overflow:hidden;
 }
-h1{text-align:center;color:#6d3bb6}
-h2{text-align:center}
-.subtitle{text-align:center;color:#696071}
-input,select,button{
+h1 {
+  text-align:center;
+  color:var(--purple);
+  margin:0 0 8px;
+}
+h2 {text-align:center}
+.subtitle {
+  text-align:center;
+  color:#635b6d;
+  line-height:1.5;
+}
+.rewardRow {
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  justify-content:center;
+  margin:16px 0 23px;
+}
+.rewardRow span {
+  background:#f4eafb;
+  border-radius:30px;
+  padding:9px;
+  font-size:13px;
+  font-weight:bold;
+}
+input,select,button {
+  font:inherit;
   width:100%;
   padding:14px;
-  margin:12px 0;
   border-radius:12px;
-  font:inherit;
+  margin:10px 0;
 }
-input,select{border:1px solid #ccc}
-button{
-  background:#6d3bb6;
-  color:white;
+input,select {border:1px solid #d2c8d9}
+button {
   border:0;
+  background:var(--purple);
+  color:white;
   font-weight:bold;
   cursor:pointer;
 }
-button:disabled{opacity:.5}
-.hide{display:none!important}
-.picture{
-  font-size:105px;
+button:disabled {opacity:.6}
+.hide {display:none!important}
+.picture {
   text-align:center;
-  padding:20px;
+  font-size:106px;
+  margin:14px 0;
 }
-.question{
-  font-size:23px;
+.question {
   text-align:center;
+  font-size:23px;
   font-weight:bold;
 }
-.options button{
-  font-size:25px;
+.progress {
+  text-align:center;
+  color:#5c5264;
+}
+.bar {
+  height:10px;
+  border-radius:20px;
+  background:#f0e7fa;
+  overflow:hidden;
+}
+.bar div {
+  height:100%;
+  background:linear-gradient(90deg,#804ed0,#dda6ff);
+  width:0;
+  transition:width .25s;
+}
+.options button {
+  font-size:26px;
   direction:rtl;
 }
-.good{color:green;font-weight:bold}
-.bad{color:red;font-weight:bold}
-.center{text-align:center}
-.result-box{
-  padding:20px;
+.good {color:green;font-weight:bold}
+.bad {color:#af2424;font-weight:bold}
+.result-box {
+  padding:22px;
+  border-radius:17px;
+  background:#fff0dc;
   text-align:center;
-  border-radius:16px;
-  background:#edfff1;
 }
-.no{background:#fff0ee}
-small{color:#666}
-#approvedTicket{
+.result-box.no {background:#f4f0fb}
+.result-box.chocolate {background:#e7f9e9}
+.status {
   text-align:center;
-  padding:28px 15px;
-  background:linear-gradient(145deg,#fff8df,#e5ffe9);
-  border:4px solid #d4ad42;
-  border-radius:23px;
+  color:#61576d;
 }
-.ticketTitle{
-  color:#16713c;
-  font-size:32px;
+small {
+  font-size:12px;
+  color:#645d6d;
+}
+#approvedTicket {
+  border:4px solid #ddb348;
+  background:linear-gradient(145deg,#fff8d9,#f1fff1);
+  border-radius:25px;
+  text-align:center;
+  padding:24px 14px;
+  position:relative;
+  overflow:hidden;
+}
+#approvedTicket.toffee {
+  border-color:#ce8b28;
+  background:linear-gradient(145deg,#fff6dd,#fff4e9);
+}
+.ticketIcon {font-size:75px}
+.ticketTitle {
+  color:#126f3f;
+  font-size:30px;
+  font-weight:900;
+  margin:10px 0;
+}
+.ticketName {
+  font-size:27px;
   font-weight:bold;
+  margin:12px 0;
 }
-.ticketIcon{font-size:75px}
-.ticketBox{
+.ticketBox {
+  padding:14px;
   background:white;
-  padding:15px;
+  border:1px solid #d8c69e;
   border-radius:14px;
-  margin:15px 0;
-  border:1px solid #d4ad42;
+  margin:13px 0;
+  word-break:break-word;
 }
-.ticketBanner{
-  background:#16713c;
-  color:white;
-  padding:20px;
-  border-radius:14px;
+.ticketBox small {display:block}
+.ticketBox strong {font-size:20px}
+.ticketCode {
+  letter-spacing:2px;
   font-weight:bold;
-  font-size:19px;
+  font-size:25px;
+}
+.ticketBanner {
+  background:#176b3e;
+  border-radius:14px;
+  padding:17px;
+  font-size:17px;
+  font-weight:bold;
+  color:white;
+  margin-top:18px;
+}
+#approvedTicket.toffee .ticketBanner {
+  background:#955717;
+}
+.mini {
+  font-size:13px;
+  color:#5d5667;
+  line-height:1.5;
+}
+.confetti {
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  overflow:hidden;
+}
+.confetti span {
+  position:absolute;
+  top:-15%;
+  width:10px;
+  height:17px;
+  animation:fall 3.5s ease-in forwards;
+}
+@keyframes fall {
+  to {
+    transform:translateY(740px) rotate(700deg);
+    opacity:0;
+  }
+}
+@media(prefers-reduced-motion:reduce) {
+  .confetti span {animation:none;display:none}
 }
 </style>
 </head>
 <body>
+
 <main>
-<h1>🍫 Arabic Chocolate Challenge</h1>
-<p class="subtitle">Get at least 1/3 correct to qualify for a chocolate!</p>
+<h1>🎉 Arabic Chocolate Challenge!</h1>
+<p class="subtitle">
+Match pictures with Arabic words.
+Answer just 3 questions!
+</p>
+
+<div class="rewardRow">
+<span>0–1/3: No prize</span>
+<span>2/3: 🍬 Toffee</span>
+<span>3/3: 🍫 Chocolate</span>
+</div>
 
 <section id="welcome">
-  <h2>Welcome!</h2>
-  <label>Your name</label>
-  <input id="playerName" maxlength="35"
-         placeholder="Enter your name">
+<h2>Ready to Play?</h2>
+<label>Your first name or nickname</label>
+<input id="playerName" maxlength="35"
+placeholder="Enter your name">
 
-  <label>Choose your Arabic level</label>
-  <select id="level">
-    <option value="beginner">Beginner</option>
-    <option value="intermediate">Intermediate</option>
-    <option value="advanced">Advanced</option>
-  </select>
+<label>Choose your Arabic level</label>
+<select id="level">
+<option value="beginner">Beginner</option>
+<option value="intermediate">Intermediate</option>
+<option value="advanced">Advanced</option>
+</select>
 
-  <button onclick="startQuiz()">Start Quiz 🚀</button>
-  <small>Your name, level and score will be shared with the organizer. No email is needed.</small>
+<button onclick="startQuiz()">
+Start the Challenge 🚀
+</button>
+<small>No email needed. The organizer will see
+your name, level and score.</small>
 </section>
 
 <section id="quiz" class="hide">
-  <p id="progress" class="center"></p>
-  <div id="picture" class="picture"></div>
-  <p class="question">What is the Arabic word for this picture?</p>
-  <div id="options" class="options"></div>
-  <p id="feedback"></p>
-  <button id="nextBtn" class="hide"
-          onclick="nextQuestion()">Next →</button>
+<p id="progress" class="progress"></p>
+<div class="bar"><div id="progressFill"></div></div>
+<div id="picture" class="picture"></div>
+<p class="question">
+What is the Arabic word for this picture?
+</p>
+<div class="options" id="options"></div>
+<p id="feedback"></p>
+<button id="nextBtn" class="hide"
+onclick="nextQuestion()">Next →</button>
 </section>
 
 <section id="result" class="hide">
-  <h2 id="scoreText"></h2>
-  <div id="resultBox" class="result-box">
-    <h2 id="prizeText"></h2>
-    <p id="approvalText"></p>
-  </div>
-  <p id="saveStatus" class="center"></p>
-  <button onclick="newVisitor()">New Visitor</button>
+<h2 id="scoreText"></h2>
+<div id="resultBox" class="result-box">
+<h2 id="prizeText"></h2>
+<p id="approvalText"></p>
+</div>
+<p id="saveStatus" class="status"></p>
+<button onclick="newVisitor()">New Visitor</button>
 </section>
 
 <section id="approvedTicket" class="hide">
-  <div class="ticketIcon">🏆🍫</div>
-  <div class="ticketTitle">ADMIN APPROVED!</div>
-  <h2>Chocolate Prize Ticket</h2>
-  <p>Your chocolate has been approved!</p>
+<div class="confetti" id="confetti"></div>
+<div class="ticketIcon" id="ticketIcon">🏆🍫</div>
+<div class="ticketTitle">✅ ADMIN APPROVED!</div>
+<h2 id="ticketPrize">Prize Ticket</h2>
+<p>Congratulations, Arabic Explorer!</p>
 
-  <div class="ticketBox">
-    <h2 id="ticketName"></h2>
-    <p>Score: <strong id="ticketScore"></strong></p>
-    <p>Level: <strong id="ticketLevel"></strong></p>
-  </div>
+<div class="ticketName" id="ticketName"></div>
 
-  <div class="ticketBox">
-    <small>UNIQUE PRIZE TICKET ID</small>
-    <h2 id="ticketCode"></h2>
-  </div>
+<div class="ticketBox">
+<small>YOUR SCORE</small>
+<strong id="ticketScore"></strong>
+<small>ARABIC LEVEL</small>
+<strong id="ticketLevel"></strong>
+</div>
 
-  <div class="ticketBox">
-    <small>Approved at</small>
-    <p id="ticketApprovedAt"></p>
-  </div>
+<div class="ticketBox">
+<small>PRIZE TICKET ID</small>
+<strong id="ticketCode" class="ticketCode"></strong>
+</div>
 
-  <div class="ticketBanner">
-    ✅ SHOW THIS SCREEN TO THE ORGANIZER
-  </div>
+<div class="ticketBox">
+<small>APPROVED AT</small>
+<strong id="ticketApprovedAt"></strong>
+</div>
 
-  <p>One chocolate per approved ticket.</p>
-  <button onclick="newVisitor()">New Visitor</button>
+<div class="ticketBanner" id="ticketBanner">
+SHOW THIS SCREEN TO THE ORGANIZER
+</div>
+
+<p class="mini">
+One prize per approved ticket.
+</p>
+<button onclick="newVisitor()">New Visitor</button>
 </section>
 
 </main>
@@ -332,205 +458,247 @@ advanced: `🧭|بوصلة
 };
 
 const wordBanks = Object.fromEntries(
-  Object.entries(pictureBankText).map(([key,text]) => [
-    key,
-    text.trim().split("\n").map(line => line.split("|"))
-  ])
+Object.entries(pictureBankText).map(([key,text]) => [
+key,
+text.trim().split("\n").map(line=>line.split("|"))
+])
 );
 
-const el = id => document.getElementById(id);
+const el=id=>document.getElementById(id);
 
-let questions = [];
-let questionNumber = 0;
-let score = 0;
-let playerName = "";
-let level = "";
-let locked = false;
-let approvalListener = null;
+let questions=[];
+let questionNumber=0;
+let score=0;
+let playerName="";
+let level="";
+let locked=false;
+let approvalListener=null;
+
+function prizeFor(score) {
+if(score===3) return "chocolate";
+if(score===2) return "toffee";
+return "none";
+}
 
 function shuffle(list) {
-  const arr = [...list];
-  for(let i = arr.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [arr[i],arr[j]] = [arr[j],arr[i]];
-  }
-  return arr;
+const arr=[...list];
+for(let i=arr.length-1;i>0;i--) {
+const j=Math.floor(Math.random()*(i+1));
+[arr[i],arr[j]]=[arr[j],arr[i]];
+}
+return arr;
 }
 
 function createQuestions(selectedLevel) {
-  const bank = wordBanks[selectedLevel];
+const bank=wordBanks[selectedLevel];
 
-  return shuffle(bank).slice(0,3).map(([picture,correct]) => {
-    const wrong = shuffle(
-      bank.filter(item => item[1] !== correct)
-    ).slice(0,2).map(item => item[1]);
+return shuffle(bank).slice(0,3).map(([picture,correct])=>{
+const wrong=shuffle(
+bank.filter(item=>item[1]!==correct)
+).slice(0,2).map(item=>item[1]);
 
-    const options = shuffle([correct,...wrong]);
+const options=shuffle([correct,...wrong]);
 
-    return {
-      picture:picture,
-      options:options,
-      correct:options.indexOf(correct)
-    };
-  });
+return {
+picture,
+options,
+correct:options.indexOf(correct)
+};
+});
 }
 
 function startQuiz() {
-  playerName = el("playerName").value.trim().replace(/\s+/g," ");
+playerName=el("playerName").value.trim();
 
-  if(!playerName) {
-    alert("Please enter your name.");
-    return;
-  }
+if(!playerName) {
+alert("Please enter your name.");
+return;
+}
 
-  level = el("level").value;
-  questions = createQuestions(level);
-  questionNumber = 0;
-  score = 0;
+level=el("level").value;
+questions=createQuestions(level);
+questionNumber=0;
+score=0;
 
-  el("welcome").classList.add("hide");
-  el("quiz").classList.remove("hide");
-
-  showQuestion();
+el("welcome").classList.add("hide");
+el("quiz").classList.remove("hide");
+showQuestion();
 }
 
 function showQuestion() {
-  locked = false;
-  const q = questions[questionNumber];
+locked=false;
+const q=questions[questionNumber];
 
-  el("progress").textContent =
-    `Question ${questionNumber+1} of 3`;
+el("progress").textContent=
+`Question ${questionNumber+1} of 3`;
 
-  el("picture").textContent = q.picture;
-  el("feedback").textContent = "";
-  el("feedback").className = "";
-  el("nextBtn").classList.add("hide");
+el("progressFill").style.width=
+(questionNumber/3*100)+"%";
 
-  const container = el("options");
-  container.replaceChildren();
+el("picture").textContent=q.picture;
+el("feedback").textContent="";
+el("feedback").className="";
+el("nextBtn").classList.add("hide");
 
-  q.options.forEach((option,i) => {
-    const button = document.createElement("button");
-    button.textContent = option;
-    button.onclick = () => chooseAnswer(i);
-    container.appendChild(button);
-  });
+const container=el("options");
+container.replaceChildren();
+
+q.options.forEach((option,i)=>{
+const button=document.createElement("button");
+button.textContent=option;
+button.dir="rtl";
+button.onclick=()=>chooseAnswer(i);
+container.appendChild(button);
+});
 }
 
 function chooseAnswer(i) {
-  if(locked) return;
-  locked = true;
+if(locked)return;
+locked=true;
 
-  const q = questions[questionNumber];
-  const ok = i === q.correct;
+const q=questions[questionNumber];
+const correct=i===q.correct;
 
-  if(ok) score++;
+if(correct)score++;
 
-  el("feedback").textContent = ok
-    ? "✅ Correct!"
-    : "❌ Wrong! Correct answer: " + q.options[q.correct];
+el("feedback").textContent=correct
+?"✅ Correct!"
+:"❌ Wrong! Correct answer: "+q.options[q.correct];
 
-  el("feedback").className = ok ? "good" : "bad";
+el("feedback").className=correct?"good":"bad";
 
-  [...el("options").children].forEach(button => {
-    button.disabled = true;
-  });
+[...el("options").children].forEach(button=>{
+button.disabled=true;
+});
 
-  el("nextBtn").textContent =
-    questionNumber === 2 ? "See Result →" : "Next →";
+el("progressFill").style.width=
+((questionNumber+1)/3*100)+"%";
 
-  el("nextBtn").classList.remove("hide");
+el("nextBtn").textContent=
+questionNumber===2?"See Prize Result →":"Next →";
+
+el("nextBtn").classList.remove("hide");
 }
 
 function nextQuestion() {
-  questionNumber++;
+questionNumber++;
 
-  if(questionNumber < 3) {
-    showQuestion();
-  } else {
-    finishQuiz();
-  }
+if(questionNumber<3)showQuestion();
+else finishQuiz();
 }
 
 function newVisitor() {
-  if(approvalListener) {
-    approvalListener();
-    approvalListener = null;
-  }
-  location.reload();
+if(approvalListener)approvalListener();
+location.reload();
 }
 
 async function finishQuiz() {
-  el("quiz").classList.add("hide");
-  el("result").classList.remove("hide");
+el("quiz").classList.add("hide");
+el("result").classList.remove("hide");
 
-  el("scoreText").textContent =
-    `${playerName}, you scored ${score}/3!`;
+el("scoreText").textContent=
+`${playerName}, you scored ${score}/3!`;
 
-  const won = score >= 1;
-  el("resultBox").classList.toggle("no", !won);
+const prize=prizeFor(score);
+const won=prize!=="none";
 
-  el("prizeText").textContent = won
-    ? "🍫 You qualify for a chocolate!"
-    : "No chocolate this time.";
+el("resultBox").className=
+"result-box"+(prize==="none"?" no":
+prize==="chocolate"?" chocolate":"");
 
-  el("approvalText").textContent = won
-    ? "⏳ Waiting for admin approval. Keep this tab open."
-    : "You need at least 1 correct answer.";
+el("prizeText").textContent=
+prize==="chocolate"?"🏆 CHOCOLATE CHAMPION!":
+prize==="toffee"?"🍬 TOFFEE STAR!":
+"🌟 ARABIC EXPLORER!";
 
-  el("saveStatus").textContent = "Saving result...";
+el("approvalText").textContent=won
+?`You won a ${prize}! Waiting for admin approval. Keep this tab open.`
+:"Nice try! No prize for 0/3 or 1/3.";
 
-  try {
-    const ref = db.collection("results").doc();
+el("saveStatus").textContent="Saving your result...";
 
-    await ref.set({
-      name:playerName,
-      level:level,
-      score:score,
-      total:3,
-      won:won,
-      createdAt:firebase.firestore.FieldValue.serverTimestamp()
-    });
+try {
+const ref=db.collection("results").doc();
 
-    el("saveStatus").textContent =
-      "✅ Result saved to the admin dashboard.";
+await ref.set({
+name:playerName,
+level,
+score,
+total:3,
+won,
+createdAt:firebase.firestore.FieldValue.serverTimestamp()
+});
 
-    if(won) {
-      approvalListener = db.collection("approvals")
-        .doc(ref.id)
-        .onSnapshot(snapshot => {
-          if(snapshot.exists && snapshot.data().accepted === true) {
-            showApprovedTicket(ref.id,snapshot.data());
-          }
-        },error => {
-          console.error(error);
-          el("approvalText").textContent =
-            "Ask the organizer to check your approval status.";
-        });
-    }
-  } catch(error) {
-    console.error(error);
-    el("saveStatus").textContent =
-      "⚠️ Result NOT saved. Ask the organizer for help.";
-  }
+el("saveStatus").textContent="✅ Result saved!";
+
+if(won) {
+approvalListener=db.collection("approvals")
+.doc(ref.id)
+.onSnapshot(snapshot=>{
+if(snapshot.exists && snapshot.data().accepted===true){
+showApprovedTicket(ref.id,snapshot.data());
+}
+},error=>{
+console.error(error);
+el("approvalText").textContent=
+"Please ask the organizer to confirm your prize.";
+});
+}
+} catch(error) {
+console.error(error);
+el("saveStatus").textContent=
+"⚠️ Result not saved. Check with organizer.";
+}
 }
 
-function showApprovedTicket(resultId,approval) {
-  el("result").classList.add("hide");
-  el("approvedTicket").classList.remove("hide");
+function celebrate() {
+const box=el("confetti");
+box.replaceChildren();
 
-  el("ticketName").textContent = playerName;
-  el("ticketScore").textContent = `${score}/3`;
-  el("ticketLevel").textContent =
-    level.charAt(0).toUpperCase() + level.slice(1);
+const colors=["#e2ac28","#8c4ad2","#31b979","#ef7a9a"];
 
-  el("ticketCode").textContent =
-    resultId.slice(-8).toUpperCase();
+for(let i=0;i<22;i++) {
+const piece=document.createElement("span");
+piece.style.left=(i*13%96+2)+"%";
+piece.style.backgroundColor=colors[i%4];
+piece.style.animationDelay=(i%6*.13)+"s";
+box.appendChild(piece);
+}
+}
 
-  el("ticketApprovedAt").textContent =
-    approval.acceptedAt?.toDate
-      ? approval.acceptedAt.toDate().toLocaleString()
-      : "Just approved";
+function showApprovedTicket(id,approval) {
+const prize=prizeFor(score);
+
+el("result").classList.add("hide");
+el("approvedTicket").classList.remove("hide");
+el("approvedTicket").classList.toggle(
+"toffee",prize==="toffee"
+);
+
+el("ticketIcon").textContent=
+prize==="chocolate"?"🏆🍫":"🌟🍬";
+
+el("ticketPrize").textContent=
+prize==="chocolate"
+?"🍫 CHOCOLATE PRIZE TICKET"
+:"🍬 TOFFEE PRIZE TICKET";
+
+el("ticketName").textContent=playerName;
+el("ticketScore").textContent=score+"/3";
+el("ticketLevel").textContent=level;
+el("ticketCode").textContent=
+id.slice(-8).toUpperCase();
+
+el("ticketApprovedAt").textContent=
+approval.acceptedAt?.toDate
+?approval.acceptedAt.toDate().toLocaleString()
+:"Just approved";
+
+el("ticketBanner").textContent=
+"✅ SHOW THIS SCREEN TO COLLECT YOUR "+
+prize.toUpperCase();
+
+celebrate();
 }
 </script>
 </body>
