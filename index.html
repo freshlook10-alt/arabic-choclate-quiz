@@ -3,425 +3,342 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Arabic Chocolate Challenge</title>
 <style>
-:root {
-  --purple:#793bc5;
-  --ink:#241b42;
-  --gold:#ffce63;
+*{box-sizing:border-box}
+body{
+margin:0;min-height:100vh;padding:22px 12px;
+font-family:system-ui,Arial,sans-serif;
+color:#35223f;
+background:linear-gradient(135deg,#e1fbe1,#fff5c8);
+transition:background .4s
 }
-* {box-sizing:border-box}
-body {
-  margin:0;
-  min-height:100vh;
-  padding:25px 14px;
-  font-family:"Trebuchet MS",system-ui,Arial,sans-serif;
-  color:var(--ink);
-  background:
-    radial-gradient(circle at 10% 12%,#fff1a6,transparent 32%),
-    radial-gradient(circle at 87% 15%,#ffb7dc,transparent 28%),
-    radial-gradient(circle at 20% 85%,#c2f8ff,transparent 28%),
-    linear-gradient(135deg,#f6e1ff,#fff6d9 54%,#ecf2ff);
+body[data-theme="beginner"]{
+background:
+radial-gradient(circle at 8% 22%,#b9ffc8,transparent 35%),
+radial-gradient(circle at 94% 14%,#fff09b,transparent 35%),
+linear-gradient(150deg,#d2ffdf,#9fdaa5)
 }
-body::before,body::after {
-  content:"✦ ✧ ✦ ✨";
-  position:fixed;
-  pointer-events:none;
-  font-size:27px;
-  color:#b485eb;
-  opacity:.5;
-  letter-spacing:16px;
-  animation:drift 9s ease-in-out infinite alternate;
+body[data-theme="intermediate"]{
+background:
+radial-gradient(circle at 7% 20%,#ffce74,transparent 35%),
+radial-gradient(circle at 94% 15%,#ffeab2,transparent 35%),
+linear-gradient(150deg,#ffcd96,#d58b62)
 }
-body::before {left:3%;top:14%}
-body::after {
-  right:3%;
-  bottom:17%;
-  animation-delay:2s;
+body[data-theme="advanced"]{
+background:
+radial-gradient(circle at 6% 15%,#8054c2,transparent 39%),
+radial-gradient(circle at 95% 22%,#e1b95e,transparent 34%),
+linear-gradient(145deg,#1b1244,#51306b)
 }
-@keyframes drift {
-  to {transform:translateY(-28px) rotate(10deg)}
+main{
+max-width:620px;margin:0 auto;background:#fffefcf7;
+border:4px solid #fff;border-radius:28px;
+padding:20px 22px 28px;
+box-shadow:0 20px 60px #25143c48;
+position:relative;overflow:hidden
 }
-main {
-  max-width:610px;
-  margin:4px auto;
-  padding:28px;
-  border:3px solid #ffffffcc;
-  border-radius:32px;
-  position:relative;
-  overflow:hidden;
-  background:linear-gradient(160deg,#fffffffc,#fff9ffff);
-  box-shadow:0 20px 0 #d8b1ea66,0 33px 70px #66317a40;
+body[data-theme="advanced"] main{
+border-color:#dab75b;background:#fff9f3
 }
-main::before {
-  content:"🍬      ✨      🍫";
-  display:block;
-  text-align:center;
-  padding:8px 0 11px;
-  font-size:26px;
-  letter-spacing:14px;
+header{text-align:center}
+.decor{
+font-size:25px;letter-spacing:12px;
+animation:bob 3s infinite alternate
 }
-h1 {
-  font-size:clamp(27px,5vw,38px);
-  line-height:1.1;
-  text-align:center;
-  margin:9px 0;
-  color:var(--purple);
-  text-shadow:2px 2px #f3d8ff;
+h1{
+font-size:clamp(25px,5vw,38px);
+color:#7841ad;margin:8px 0
 }
-h2 {text-align:center}
-.subtitle {
-  text-align:center;
-  color:#71617f;
-  line-height:1.55;
-  font-weight:600;
+h2{text-align:center}
+p{line-height:1.5}
+.intro{
+text-align:center;color:#665271;font-weight:650
 }
-.sparkles {
-  text-align:center;
-  color:#e2ab38;
-  letter-spacing:10px;
-  font-size:20px;
-  animation:shine 3s ease-in-out infinite;
+.scene{
+border-radius:23px;padding:22px 14px;margin:16px 0;
+text-align:center;border:3px solid #a7dfac;
+background:linear-gradient(#e4ffdc,#fff8cd);
+position:relative;box-shadow:0 9px 0 #92cc9e66
 }
-@keyframes shine {
-  50% {opacity:.4;transform:scale(1.05)}
+.scene .sceneIcon{
+font-size:59px;display:block;
+animation:bob 3s ease-in-out infinite alternate
 }
-.rules {
-  display:flex;
-  flex-wrap:wrap;
-  gap:9px;
-  justify-content:center;
-  margin:20px 0;
+.scene strong{
+display:block;font-size:22px;margin-top:6px
 }
-.rules span {
-  border:2px solid #f2daff;
-  padding:10px;
-  border-radius:99px;
-  background:linear-gradient(110deg,#fff0fe,#fff5d9);
-  font-size:12px;
-  font-weight:900;
-  box-shadow:0 5px 0 #e6cff3;
+.scene small{
+display:block;color:#6a5272;margin-top:6px
 }
-input,select,button {
-  width:100%;
-  display:block;
-  font:inherit;
-  border-radius:16px;
-  padding:15px;
-  margin:11px 0;
+body[data-theme="intermediate"] .scene{
+background:linear-gradient(#fff0b9,#f7b47b);
+border-color:#da9556;
+box-shadow:0 9px 0 #a46c4c55
 }
-input,select {
-  border:2px solid #ded1f0;
-  background:white;
-  color:#33204d;
-  outline:none;
+body[data-theme="advanced"] .scene{
+background:linear-gradient(#271349,#754d93);
+border-color:#d7ab52;color:#fff2cb;
+box-shadow:0 9px 0 #9b6bba55
 }
-input:focus,select:focus {
-  border-color:#a366ef;
-  box-shadow:0 0 0 4px #ac7cf42d;
+body[data-theme="advanced"] .scene small{
+color:#f1d9ff
 }
-label {font-weight:900;color:#4b286f}
-button {
-  cursor:pointer;
-  color:white;
-  font-weight:900;
-  border:0;
-  background:linear-gradient(120deg,var(--purple),#ab54de);
-  box-shadow:0 7px 0 #4b2874;
-  transition:transform .13s,filter .13s;
+label{
+display:block;margin:16px 0 6px;font-weight:800
 }
-button:hover:not(:disabled) {
-  filter:brightness(1.09);
-  transform:translateY(-2px);
+input,select,button{
+font:inherit;width:100%;padding:14px;
+border-radius:14px;margin:7px 0
 }
-button:active:not(:disabled) {
-  transform:translateY(4px);
-  box-shadow:0 3px 0 #4b2874;
+input,select{
+border:2px solid #d1bde3;background:white;color:#30203c
 }
-button:disabled {
-  opacity:.63;
-  box-shadow:none;
-  cursor:default;
+button{
+background:linear-gradient(105deg,#7840b5,#bc66ce);
+color:white;border:0;font-weight:850;cursor:pointer;
+box-shadow:0 5px 0 #513077
 }
-.hide {display:none!important}
-.small {
-  font-size:13px;
-  line-height:1.6;
-  color:#766885;
-  text-align:center;
+button:disabled{
+opacity:.55;cursor:default;box-shadow:none
 }
-.world {
-  margin:18px 0;
-  background:linear-gradient(135deg,#fff4d7,#f7ebff);
-  border:2px dashed #cda9e8;
-  padding:17px;
-  text-align:center;
-  border-radius:20px;
+.hide{display:none!important}
+.code{
+background:#fff0c4;border:2px dashed #cda04b;
+border-radius:15px;text-align:center;
+padding:12px;margin:15px 0;
+font-weight:900;letter-spacing:1px
 }
-.world strong {
-  font-size:19px;
-  color:var(--purple);
+.code strong{
+font-size:24px;display:block;color:#70409b
 }
-.world p {margin:7px 0 2px;color:#655576}
-.progress {
-  text-align:center;
-  font-weight:900;
-  color:var(--purple);
-  margin:18px 0 10px;
+.warning{
+background:#fff0f1;color:#ab2039;
+border:2px solid #e68591;border-radius:14px;
+padding:13px;font-weight:850;
+text-align:center;margin:14px 0
 }
-.bar {
-  width:100%;
-  height:15px;
-  background:#efe2f9;
-  border:2px solid #e2c5f8;
-  overflow:hidden;
-  border-radius:99px;
+.rules{
+display:flex;flex-wrap:wrap;
+justify-content:center;gap:7px
 }
-.bar div {
-  height:100%;
-  width:0;
-  background:linear-gradient(90deg,#e9af36,#fc88b4,#9964ea);
-  transition:width .25s;
+.rules span{
+background:#f3ebfb;border-radius:99px;
+padding:9px;font-size:12px;font-weight:800
 }
-.picture {
-  font-size:110px;
-  text-align:center;
-  margin:23px auto 16px;
-  min-height:200px;
-  width:min(100%,290px);
-  display:grid;
-  place-items:center;
-  background:radial-gradient(circle,#fffded,#f9e4ff);
-  border:4px solid #eec0ff;
-  border-radius:28px;
-  box-shadow:0 10px 0 #dfbfe8;
-  animation:pop .4s ease;
+.progress{
+text-align:center;font-weight:850;color:#7341a5
 }
-@keyframes pop {
-  from {opacity:.3;transform:scale(.89)}
-  to {opacity:1;transform:scale(1)}
+.bar{
+background:#efe3f7;height:13px;
+border-radius:40px;overflow:hidden
 }
-.question {
-  text-align:center;
-  font-size:23px;
-  line-height:1.5;
-  font-weight:900;
+.bar div{
+height:100%;width:0;
+background:linear-gradient(90deg,#89cc63,#b15ee9,#fac75a);
+transition:width .2s
 }
-.question.arabic {
-  direction:rtl;
-  font-size:27px;
-  background:#fcf0ff;
-  border-radius:20px;
-  border:2px solid #ebcafa;
-  padding:18px;
+.picture{
+font-size:105px;margin:22px auto 12px;
+display:grid;place-items:center;
+width:min(100%,300px);height:205px;
+border-radius:27px;border:4px solid #dcb1ef;
+background:radial-gradient(circle,#fff9da,#f5dffc);
+box-shadow:0 9px 0 #d7b4ed
 }
-.hint {
-  text-align:center;
-  color:#8548b9;
-  font-weight:900;
+body[data-theme="beginner"] .picture{
+background:linear-gradient(#e1ffe2,#fcf6c8);
+border-color:#91d6ab
 }
-.options button {
-  direction:rtl;
-  font-size:26px;
-  background:linear-gradient(110deg,#7538c0,#9e55d5);
-  border:2px solid #c999ed;
-  box-shadow:0 5px 0 #4c257f;
+body[data-theme="intermediate"] .picture{
+background:linear-gradient(#fff0bb,#f9d49d);
+border-color:#d3a35d
 }
-.options button:disabled {opacity:.75}
-.good,.bad {
-  font-weight:900;
-  font-size:19px;
-  text-align:center;
+body[data-theme="advanced"] .picture{
+background:linear-gradient(#332359,#9160b7);
+border-color:#f4c96b
 }
-.good {color:#16864d}
-.bad {color:#c82a56}
-#resultBox {
-  background:linear-gradient(135deg,#f8e9ff,#fffcf0);
-  padding:24px;
-  border:2px solid #e5c9f9;
-  border-radius:20px;
-  text-align:center;
+.question{
+text-align:center;font-size:23px;
+font-weight:900;line-height:1.6
 }
-.toffeeResult {
-  background:#fff4dd!important;
-  border-color:#eec774!important;
+.question.ar{
+direction:rtl;font-size:28px;
+padding:14px;background:#f6eafc;border-radius:15px
 }
-.chocolateResult {
-  background:#e3fae9!important;
-  border-color:#80d4a6!important;
+.hint{
+text-align:center;color:#7d4697;font-weight:800
 }
-#reveal {
-  font-size:88px;
-  text-align:center;
-  animation:pop .65s ease;
+.choices button{
+font-size:25px;direction:rtl;padding:16px
 }
-.status {
-  text-align:center;
-  color:#7c617c;
-  font-weight:700;
+.feedback{
+text-align:center;font-size:18px;font-weight:900
 }
-#ticket {
-  border:4px solid #e5b747;
-  border-radius:26px;
-  background:linear-gradient(135deg,#fffce5,#e6ffec);
-  padding:23px 16px;
-  text-align:center;
-  position:relative;
-  overflow:hidden;
-  box-shadow:0 12px 0 #dac68c;
+.correct{color:#0d8548}
+.incorrect{color:#bc254b}
+.result{
+background:#f7eefa;border-radius:20px;
+text-align:center;padding:24px 14px
 }
-#ticket.toffee {
-  background:linear-gradient(135deg,#fff2d3,#ffe7ed);
-  border-color:#dc8a44;
+.result .emoji{font-size:70px}
+.result.chocolate{background:#e8ffeb}
+.result.toffee{background:#fff4d6}
+.ticket{
+text-align:center;border:4px solid #d4ab49;
+border-radius:25px;
+background:linear-gradient(#fffbdc,#e8ffed);
+padding:20px;position:relative;overflow:hidden
 }
-.stamp {font-size:70px}
-.approved {
-  color:#13814b;
-  font-size:28px;
-  font-weight:900;
+.ticket.toffee{
+background:linear-gradient(#fff9d7,#ffe9eb)
 }
-.ticketBox {
-  background:white;
-  padding:16px;
-  border:2px solid #e9d8ae;
-  border-radius:18px;
-  margin:15px 0;
+.ticket .emoji{font-size:70px}
+.ticket h2{color:#187642}
+.ticket .field{
+background:white;border:1px solid #e7cf8d;
+border-radius:14px;padding:13px;margin:12px 0
 }
-.ticketBox strong {
-  display:block;
-  font-size:20px;
-  overflow-wrap:anywhere;
+.ticket .field strong{
+font-size:21px;overflow-wrap:anywhere
 }
-.ticketBox small {color:#786f82}
-.ticketBanner {
-  border-radius:14px;
-  background:#19824b;
-  color:white;
-  padding:18px;
-  font-weight:900;
+.ticket .banner{
+background:#197a49;color:white;
+padding:17px;border-radius:12px;font-weight:900
 }
-#ticket.toffee .ticketBanner {background:#b26c2f}
-.certificate {
-  background:#fffbea;
-  border:3px double #cda13f;
-  border-radius:17px;
-  margin:15px 0;
-  padding:18px;
-  font-size:17px;
+.ticket.toffee .banner{background:#b27621}
+.confetti{
+position:absolute;inset:0;
+overflow:hidden;pointer-events:none
 }
-.confetti {
-  position:absolute;
-  inset:0;
-  pointer-events:none;
-  overflow:hidden;
+.confetti i{
+position:absolute;top:-15%;
+width:10px;height:14px;animation:drop 3s forwards
 }
-.confetti i {
-  position:absolute;
-  top:-12%;
-  width:9px;
-  height:14px;
-  animation:rain 3s ease-in forwards;
+@keyframes drop{
+to{
+transform:translateY(700px) rotate(750deg);
+opacity:0
 }
-@keyframes rain {
-  to {
-    transform:translateY(750px) rotate(700deg);
-    opacity:0;
-  }
 }
-main[data-level="beginner"] {--purple:#178f79}
-main[data-level="intermediate"] {--purple:#266dbb}
-main[data-level="advanced"] {--purple:#7f35c1}
-@media(prefers-reduced-motion:reduce) {
-  *,*::before,*::after {
-    animation:none!important;
-    transition:none!important;
-  }
+@keyframes bob{to{transform:translateY(-9px)}}
+.small{
+font-size:13px;color:#6b5a73;text-align:center
+}
+@media(prefers-reduced-motion:reduce){
+*,*::before,*::after{
+animation:none!important;transition:none!important
+}
 }
 </style>
 </head>
-<body>
-<main id="game">
-  <div class="sparkles">✦ ✧ ✦ ✧ ✦</div>
-  <h1>🍫 Arabic Chocolate Challenge</h1>
-  <p class="subtitle">Three magical questions. A surprise prize awaits!</p>
-  <div class="rules">
-    <span>0/3–1/3: No prize</span>
-    <span>2/3: 🍬 Toffee</span>
-    <span>3/3: 🍫 Chocolate</span>
-  </div>
 
-  <section id="welcome">
-    <label for="name">Your first name or nickname</label>
-    <input id="name" maxlength="35"
-      autocomplete="off" placeholder="Enter your name">
+<body data-theme="beginner">
+<main>
+<header>
+<div class="decor">✦ 🍬 ✨ 🍫 ✦</div>
+<h1>Arabic Chocolate Challenge</h1>
+<div class="intro">
+3 questions • 3 levels • A sweet surprise!
+</div>
+</header>
 
-    <label for="level">Choose your level</label>
-    <select id="level" onchange="updateWorld()">
-      <option value="beginner">🌱 Beginner</option>
-      <option value="intermediate">⚡ Intermediate</option>
-      <option value="advanced">👑 Advanced</option>
-    </select>
+<div class="rules">
+<span>0–1/3: No prize</span>
+<span>2/3: 🍬 Toffee</span>
+<span>3/3: 🍫 Chocolate</span>
+</div>
 
-    <div id="world" class="world"></div>
-    <button onclick="startQuiz()">🚀 Enter the Challenge</button>
-    <p class="small">
-      No email needed. Reopen the website to start a new quiz.
-      Keep the result screen open for prize approval.
-    </p>
-  </section>
+<div class="scene" id="scene">
+<span class="sceneIcon" id="sceneIcon">🌺🦋🌳</span>
+<strong id="sceneTitle">Magical Garden</strong>
+<small id="sceneCaption">
+Discover Arabic words in the garden
+</small>
+</div>
 
-  <section id="quiz" class="hide">
-    <p id="progress" class="progress"></p>
-    <div class="bar"><div id="fill"></div></div>
-    <div id="picture" class="picture"></div>
-    <p id="hint" class="hint"></p>
-    <p id="question" class="question"></p>
-    <div id="options" class="options"></div>
-    <p id="feedback" role="status"></p>
-    <button id="next" class="hide" onclick="nextQuestion()">
-      Next ➜
-    </button>
-  </section>
+<div class="code">
+YOUR VISITOR CODE
+<strong id="visitorCode">Connecting…</strong>
+</div>
 
-  <section id="result" class="hide">
-    <div id="reveal">🎁</div>
-    <h2 id="scoreTitle"></h2>
-    <div id="resultBox">
-      <h2 id="resultTitle"></h2>
-      <p id="resultInfo"></p>
-    </div>
-    <p id="saveStatus" class="status"></p>
-  </section>
+<div id="retryNotice" class="warning hide">
+⚠️ YOU HAVE ALREADY PLAYED!
+You can try again for fun, but this visitor code
+cannot win another toffee or chocolate.
+</div>
 
-  <section id="ticket" class="hide">
-    <div class="confetti" id="confetti"></div>
-    <div class="stamp" id="ticketIcon">🏆🍫</div>
-    <div class="approved">✅ ADMIN APPROVED!</div>
-    <h2 id="ticketPrize"></h2>
-    <div class="ticketBox">
-      <strong id="ticketName"></strong>
-      <span id="ticketScore"></span>
-      <span id="ticketLevel"></span>
-    </div>
-    <div class="ticketBox">
-      <small>PRIZE TICKET ID</small>
-      <strong id="ticketId"></strong>
-    </div>
-    <div class="ticketBox">
-      <small>APPROVED AT</small>
-      <strong id="ticketTime"></strong>
-    </div>
-    <div id="certificate" class="certificate hide">
-      👑 <b>ARABIC CHAMPION CERTIFICATE</b>
-      <p>Congratulations on a perfect 3/3 score!</p>
-    </div>
-    <div class="ticketBanner" id="ticketBanner"></div>
-    <p class="small">
-      Show this ticket to your organizer.
-      One prize per approved ticket.
-    </p>
-  </section>
+<section id="welcome">
+<label for="name">Your first name or nickname</label>
+<input id="name" maxlength="35"
+placeholder="Enter your name" autocomplete="off">
+
+<label for="level">Choose your level</label>
+<select id="level">
+<option value="beginner">🌱 Beginner — Garden</option>
+<option value="intermediate">🏮 Intermediate — Bazaar</option>
+<option value="advanced">👑 Advanced — Kingdom</option>
+</select>
+
+<button id="start" disabled>
+Preparing your visitor code…
+</button>
+
+<p id="introStatus" class="small" role="status"></p>
+</section>
+
+<section id="quiz" class="hide">
+<p id="progress" class="progress"></p>
+<div class="bar"><div id="barFill"></div></div>
+<div id="picture" class="picture"></div>
+<p id="hint" class="hint"></p>
+<p id="question" class="question"></p>
+<div id="choices" class="choices"></div>
+<p id="feedback" class="feedback" role="status"></p>
+<button id="next" class="hide">Next ➜</button>
+</section>
+
+<section id="result" class="hide">
+<div class="result" id="resultBox">
+<div id="resultEmoji" class="emoji">🎁</div>
+<h2 id="score"></h2>
+<h2 id="prizeTitle"></h2>
+<p id="prizeInfo"></p>
+</div>
+<p class="small" id="saveStatus"></p>
+</section>
+
+<section id="ticket" class="ticket hide">
+<div class="confetti" id="confetti"></div>
+<div class="emoji" id="ticketEmoji">🏆🍫</div>
+<h2>✅ ADMIN APPROVED!</h2>
+<h2 id="ticketPrize"></h2>
+<div class="field">
+<strong id="ticketName"></strong>
+<p id="ticketScore"></p>
+</div>
+<div class="field">
+VISITOR CODE
+<strong id="ticketCode"></strong>
+</div>
+<div class="field">
+PRIZE TICKET ID
+<strong id="ticketId"></strong>
+</div>
+<div class="field">
+APPROVED AT
+<strong id="ticketTime"></strong>
+</div>
+<div id="certificate" class="field hide">
+👑 <b>ARABIC CHAMPION CERTIFICATE</b>
+<p>Perfect score: 3/3!</p>
+</div>
+<div id="ticketBanner" class="banner"></div>
+<p class="small">
+Please show this ticket to your organizer.
+</p>
+</section>
 </main>
 
 <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-app-compat.js"></script>
@@ -429,9 +346,18 @@ main[data-level="advanced"] {--purple:#7f35c1}
 <script src="firebase-config.js"></script>
 
 <script>
-// 150 picture questions: 50 for each level.
-const pictureBankText = {
-beginner: `🐎|حصان
+const $=id=>document.getElementById(id);
+
+const DEVICE_KEY="ACC_BROWSER_DEVICE_V3";
+const ATTEMPT_KEY="ACC_BROWSER_ATTEMPTS_V3";
+
+let deviceId=null;
+let device=null;
+let playing=null;
+let approvalStop=null;
+
+const bank={
+beginner:`🐎|حصان
 🍎|تفاحة
 ☀️|شمس
 🐈|قطة
@@ -482,7 +408,7 @@ beginner: `🐎|حصان
 🔥|نار
 ⭐|نجمة`,
 
-intermediate: `🔑|مفتاح
+intermediate:`🔑|مفتاح
 🌉|جسر
 🏥|مستشفى
 🏫|مدرسة
@@ -533,7 +459,7 @@ intermediate: `🔑|مفتاح
 🧽|إسفنجة
 🪴|نبات منزلي`,
 
-advanced: `🧭|بوصلة
+advanced:`🧭|بوصلة
 🔬|مجهر
 ⚖️|ميزان
 🧪|أنبوب اختبار
@@ -585,27 +511,24 @@ advanced: `🧭|بوصلة
 🪐|كوكب ذو حلقات`
 };
 
-const wordBanks = Object.fromEntries(
-  Object.entries(pictureBankText).map(([key,text]) => [
-    key,
-    text.trim().split("\n").map(line => line.split("|"))
-  ])
+const words=Object.fromEntries(
+Object.entries(bank).map(([k,v])=>[
+k,v.trim().split("\n").map(x=>x.split("|"))
+])
 );
 
-// 100 sentence patterns with 3 subjects each = 300 sentences.
-const rareSentences = [];
+// 300 Arabic sentence variations.
+const rare=[];
 
-function addRare(subjects, text) {
-  text.trim().split("\n").forEach(line => {
-    const [sentence,right,wrong1,wrong2] = line.split("|");
-    subjects.forEach(who => {
-      rareSentences.push({
-        sentence:sentence.replace("{who}",who),
-        correct:right,
-        options:[right,wrong1,wrong2]
-      });
-    });
-  });
+function addRare(subjects,txt){
+txt.trim().split("\n").forEach(line=>{
+const [sentence,correct,w1,w2]=line.split("|");
+subjects.forEach(who=>rare.push({
+sentence:sentence.replace("{who}",who),
+correct,
+options:[correct,w1,w2]
+}));
+});
 }
 
 addRare(["الباحث","العالِم","الطالب"],`
@@ -738,355 +661,507 @@ addRare(["القاضي","المعلم","المدير"],`
 تجنّب {who} ____ إلى النتائج دون دليل.|القفز|المشي|النوم
 `);
 
-const el = id => document.getElementById(id);
-let game = null;
-let stopApproval = null;
-
-function shuffle(list) {
-  const a = [...list];
-  for (let i=a.length-1;i>0;i--) {
-    const j = Math.floor(Math.random()*(i+1));
-    [a[i],a[j]] = [a[j],a[i]];
-  }
-  return a;
+function shuffle(a){
+const b=[...a];
+for(let i=b.length-1;i>0;i--){
+const j=Math.floor(Math.random()*(i+1));
+[b[i],b[j]]=[b[j],b[i]];
+}
+return b;
 }
 
-function prizeFor(score) {
-  if(score===3)return "chocolate";
-  if(score===2)return "toffee";
-  return "none";
+function code(number){
+return "ACC-"+String(number).padStart(6,"0");
 }
 
-function niceTime(date) {
-  return date.toLocaleString("en-US",{
-    year:"numeric",
-    month:"short",
-    day:"numeric",
-    hour:"numeric",
-    minute:"2-digit",
-    hour12:true
-  });
+function prize(score){
+return score===3?"chocolate":
+       score===2?"toffee":"none";
 }
 
-function updateWorld() {
-  const level = el("level").value;
-  el("game").dataset.level = level;
-
-  const worlds = {
-    beginner:[
-      "🌱 Explorer Garden",
-      "Discover animals, food and everyday objects."
-    ],
-    intermediate:[
-      "⚡ Adventure Bazaar",
-      "Explore places, tools and travel words."
-    ],
-    advanced:[
-      "👑 Royal Knowledge Hall",
-      "Advanced pictures and a very rare Arabic sentence surprise."
-    ]
-  };
-
-  const [title,description] = worlds[level];
-  el("world").replaceChildren();
-
-  const a = document.createElement("strong");
-  const b = document.createElement("p");
-
-  a.textContent = title;
-  b.textContent = description;
-
-  el("world").append(a,b);
+function time(t){
+return t.toLocaleString("en-US",{
+hour:"numeric",
+minute:"2-digit",
+hour12:true,
+year:"numeric",
+month:"short",
+day:"numeric"
+});
 }
 
-function makeQuestions(level) {
-  const pool = wordBanks[level];
-
-  const questions = shuffle(pool).slice(0,3).map(
-    ([picture,answer]) => {
-      const wrong = shuffle(
-        pool.filter(item=>item[1]!==answer)
-      ).slice(0,2).map(item=>item[1]);
-
-      const options = shuffle([answer,...wrong]);
-
-      return {
-        kind:"picture",
-        picture,
-        options,
-        correct:options.indexOf(answer)
-      };
-    }
-  );
-
-  // 1-in-159 chance for Advanced players only.
-  if(level==="advanced" && Math.floor(Math.random()*159)===0) {
-    const chosen = rareSentences[
-      Math.floor(Math.random()*rareSentences.length)
-    ];
-    const options = shuffle(chosen.options);
-    const position = Math.floor(Math.random()*3);
-
-    questions[position] = {
-      kind:"sentence",
-      sentence:chosen.sentence,
-      options,
-      correct:options.indexOf(chosen.correct)
-    };
-  }
-
-  return questions;
+function uuid(){
+return crypto.randomUUID();
 }
 
-function startQuiz() {
-  if(game) return;
+async function prepareDevice(){
+try{
+deviceId=localStorage.getItem(DEVICE_KEY);
 
-  const name = el("name").value.trim().replace(/\s+/g," ");
-  if(!name) {
-    alert("Enter your first name or nickname.");
-    return;
-  }
-
-  const level = el("level").value;
-  game = {
-    name,
-    level,
-    score:0,
-    number:0,
-    selected:null,
-    stage:"playing",
-    questions:makeQuestions(level)
-  };
-
-  el("welcome").classList.add("hide");
-  el("quiz").classList.remove("hide");
-  renderQuestion();
+if(!deviceId){
+deviceId=uuid();
+localStorage.setItem(DEVICE_KEY,deviceId);
 }
 
-function renderQuestion() {
-  const q = game.questions[game.number];
-  const answered = game.selected !== null;
+const devRef=db.collection("devices").doc(deviceId);
+const counterRef=db.collection("meta")
+.doc("visitorCounter");
 
-  el("progress").textContent =
-    `Question ${game.number+1} of 3 · ${game.score} correct`;
+device=await db.runTransaction(async tx=>{
+const devSnap=await tx.get(devRef);
 
-  el("fill").style.width =
-    ((game.number+(answered?1:0))/3*100)+"%";
+if(devSnap.exists)return devSnap.data();
 
-  el("picture").textContent =
-    q.kind==="sentence"?"✍️":q.picture;
+const counter=await tx.get(counterRef);
+const number=counter.exists
+?counter.data().nextNumber:1;
 
-  el("hint").textContent =
-    q.kind==="sentence"
-    ?"RARE ADVANCED CHALLENGE — Choose the missing Arabic word!"
-    :"";
-
-  el("question").textContent =
-    q.kind==="sentence"
-    ?q.sentence
-    :"What is the Arabic word for this picture?";
-
-  el("question").classList.toggle(
-    "arabic",q.kind==="sentence"
-  );
-
-  el("options").replaceChildren();
-
-  q.options.forEach((option,i) => {
-    const button = document.createElement("button");
-    button.textContent = option;
-    button.dir = "rtl";
-    button.disabled = answered;
-    button.onclick = () => chooseAnswer(i);
-    el("options").appendChild(button);
-  });
-
-  el("feedback").textContent = answered
-    ?(game.selected===q.correct
-      ?"✅ Correct!"
-      :"❌ Wrong! Correct answer: "+q.options[q.correct])
-    :"";
-
-  el("feedback").className = answered
-    ?(game.selected===q.correct?"good":"bad")
-    :"";
-
-  el("next").textContent =
-    game.number===2?"Reveal My Prize 🎁":"Next ➜";
-
-  el("next").classList.toggle("hide",!answered);
+if(number>999999){
+throw Error("Visitor limit reached");
 }
 
-function chooseAnswer(i) {
-  if(game.stage!=="playing"||game.selected!==null)return;
+tx.set(counterRef,{nextNumber:number+1});
 
-  if(i===game.questions[game.number].correct)game.score++;
-  game.selected = i;
-  renderQuestion();
+tx.set(devRef,{
+number,
+firstResultId:null,
+createdAt:firebase.firestore
+.FieldValue.serverTimestamp()
+});
+
+return {number,firstResultId:null};
+});
+
+$("visitorCode").textContent=code(device.number);
+$("start").disabled=false;
+$("start").textContent="🚀 Enter the Challenge";
+
+$("retryNotice").classList.toggle(
+"hide",!device.firstResultId
+);
+
+$("introStatus").textContent=
+"Your code stays with this browser. You can win only on its first completed quiz.";
+
+}catch(err){
+console.error(err);
+$("visitorCode").textContent="Unavailable";
+$("introStatus").textContent=
+"Cannot connect to Firebase. Check the new Rules and your internet, then reload.";
+}
 }
 
-function nextQuestion() {
-  if(game.stage!=="playing"||game.selected===null)return;
+function theme(){
+const level=$("level").value;
+document.body.dataset.theme=level;
 
-  if(game.number<2) {
-    game.number++;
-    game.selected=null;
-    renderQuestion();
-  } else {
-    finishQuiz();
-  }
+const maps={
+beginner:[
+"🌸🦋🌳",
+"Magical Garden",
+"Flowers, animals and familiar words"
+],
+intermediate:[
+"🏮🐪🌇",
+"Golden Bazaar",
+"Lanterns, travel and clever objects"
+],
+advanced:[
+"👑🏰✨",
+"Royal Kingdom",
+"Knowledge, science and rare sentence challenges"
+]
+};
+
+const [emoji,title,caption]=maps[level];
+
+$("sceneIcon").textContent=emoji;
+$("sceneTitle").textContent=title;
+$("sceneCaption").textContent=caption;
 }
 
-function showResult() {
-  el("quiz").classList.add("hide");
-  el("result").classList.remove("hide");
+function makeQuestions(level,setNumber){
+const pool=words[level];
 
-  const reward = prizeFor(game.score);
+// 10,000 distinct ordered 3-picture combinations.
+// Each question uses a different picture.
+const offset={
+beginner:151,
+intermediate:331,
+advanced:977
+}[level];
 
-  el("scoreTitle").textContent =
-    `${game.name}, you scored ${game.score}/3!`;
+const index=(
+(setNumber*7919+offset)%10000+10000
+)%10000;
 
-  el("reveal").textContent =
-    reward==="toffee"?"🍬":
-    reward==="chocolate"?"🏆🍫":"🌟";
+let rank=(index*97+317)%(50*49*48);
+const ids=[];
 
-  el("resultBox").className =
-    reward==="toffee"?"toffeeResult":
-    reward==="chocolate"?"chocolateResult":"";
+for(const width of [50,49,48]){
+const selection=rank%width;
+rank=Math.floor(rank/width);
 
-  el("resultTitle").textContent =
-    reward==="toffee"?"🍬 TOFFEE STAR!":
-    reward==="chocolate"?"🍫 CHOCOLATE CHAMPION!":
-    "Thank you for playing!";
+const unused=[...Array(50).keys()]
+.filter(x=>!ids.includes(x));
 
-  el("resultInfo").textContent =
-    reward==="none"
-    ?"Thank you for participating. No prize for this score."
-    :`You earned one ${reward}! Waiting for admin approval. Keep this page open.`;
-
-  el("saveStatus").textContent =
-    game.stage==="saving"?"Saving your result…":
-    game.stage==="failed"?"⚠️ Result not saved. Ask the organizer for help.":
-    "✅ Result saved!";
+ids.push(unused[selection]);
 }
 
-async function finishQuiz() {
-  if(game.stage!=="playing")return;
+const questions=ids.map(id=>{
+const [picture,correct]=pool[id];
 
-  game.stage="saving";
-  showResult();
+const distractors=shuffle(
+pool.filter(x=>x[1]!==correct)
+).slice(0,2).map(x=>x[1]);
 
-  try {
-    const ref = db.collection("results").doc();
+const opts=shuffle([correct,...distractors]);
 
-    game.resultId=ref.id;
-    await ref.set({
-      name:game.name,
-      level:game.level,
-      score:game.score,
-      total:3,
-      won:game.score>=2,
-      createdAt:firebase.firestore.FieldValue.serverTimestamp()
-    });
+return {
+type:"picture",
+picture,
+opts,
+answer:opts.indexOf(correct)
+};
+});
 
-    game.stage="finished";
-    showResult();
+// 1 in 159 Advanced attempts gets one sentence.
+if(level==="advanced" &&
+Math.floor(Math.random()*159)===0){
 
-    if(game.score>=2)watchApproval();
+const x=rare[
+Math.floor(Math.random()*rare.length)
+];
 
-  } catch(error) {
-    console.error(error);
-    game.stage="failed";
-    showResult();
-  }
+const opts=shuffle(x.options);
+const slot=Math.floor(Math.random()*3);
+
+questions[slot]={
+type:"sentence",
+sentence:x.sentence,
+opts,
+answer:opts.indexOf(x.correct)
+};
 }
 
-function watchApproval() {
-  if(stopApproval)stopApproval();
-
-  stopApproval=db.collection("approvals")
-    .doc(game.resultId)
-    .onSnapshot(snapshot => {
-      if(snapshot.exists && snapshot.data().accepted===true) {
-        const at=snapshot.data().acceptedAt;
-
-        game.approvedAt=at?.toDate
-          ?at.toDate()
-          :new Date();
-
-        game.stage="approved";
-        showTicket();
-
-        if(stopApproval) {
-          stopApproval();
-          stopApproval=null;
-        }
-      }
-    },error => {
-      console.error(error);
-      el("saveStatus").textContent =
-        "Approval status unavailable. Please ask the organizer.";
-    });
+return {questions,setIndex:index+1};
 }
 
-function celebrate() {
-  const box=el("confetti");
-  box.replaceChildren();
+function begin(){
+if(!device||playing)return;
 
-  const colors=["#e6aa37","#8f52d2","#2bbd83","#d86fae"];
+const name=$("name").value.trim()
+.replace(/\s+/g," ");
 
-  for(let i=0;i<28;i++) {
-    const piece=document.createElement("i");
-    piece.style.left=(2+(i*37)%96)+"%";
-    piece.style.backgroundColor=colors[i%4];
-    piece.style.animationDelay=(i%8*.12)+"s";
-    box.appendChild(piece);
-  }
+if(!name){
+$("introStatus").textContent=
+"Please enter your name.";
+return;
 }
 
-function showTicket() {
-  el("result").classList.add("hide");
-  el("ticket").classList.remove("hide");
+const level=$("level").value;
 
-  const reward=prizeFor(game.score);
-  el("ticket").classList.toggle("toffee",reward==="toffee");
+const attempts=Number(
+localStorage.getItem(ATTEMPT_KEY)||"0"
+)+1;
 
-  el("ticketIcon").textContent =
-    reward==="toffee"?"🌟🍬":"🏆🍫";
+try{
+localStorage.setItem(
+ATTEMPT_KEY,String(attempts)
+);
+}catch(e){console.warn(e);}
 
-  el("ticketPrize").textContent =
-    reward==="toffee"
-    ?"TOFFEE STAR TICKET"
-    :"CHOCOLATE CHAMPION TICKET";
+const {questions,setIndex}=makeQuestions(
+level,device.number+attempts-1
+);
 
-  el("ticketName").textContent=game.name;
-  el("ticketScore").textContent=game.score+"/3";
-  el("ticketLevel").textContent=game.level;
+playing={
+name,
+level,
+questions,
+setIndex,
+score:0,
+i:0,
+selected:null,
+state:"playing",
+wasRetry:!!device.firstResultId
+};
 
-  el("ticketId").textContent =
-    game.resultId.slice(-8).toUpperCase();
-
-  el("ticketTime").textContent=niceTime(game.approvedAt);
-
-  el("ticketBanner").textContent =
-    "SHOW THIS SCREEN TO COLLECT YOUR "+reward.toUpperCase();
-
-  el("certificate").classList.toggle(
-    "hide",reward!=="chocolate"
-  );
-
-  celebrate();
+$("welcome").classList.add("hide");
+$("quiz").classList.remove("hide");
+render();
 }
 
-// Remove the old version's browser lock.
-try {
-  localStorage.removeItem("arabic_chocolate_once_2026_v1");
-} catch(error) {
-  console.warn(error);
+function render(){
+const q=playing.questions[playing.i];
+const answered=playing.selected!==null;
+
+$("progress").textContent=
+`Question ${playing.i+1}/3 • ${playing.score} correct`;
+
+$("barFill").style.width=
+((playing.i+(answered?1:0))/3*100)+"%";
+
+$("picture").textContent=
+q.type==="picture"?q.picture:"✍️";
+
+$("hint").textContent=
+q.type==="sentence"?
+"RARE ADVANCED CHALLENGE: Choose the missing Arabic word!":"";
+
+$("question").textContent=
+q.type==="sentence"?q.sentence:
+"What is the Arabic word for this picture?";
+
+$("question").classList.toggle(
+"ar",q.type==="sentence"
+);
+
+const target=$("choices");
+target.replaceChildren();
+
+q.opts.forEach((txt,i)=>{
+const b=document.createElement("button");
+b.textContent=txt;
+b.disabled=answered;
+b.onclick=()=>answer(i);
+target.appendChild(b);
+});
+
+$("feedback").textContent=answered?
+(playing.selected===q.answer?
+"✅ Correct!":
+"❌ Wrong. Answer: "+q.opts[q.answer]):"";
+
+$("feedback").className=
+"feedback "+(answered?
+(playing.selected===q.answer?
+"correct":"incorrect"):"");
+
+$("next").classList.toggle("hide",!answered);
+
+$("next").textContent=playing.i===2?
+"Reveal My Result 🎁":"Next ➜";
 }
 
-// Every page load starts fresh.
-updateWorld();
+function answer(i){
+if(!playing||
+playing.state!=="playing"||
+playing.selected!==null)return;
+
+if(i===playing.questions[playing.i].answer){
+playing.score++;
+}
+
+playing.selected=i;
+render();
+}
+
+function next(){
+if(!playing||
+playing.selected===null||
+playing.state!=="playing")return;
+
+if(playing.i<2){
+playing.i++;
+playing.selected=null;
+render();
+}else{
+finish();
+}
+}
+
+function showResult(){
+const p=playing.isFirst?
+prize(playing.score):"none";
+
+$("quiz").classList.add("hide");
+$("result").classList.remove("hide");
+$("resultBox").className="result "+p;
+
+$("resultEmoji").textContent=
+p==="chocolate"?"🏆🍫":
+p==="toffee"?"🍬":"🌟";
+
+$("score").textContent=
+`${playing.name}: ${playing.score}/3`;
+
+$("prizeTitle").textContent=
+!playing.isFirst?
+"Practice attempt — no prize":
+p==="chocolate"?
+"Chocolate Champion!":
+p==="toffee"?
+"Toffee Star!":
+"Thank you for playing!";
+
+$("prizeInfo").textContent=
+!playing.isFirst?
+"You have already used this visitor code. Replays cannot win prizes.":
+p==="none"?
+"No prize for this score.":
+`You earned one ${p}! Waiting for admin approval. Keep this page open.`;
+
+$("saveStatus").textContent=
+playing.state==="saving"?
+"Saving your result…":
+playing.state==="failed"?
+"⚠️ Result not saved. Ask the organizer to help.":
+"✅ Result saved to the admin dashboard.";
+
+$("retryNotice").classList.toggle(
+"hide",playing.isFirst
+);
+}
+
+async function finish(){
+if(playing.state!=="playing")return;
+
+playing.state="saving";
+playing.isFirst=!playing.wasRetry;
+showResult();
+
+try{
+const devRef=db.collection("devices").doc(deviceId);
+const resultRef=db.collection("results").doc();
+
+const isFirst=await db.runTransaction(async tx=>{
+const snap=await tx.get(devRef);
+
+if(!snap.exists){
+throw Error("Visitor code missing. Ask the organizer.");
+}
+
+const first=!snap.data().firstResultId;
+
+if(first){
+tx.update(devRef,{
+firstResultId:resultRef.id
+});
+}
+
+tx.set(resultRef,{
+name:playing.name,
+level:playing.level,
+score:playing.score,
+total:3,
+won:first&&playing.score>=2,
+firstAttempt:first,
+deviceId,
+visitorNumber:snap.data().number,
+quizSet:playing.setIndex,
+createdAt:firebase.firestore
+.FieldValue.serverTimestamp()
+});
+
+return first;
+});
+
+playing.isFirst=isFirst;
+playing.resultId=resultRef.id;
+playing.state="saved";
+
+device.firstResultId=
+device.firstResultId||resultRef.id;
+
+showResult();
+
+if(isFirst&&playing.score>=2){
+watchApproval();
+}
+
+}catch(err){
+console.error(err);
+playing.state="failed";
+showResult();
+}
+}
+
+function watchApproval(){
+approvalStop=db.collection("approvals")
+.doc(playing.resultId)
+.onSnapshot(s=>{
+if(!s.exists||s.data().accepted!==true)return;
+
+const data=s.data();
+
+playing.approvedAt=data.acceptedAt?.toDate?
+data.acceptedAt.toDate():new Date();
+
+showTicket();
+
+if(approvalStop){
+approvalStop();
+approvalStop=null;
+}
+
+},err=>{
+console.error(err);
+$("saveStatus").textContent=
+"Cannot read approval. Ask the organizer.";
+});
+}
+
+function showTicket(){
+const reward=prize(playing.score);
+
+$("result").classList.add("hide");
+$("ticket").classList.remove("hide");
+
+$("ticket").classList.toggle(
+"toffee",reward==="toffee"
+);
+
+$("ticketEmoji").textContent=
+reward==="chocolate"?"🏆🍫":"🌟🍬";
+
+$("ticketPrize").textContent=
+reward==="chocolate"?
+"CHOCOLATE CHAMPION":"TOFFEE STAR";
+
+$("ticketName").textContent=playing.name;
+
+$("ticketScore").textContent=
+`Score: ${playing.score}/3 · ${playing.level}`;
+
+$("ticketCode").textContent=code(device.number);
+
+$("ticketId").textContent=
+playing.resultId.slice(-8).toUpperCase();
+
+$("ticketTime").textContent=time(
+playing.approvedAt
+);
+
+$("ticketBanner").textContent=
+"SHOW THIS SCREEN TO COLLECT YOUR "+
+reward.toUpperCase();
+
+$("certificate").classList.toggle(
+"hide",reward!=="chocolate"
+);
+
+const confetti=$("confetti");
+confetti.replaceChildren();
+
+for(let i=0;i<24;i++){
+const x=document.createElement("i");
+x.style.left=(i*37%97)+"%";
+x.style.background=[
+"#f2b945","#a565cf",
+"#45d296","#ff8cac"
+][i%4];
+x.style.animationDelay=(i%8*.12)+"s";
+confetti.appendChild(x);
+}
+}
+
+$("level").addEventListener("change",theme);
+$("start").addEventListener("click",begin);
+$("next").addEventListener("click",next);
+
+theme();
+prepareDevice();
 </script>
 </body>
 </html>
