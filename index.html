@@ -7,311 +7,110 @@
 <title>Arabic Chocolate Challenge</title>
 <style>
 *{box-sizing:border-box}
-body{
-margin:0;min-height:100vh;padding:22px 12px;
-font-family:system-ui,Arial,sans-serif;
-color:#35223f;
-background:linear-gradient(135deg,#e1fbe1,#fff5c8);
-transition:background .4s
-}
-body[data-theme="beginner"]{
-background:
-radial-gradient(circle at 8% 22%,#b9ffc8,transparent 35%),
-radial-gradient(circle at 94% 14%,#fff09b,transparent 35%),
-linear-gradient(150deg,#d2ffdf,#9fdaa5)
-}
-body[data-theme="intermediate"]{
-background:
-radial-gradient(circle at 7% 20%,#ffce74,transparent 35%),
-radial-gradient(circle at 94% 15%,#ffeab2,transparent 35%),
-linear-gradient(150deg,#ffcd96,#d58b62)
-}
-body[data-theme="advanced"]{
-background:
-radial-gradient(circle at 6% 15%,#8054c2,transparent 39%),
-radial-gradient(circle at 95% 22%,#e1b95e,transparent 34%),
-linear-gradient(145deg,#1b1244,#51306b)
-}
-main{
-max-width:620px;margin:0 auto;background:#fffefcf7;
-border:4px solid #fff;border-radius:28px;
-padding:20px 22px 28px;
-box-shadow:0 20px 60px #25143c48;
-position:relative;overflow:hidden
-}
-body[data-theme="advanced"] main{
-border-color:#dab75b;background:#fff9f3
-}
-header{text-align:center}
-.decor{
-font-size:25px;letter-spacing:12px;
-animation:bob 3s infinite alternate
-}
-h1{
-font-size:clamp(25px,5vw,38px);
-color:#7841ad;margin:8px 0
-}
-h2{text-align:center}
-p{line-height:1.5}
-.intro{
-text-align:center;color:#665271;font-weight:650
-}
-.scene{
-border-radius:23px;padding:22px 14px;margin:16px 0;
-text-align:center;border:3px solid #a7dfac;
-background:linear-gradient(#e4ffdc,#fff8cd);
-position:relative;box-shadow:0 9px 0 #92cc9e66
-}
-.scene .sceneIcon{
-font-size:59px;display:block;
-animation:bob 3s ease-in-out infinite alternate
-}
-.scene strong{
-display:block;font-size:22px;margin-top:6px
-}
-.scene small{
-display:block;color:#6a5272;margin-top:6px
-}
-body[data-theme="intermediate"] .scene{
-background:linear-gradient(#fff0b9,#f7b47b);
-border-color:#da9556;
-box-shadow:0 9px 0 #a46c4c55
-}
-body[data-theme="advanced"] .scene{
-background:linear-gradient(#271349,#754d93);
-border-color:#d7ab52;color:#fff2cb;
-box-shadow:0 9px 0 #9b6bba55
-}
-body[data-theme="advanced"] .scene small{
-color:#f1d9ff
-}
-label{
-display:block;margin:16px 0 6px;font-weight:800
-}
-input,select,button{
-font:inherit;width:100%;padding:14px;
-border-radius:14px;margin:7px 0
-}
-input,select{
-border:2px solid #d1bde3;background:white;color:#30203c
-}
-button{
-background:linear-gradient(105deg,#7840b5,#bc66ce);
-color:white;border:0;font-weight:850;cursor:pointer;
-box-shadow:0 5px 0 #513077
-}
-button:disabled{
-opacity:.55;cursor:default;box-shadow:none
-}
+body{margin:0;min-height:100vh;padding:18px;font:16px system-ui,Arial;color:#39274c;background:#d2f6de}
+body[data-level=beginner]{background:radial-gradient(circle at top left,#ffef9a,transparent 40%),linear-gradient(135deg,#c3f9df,#81cb99)}
+body[data-level=intermediate]{background:radial-gradient(circle at top left,#fff5bd,transparent 45%),linear-gradient(140deg,#f5cf8b,#c77d56)}
+body[data-level=advanced]{background:radial-gradient(circle at top right,#af80d3,transparent 40%),linear-gradient(130deg,#191238,#56397b)}
+main{max-width:620px;margin:auto;background:#fffcfc;border-radius:28px;border:4px solid #fff5cb;padding:24px;box-shadow:0 18px 55px #25102d4c}
+h1,h2,.center{text-align:center}
+h1{font-size:clamp(28px,5vw,39px);color:#8440b8}
+.subtitle{text-align:center;color:#765d89}
+input,select,button{display:block;width:100%;font:inherit;border-radius:13px;padding:14px;margin:12px 0}
+input,select{border:2px solid #dbbce8;background:white;color:#32203b}
+button{background:linear-gradient(115deg,#7740b7,#bc62d3);color:white;font-weight:800;border:0;cursor:pointer}
+button:disabled{opacity:.6}
 .hide{display:none!important}
-.code{
-background:#fff0c4;border:2px dashed #cda04b;
-border-radius:15px;text-align:center;
-padding:12px;margin:15px 0;
-font-weight:900;letter-spacing:1px
-}
-.code strong{
-font-size:24px;display:block;color:#70409b
-}
-.warning{
-background:#fff0f1;color:#ab2039;
-border:2px solid #e68591;border-radius:14px;
-padding:13px;font-weight:850;
-text-align:center;margin:14px 0
-}
-.rules{
-display:flex;flex-wrap:wrap;
-justify-content:center;gap:7px
-}
-.rules span{
-background:#f3ebfb;border-radius:99px;
-padding:9px;font-size:12px;font-weight:800
-}
-.progress{
-text-align:center;font-weight:850;color:#7341a5
-}
-.bar{
-background:#efe3f7;height:13px;
-border-radius:40px;overflow:hidden
-}
-.bar div{
-height:100%;width:0;
-background:linear-gradient(90deg,#89cc63,#b15ee9,#fac75a);
-transition:width .2s
-}
-.picture{
-font-size:105px;margin:22px auto 12px;
-display:grid;place-items:center;
-width:min(100%,300px);height:205px;
-border-radius:27px;border:4px solid #dcb1ef;
-background:radial-gradient(circle,#fff9da,#f5dffc);
-box-shadow:0 9px 0 #d7b4ed
-}
-body[data-theme="beginner"] .picture{
-background:linear-gradient(#e1ffe2,#fcf6c8);
-border-color:#91d6ab
-}
-body[data-theme="intermediate"] .picture{
-background:linear-gradient(#fff0bb,#f9d49d);
-border-color:#d3a35d
-}
-body[data-theme="advanced"] .picture{
-background:linear-gradient(#332359,#9160b7);
-border-color:#f4c96b
-}
-.question{
-text-align:center;font-size:23px;
-font-weight:900;line-height:1.6
-}
-.question.ar{
-direction:rtl;font-size:28px;
-padding:14px;background:#f6eafc;border-radius:15px
-}
-.hint{
-text-align:center;color:#7d4697;font-weight:800
-}
-.choices button{
-font-size:25px;direction:rtl;padding:16px
-}
-.feedback{
-text-align:center;font-size:18px;font-weight:900
-}
-.correct{color:#0d8548}
-.incorrect{color:#bc254b}
-.result{
-background:#f7eefa;border-radius:20px;
-text-align:center;padding:24px 14px
-}
-.result .emoji{font-size:70px}
-.result.chocolate{background:#e8ffeb}
-.result.toffee{background:#fff4d6}
-.ticket{
-text-align:center;border:4px solid #d4ab49;
-border-radius:25px;
-background:linear-gradient(#fffbdc,#e8ffed);
-padding:20px;position:relative;overflow:hidden
-}
-.ticket.toffee{
-background:linear-gradient(#fff9d7,#ffe9eb)
-}
-.ticket .emoji{font-size:70px}
-.ticket h2{color:#187642}
-.ticket .field{
-background:white;border:1px solid #e7cf8d;
-border-radius:14px;padding:13px;margin:12px 0
-}
-.ticket .field strong{
-font-size:21px;overflow-wrap:anywhere
-}
-.ticket .banner{
-background:#197a49;color:white;
-padding:17px;border-radius:12px;font-weight:900
-}
-.ticket.toffee .banner{background:#b27621}
-.confetti{
-position:absolute;inset:0;
-overflow:hidden;pointer-events:none
-}
-.confetti i{
-position:absolute;top:-15%;
-width:10px;height:14px;animation:drop 3s forwards
-}
-@keyframes drop{
-to{
-transform:translateY(700px) rotate(750deg);
-opacity:0
-}
-}
-@keyframes bob{to{transform:translateY(-9px)}}
-.small{
-font-size:13px;color:#6b5a73;text-align:center
-}
-@media(prefers-reduced-motion:reduce){
-*,*::before,*::after{
-animation:none!important;transition:none!important
-}
-}
+.scene{text-align:center;padding:18px;background:linear-gradient(#f0ffdd,#fff7c7);border:3px solid #9fdbad;border-radius:20px;margin:18px 0}
+.scene .emoji{font-size:58px}
+body[data-level=intermediate] .scene{background:linear-gradient(#ffeeb6,#ffc98c);border-color:#d8a05f}
+body[data-level=advanced] .scene{background:linear-gradient(#312054,#81539d);color:#ffe8a6;border-color:#d7ac55}
+.prizes{display:flex;justify-content:center;flex-wrap:wrap;gap:8px}
+.prizes span{background:#f3e5ff;border-radius:30px;padding:8px;font-weight:750;font-size:12px}
+.visitor{display:flex;justify-content:center;align-items:center;gap:7px;margin:7px auto 12px;padding:0;color:#777080;font-size:12px}
+.visitor strong{display:inline;font:600 12px ui-monospace,Consolas,monospace;letter-spacing:.3px;color:#575066}
+.warning{color:#a81f37;background:#fff0f1;border:2px solid #e89a9e;padding:13px;border-radius:12px;font-weight:850;text-align:center}
+.picture{font-size:106px;text-align:center;display:grid;place-items:center;background:#f8e7ff;border:4px solid #dcb7f4;border-radius:24px;width:min(100%,290px);height:200px;margin:20px auto;box-shadow:0 8px 0 #e7d0f1}
+body[data-level=beginner] .picture{background:#dff8dc;border-color:#99d4a9}
+body[data-level=intermediate] .picture{background:#fff1bb;border-color:#deb67b}
+body[data-level=advanced] .picture{background:#4e3373;border-color:#e5b95b}
+.question{text-align:center;font-size:23px;font-weight:850}
+.question.ar{direction:rtl;font-size:28px;background:#f4ebfa;padding:15px;border-radius:15px}
+.choices button{direction:rtl;font-size:25px}
+.bar{height:13px;border-radius:15px;background:#ead6f0;overflow:hidden}
+.bar div{background:linear-gradient(90deg,#70ce86,#d2a05a,#ab71e6);height:100%;width:0;transition:width .25s}
+.good{color:#158047;font-weight:800}
+.bad{color:#bf284b;font-weight:800}
+.result,.ticket{text-align:center;border-radius:23px;padding:20px;background:#f4ebff}
+.result.toffee,.ticket.toffee{background:#fff1d4}
+.result.chocolate,.ticket.chocolate{background:#e6faeb}
+.big{font-size:67px}
+.ticket{border:4px solid #d9af4b}
+.ticket h2{color:#137849}
+.ticket .field{background:white;border-radius:12px;padding:15px;margin:12px 0;overflow-wrap:anywhere}
+.ticket .banner{background:#177644;color:white;padding:15px;border-radius:13px;font-weight:900}
+.ticket.toffee .banner{background:#a76b24}
+.small{font-size:13px;color:#6c6170;text-align:center}
+.confetti{font-size:25px;letter-spacing:10px;animation:wiggle 2s infinite alternate}
+@keyframes wiggle{to{transform:translateY(-9px)}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
-
-<body data-theme="beginner">
+<body data-level="beginner">
 <main>
-<header>
-<div class="decor">✦ 🍬 ✨ 🍫 ✦</div>
+<div class="center confetti">✨ 🍫 🍬 ✨</div>
 <h1>Arabic Chocolate Challenge</h1>
-<div class="intro">
-3 questions • 3 levels • A sweet surprise!
-</div>
-</header>
-
-<div class="rules">
+<p class="subtitle">A magical 3-question Arabic adventure!</p>
+<div class="prizes">
 <span>0–1/3: No prize</span>
 <span>2/3: 🍬 Toffee</span>
 <span>3/3: 🍫 Chocolate</span>
 </div>
-
-<div class="scene" id="scene">
-<span class="sceneIcon" id="sceneIcon">🌺🦋🌳</span>
-<strong id="sceneTitle">Magical Garden</strong>
-<small id="sceneCaption">
-Discover Arabic words in the garden
-</small>
+<div class="scene">
+<div class="emoji" id="sceneIcon">🌷🦋🌳</div>
+<h2 id="sceneTitle">Magical Garden</h2>
+<p id="sceneInfo">Explore Arabic words!</p>
 </div>
-
-<div class="code">
-YOUR VISITOR CODE
+<div class="visitor">
+<span>Visitor ID</span>
 <strong id="visitorCode">Connecting…</strong>
 </div>
-
-<div id="retryNotice" class="warning hide">
+<div id="warning" class="warning hide">
 ⚠️ YOU HAVE ALREADY PLAYED!
-You can try again for fun, but this visitor code
-cannot win another toffee or chocolate.
+You may play for fun, but this browser cannot win another prize.
 </div>
-
 <section id="welcome">
-<label for="name">Your first name or nickname</label>
-<input id="name" maxlength="35"
-placeholder="Enter your name" autocomplete="off">
-
-<label for="level">Choose your level</label>
+<label>Your first name or nickname</label>
+<input id="name" maxlength="35" placeholder="Enter your name">
+<label>Choose your level</label>
 <select id="level">
 <option value="beginner">🌱 Beginner — Garden</option>
 <option value="intermediate">🏮 Intermediate — Bazaar</option>
 <option value="advanced">👑 Advanced — Kingdom</option>
 </select>
-
-<button id="start" disabled>
-Preparing your visitor code…
-</button>
-
-<p id="introStatus" class="small" role="status"></p>
+<button id="start" disabled>Connecting to Firebase…</button>
+<p id="status" class="small"></p>
 </section>
-
 <section id="quiz" class="hide">
-<p id="progress" class="progress"></p>
-<div class="bar"><div id="barFill"></div></div>
+<p id="progress" class="center"></p>
+<div class="bar"><div id="bar"></div></div>
 <div id="picture" class="picture"></div>
-<p id="hint" class="hint"></p>
+<p id="hint" class="center"></p>
 <p id="question" class="question"></p>
 <div id="choices" class="choices"></div>
-<p id="feedback" class="feedback" role="status"></p>
-<button id="next" class="hide">Next ➜</button>
+<p id="feedback" class="center"></p>
+<button id="next" class="hide">Next →</button>
 </section>
-
 <section id="result" class="hide">
-<div class="result" id="resultBox">
-<div id="resultEmoji" class="emoji">🎁</div>
-<h2 id="score"></h2>
-<h2 id="prizeTitle"></h2>
-<p id="prizeInfo"></p>
+<div id="resultBox" class="result">
+<div id="resultIcon" class="big"></div>
+<h2 id="resultScore"></h2>
+<h2 id="resultTitle"></h2>
+<p id="resultInfo"></p>
 </div>
-<p class="small" id="saveStatus"></p>
+<p id="saveStatus" class="small"></p>
 </section>
-
 <section id="ticket" class="ticket hide">
-<div class="confetti" id="confetti"></div>
-<div class="emoji" id="ticketEmoji">🏆🍫</div>
+<div class="big" id="ticketIcon"></div>
 <h2>✅ ADMIN APPROVED!</h2>
 <h2 id="ticketPrize"></h2>
 <div class="field">
@@ -319,44 +118,34 @@ Preparing your visitor code…
 <p id="ticketScore"></p>
 </div>
 <div class="field">
-VISITOR CODE
+Visitor ID
 <strong id="ticketCode"></strong>
 </div>
 <div class="field">
-PRIZE TICKET ID
+TICKET ID
 <strong id="ticketId"></strong>
 </div>
 <div class="field">
 APPROVED AT
 <strong id="ticketTime"></strong>
 </div>
-<div id="certificate" class="field hide">
-👑 <b>ARABIC CHAMPION CERTIFICATE</b>
-<p>Perfect score: 3/3!</p>
+<div class="field hide" id="certificate">
+👑 ARABIC CHAMPION CERTIFICATE — 3/3!
 </div>
-<div id="ticketBanner" class="banner"></div>
-<p class="small">
-Please show this ticket to your organizer.
-</p>
+<div class="banner" id="ticketBanner"></div>
 </section>
 </main>
 
 <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore-compat.js"></script>
 <script src="firebase-config.js"></script>
-
 <script>
 const $=id=>document.getElementById(id);
-
 const DEVICE_KEY="ACC_BROWSER_DEVICE_V3";
 const ATTEMPT_KEY="ACC_BROWSER_ATTEMPTS_V3";
+let deviceId,device,game,stopApproval;
 
-let deviceId=null;
-let device=null;
-let playing=null;
-let approvalStop=null;
-
-const bank={
+const pictureBanks={
 beginner:`🐎|حصان
 🍎|تفاحة
 ☀️|شمس
@@ -512,656 +301,360 @@ advanced:`🧭|بوصلة
 };
 
 const words=Object.fromEntries(
-Object.entries(bank).map(([k,v])=>[
-k,v.trim().split("\n").map(x=>x.split("|"))
+Object.entries(pictureBanks).map(([level,text])=>[
+level,text.trim().split("\n").map(x=>x.split("|"))
 ])
 );
 
-// 300 Arabic sentence variations.
-const rare=[];
+const names=["أحمد","خالد","سامي","يوسف","عمر","فهد"];
+const sentences=`قرأ {who} ____ لفهم موضوع الدرس.|الكتاب|المظلة|النافذة
+أعد {who} ____ قبل تقديم المشروع.|الخطة|الحديقة|الحقيبة
+شاهد {who} ____ في السماء ليلاً.|القمر|المائدة|الكرسي
+استخدم {who} ____ لقياس طول الطاولة.|المسطرة|المحرار|الملعقة
+فتح {who} ____ لدخول الغرفة.|الباب|القلم|المصباح
+حمل {who} ____ أثناء السفر.|الحقيبة|السبورة|الشجرة
+زرع {who} ____ في الحديقة.|شجرة|سيارة|ورقة نقدية
+بحث {who} عن معنى الكلمة في ____ .|القاموس|الثلاجة|الحديقة
+رأى {who} ____ يسبح في الماء.|سمكة|حصانًا|فراشة
+أغلق {who} ____ عندما غادر المنزل.|النافذة|الكتاب المفتوح|الطريق
+وضع {who} الورقة على ____ .|المكتب|السماء|البحر
+اشترى {who} ____ لكتابة الواجب.|قلمًا|حذاءً|تفاحةً
+استمع {who} إلى ____ الأخبار.|نشرة|لوحة|طاولة
+تعلم {who} ____ جديدة في اللغة العربية.|كلمة|نافذة|كرة
+أرسل {who} ____ إلى صديقه.|رسالة|مطرقة|قميصًا
+وقف {who} أمام ____ لانتظار الحافلة.|المحطة|المكتبة المنزلية|السرير
+وصل {who} إلى ____ قبل موعد الرحلة.|المطار|الحديقة الخلفية|المطبخ
+أحضر {who} ____ ليحتمي من المطر.|مظلة|مصباحًا|ساعة
+أضاء {who} ____ عندما حل الظلام.|المصباح|الحقيبة|المسطرة
+نظر {who} من خلال ____ ليرى النجوم.|التلسكوب|الملعقة|الدلو
+فحص {who} العينة باستخدام ____ .|المجهر|المقص|الدفتر
+رسم {who} ____ توضح الطريق.|خريطة|ملعقة|فاكهة
+سجل {who} الملاحظات في ____ .|الدفتر|الإناء|الحذاء
+حافظ {who} على ____ المكان بعد النشاط.|نظافة|ضوضاء|رائحة
+جمع {who} ____ من الأرض بعد الحفل.|النفايات|الكواكب|الأحلام
+وضع {who} ____ على الجرح الصغير.|ضمادة|بطانية|خريطة
+غسل {who} يديه باستخدام ____ .|الصابون|الحبر|الطلاء
+التقط {who} ____ جميلة للمنظر.|صورة|حقيبة|مفتاحًا
+تأمل {who} ____ الزهور في الحديقة.|ألوان|أصوات|سرعة
+أطفأ {who} ____ قبل النوم.|الأنوار|الحدائق|المقاعد
+صنع {who} ____ صغيرة من الورق.|طائرة|قهوة|نافذة
+ركب {who} ____ للوصول إلى المدرسة.|الحافلة|الثلاجة|المظلة
+قاس {who} ____ الماء بالمحرار.|درجة حرارة|لون|طول
+سأل {who} عن ____ الاجتماع القادم.|موعد|طعم|وزن
+نظم {who} ____ الكتب على الرف.|ترتيب|نمو|حرارة
+اختار {who} ____ مناسبا للقصة.|عنوانًا|حذاءً|بابًا
+شكر {who} ____ على مساعدته.|صديقه|مطره|شارعه
+فهم {who} ____ التجربة بعد الشرح.|نتيجة|رائحة|ملمس
+راجع {who} ____ قبل الامتحان.|الدروس|الأبواب|الألوان
+ساعد {who} في ____ الفصل الدراسي.|تنظيف|هدم|إطفاء
+تأكد {who} من ____ قبل عبور الطريق.|الإشارة|المذاق|الوزن
+استعمل {who} ____ للعثور على الاتجاه.|البوصلة|المقص|الفرشاة
+رسم {who} ____ على السبورة.|دائرة|وجبة|حقيبة
+عد {who} ____ في السماء الصافية.|النجوم|الأشجار|السيارات
+استمع {who} إلى ____ المعلم باهتمام.|شرح|ملابس|طول
+حفظ {who} ____ المهمة في الحاسوب.|الملفات|الأطعمة|الأزهار
+بحث {who} عن ____ السؤال في النص.|إجابة|لون|ارتفاع
+شاهد {who} ____ بين الجبلين.|الوادي|المكتب|الحذاء
+شارك {who} في ____ تطوعية.|حملة|وسادة|مفتاح
+كتب {who} ____ قصيرة عن الرحلة.|فقرة|مطرقة|طاولة`;
 
-function addRare(subjects,txt){
-txt.trim().split("\n").forEach(line=>{
-const [sentence,correct,w1,w2]=line.split("|");
-subjects.forEach(who=>rare.push({
-sentence:sentence.replace("{who}",who),
-correct,
-options:[correct,w1,w2]
+const rare=sentences.trim().split("\n").flatMap(line=>{
+const [s,right,a,b]=line.split("|");
+return names.map(name=>({
+text:s.replace("{who}",name),
+right,
+options:[right,a,b]
 }));
 });
-}
-
-addRare(["الباحث","العالِم","الطالب"],`
-راقب {who} ____ وهي تجمع الرحيق من الأزهار.|النحلة|السمكة|السلحفاة
-استخدم {who} ____ لقياس درجة حرارة الماء.|المحرار|المسطرة|البوصلة
-وضع {who} العينة تحت ____ لرؤية خلاياها.|المجهر|التلسكوب|الميزان
-سجّل {who} ملاحظاته في ____ خاص بالتجارب.|دفتر|كوب|معطف
-فحص {who} حركة ____ حول الشمس.|الكواكب|الأسماك|القطارات
-قارن {who} بين لونين باستخدام ____ مناسب.|ضوء|مفتاح|حذاء
-رصد {who} آثار ____ على الصخور الساحلية.|التعرية|القراءة|القيادة
-اكتشف {who} أن ____ ضروري لنمو النبات.|الضوء|الحديد|الملح
-فسّر {who} سبب تكوّن ____ في السماء بعد المطر.|قوس قزح|الزلزال|الضباب الدخاني
-دوّن {who} ____ التجربة قبل إعلان النتائج.|فرضية|تذكرة|خريطة
-`);
-
-addRare(["الطالب","المعلم","المشرف"],`
-راجع {who} ____ قبل بدء الامتحان.|الملخص|المنشفة|المظلة
-قرأ {who} السؤال ____ قبل اختيار الإجابة.|بعناية|بعنف|بكسل
-رتّب {who} الأفكار وفق ____ واضح.|تسلسل|ضجيج|زحام
-قدّم {who} ____ يشرح خطوات المشروع.|عرضًا|حذاءً|طعامًا
-استمع {who} إلى ____ زميله دون مقاطعة.|رأي|لون|وزن
-صحّح {who} ____ الإملائية في النص.|الأخطاء|الأبواب|الأشجار
-استخدم {who} ____ للعثور على معنى الكلمة.|المعجم|المقص|الميزان
-قسم {who} المهمة إلى ____ صغيرة.|خطوات|أمواج|نجوم
-كتب {who} ____ في نهاية البحث.|الخاتمة|العنوان البريدي|الفاتورة
-ناقش {who} ____ الفكرة مع زملائه.|أهمية|مسافة|رائحة
-`);
-
-addRare(["المسافر","السائح","المرشد"],`
-فحص {who} ____ قبل دخول المطار.|جواز السفر|دفتر الرسم|وصفة الطبخ
-قرأ {who} ____ لتحديد الطريق الصحيح.|الخريطة|الوصفة|القصة
-وصل {who} إلى ____ قبل موعد الإقلاع.|المطار|المخبز|المكتبة
-حجز {who} ____ في القطار قبل الرحلة.|مقعدًا|نافذةً|طاولةً
-التقط {who} ____ للمنظر الجميل عند الغروب.|صورةً|تذكرةً|مفتاحًا
-سأل {who} عن ____ الحافلة التالية.|موعد|لون|طعم
-جهّز {who} ____ قبل مغادرة الفندق.|الحقيبة|السبورة|المجهر
-اتبع {who} ____ السلامة أثناء الرحلة.|تعليمات|أغاني|رسومات
-توقّف {who} عند ____ لمشاهدة الآثار القديمة.|المتحف|المغسلة|المزرعة
-استعان {who} بـ ____ لمعرفة اتجاه الشمال.|البوصلة|الفرشاة|الملعقة
-`);
-
-addRare(["القارئ","الكاتب","الطالب"],`
-بحث {who} عن ____ الكلمة في القاموس.|معنى|وزن|لون
-تأمل {who} ____ القصة قبل مناقشتها.|أحداث|أسعار|مقاسات
-قرأ {who} ____ الكتاب ليعرف موضوعه.|مقدمة|غلاف|سعر
-لاحظ {who} أن ____ يعبّر عن الفكرة الأساسية.|العنوان|الحذاء|المقعد
-استخرج {who} ____ المهمة من الفقرة.|الأفكار|الحجارة|الألوان
-ميّز {who} بين الحقيقة و____ في المقال.|الرأي|العدد|الساعة
-اختار {who} ____ مناسبًا للنص الأدبي.|عنوانًا|مفتاحًا|طبقًا
-رتّب {who} ____ القصة حسب وقوعها.|أحداث|أدوات|أطعمة
-فسّر {who} ____ الشخصية من خلال تصرفاتها.|مشاعر|ملابس|أطوال
-كتب {who} ____ قصيرة تلخّص الرسالة.|فقرةً|فاتورةً|قائمةً
-`);
-
-addRare(["المبرمج","المهندس","الطالب"],`
-اكتشف {who} ____ في البرنامج وأصلحه.|خطأً|نافذةً|بطاريةً
-حفظ {who} نسخة ____ من ملفاته المهمة.|احتياطيةً|خشبيةً|ورقيةً
-تأكّد {who} من ____ قبل فتح الرابط المجهول.|المصدر|الحجم|اللون
-حافظ {who} على سرية ____ حسابه الإلكتروني.|كلمة مرور|صورة خلفية|عنوان كتاب
-استخدم {who} ____ لتوصيل الجهاز بالشبكة.|الاتصال|الطباشير|المطرقة
-اختبر {who} ____ الموقع على شاشة الهاتف.|تصميم|رائحة|مذاق
-راجع {who} ____ المستخدمين لتحسين التطبيق.|ملاحظات|عناوين|مفاتيح
-ضبط {who} ____ الصوت قبل بدء التسجيل.|مستوى|رائحة|مسافة
-أنشأ {who} ____ لتنظيم الملفات داخل الحاسوب.|مجلدًا|منزلًا|ملعبًا
-فصل {who} الجهاز عن ____ قبل تنظيفه.|الكهرباء|الإنترنت اللاسلكي|الطابعة
-`);
-
-addRare(["الطبيب","الممرض","المتدرب"],`
-غسل {who} يديه بالماء و____ قبل الفحص.|الصابون|الرمل|العطر
-قرأ {who} ____ الدواء للتأكد من التعليمات.|ملصق|جريدة|لوحة فنية
-قاس {who} ____ الجسم باستخدام جهاز مناسب.|حرارة|طول الشعر|لون العين
-سجّل {who} ____ المريض في ملفه.|الأعراض|الهوايات|المقاسات
-طلب {who} من المريض شرب ____ بانتظام.|الماء|الحبر|الطلاء
-ارتدى {who} ____ طبية قبل لمس الأدوات المعقمة.|قفازات|جوارب|نظارات شمسية
-تحقّق {who} من ____ الموعد قبل استقبال المريض.|تاريخ|طعم|ارتفاع
-شرح {who} أهمية ____ الجيد لصحة الجسم.|النوم|الضجيج|السهر
-وضع {who} ____ نظيفة على الجرح الصغير.|ضمادة|مفكرة|خريطة
-نصح {who} بممارسة ____ بانتظام للحفاظ على النشاط.|الرياضة|التدخين|السهر
-`);
-
-addRare(["المتطوع","الطالب","الباحث"],`
-جمع {who} ____ البلاستيكية من الشاطئ.|النفايات|الغيوم|النجوم
-زرع {who} ____ صغيرة قرب المدرسة.|شجرةً|صخرةً|مصباحًا
-أغلق {who} ____ الماء بعد غسل يديه.|صنبور|نافذة|حقيبة
-استخدم {who} ____ قابلة لإعادة الاستخدام بدل الأكياس.|حقيبةً|بطاريةً|مرآةً
-فصل {who} ____ الورقية عن المواد الزجاجية.|المخلفات|الأسماك|المفاتيح
-لاحظ {who} أن ____ الهواء يؤثر في صحة الناس.|تلوث|نقاء اللون|برودة الزجاج
-شجّع {who} أصدقاءه على ____ الكهرباء.|ترشيد|إهدار|تلوين
-راقب {who} ____ الطيور في محمية طبيعية.|هجرة|صناعة|كتابة
-شرح {who} أهمية حماية ____ من التلوث.|الأنهار|الكتب|الألعاب
-شارك {who} في حملة ____ الحي وتنظيفه.|تشجير|تصوير|تزيين الملابس
-`);
-
-addRare(["الفنان","المصمم","الطالب"],`
-مزج {who} اللونين الأزرق والأصفر ليحصل على ____ .|الأخضر|الأحمر|الأسود
-رسم {who} ____ أولية قبل تنفيذ اللوحة.|مسودةً|فاتورةً|خريطةً
-استخدم {who} ____ لرسم خطوط مستقيمة.|مسطرةً|مكواةً|وسادةً
-اختار {who} ____ مناسبًا لإبراز العنوان.|خطًا|صوتًا|طعامًا
-علّق {who} ____ على جدار المعرض.|لوحةً|مفتاحًا|قارورةً
-راقب {who} ____ الشمس على سطح الماء.|انعكاس|مذاق|صوت
-أضاف {who} ____ ناعمة إلى أطراف الرسم.|ظلالًا|أرقامًا|روائح
-قارن {who} بين ____ الدافئة والباردة.|الألوان|الأصوات|الأطعمة
-رتّب {who} ____ الصور داخل المعرض.|إطارات|أكواب|أدوية
-عرض {who} ____ عمله أمام الزوار.|فكرة|حرارة|طول
-`);
-
-addRare(["المنظّم","المشارك","المتطوع"],`
-تأكد {who} من ____ الضيوف قبل بدء اللقاء.|حضور|طول|مذاق
-وزّع {who} ____ على المقاعد بالتساوي.|البطاقات|الأحذية|الملاعق
-تعاون {who} مع الفريق لتحقيق ____ مشترك.|هدف|لون|حجم
-استمع {who} إلى ____ الآخرين باحترام.|آراء|سيارات|ملابس
-دوّن {who} ____ الاجتماع في نهاية الجلسة.|محضر|طبق|مفتاح
-أعلن {who} ____ الفعالية عند المدخل.|برنامج|ثمن|رائحة
-ساعد {who} في ____ القاعة قبل وصول الزوار.|تنظيم|هدم|إغلاق دائم
-شكر {who} ____ على مساهمتهم في النجاح.|المتطوعين|الجدران|الطاولات
-احترم {who} ____ الحديث أثناء النقاش.|دور|لون|وزن
-راجع {who} ____ السلامة قبل فتح المعرض.|إجراءات|أغاني|صور
-`);
-
-addRare(["القاضي","المعلم","المدير"],`
-استمع {who} إلى الطرفين قبل اتخاذ ____ .|قرار|استراحة|وجبة
-طلب {who} ____ واضحة تدعم الكلام.|أدلةً|ألوانًا|أطباقًا
-اختار {who} كلمات ____ لتوضيح وجهة نظره.|دقيقةً|ثقيلةً|مرتفعةً
-حافظ {who} على ____ عند مناقشة المشكلة.|الهدوء|الضجيج|التسرع
-فصل {who} بين ____ والحقائق عند التقييم.|الآراء|الأرقام|الوثائق
-أوضح {who} ____ السؤال قبل الإجابة عنه.|مقصود|طول|سعر
-قارن {who} بين ____ المتاحة قبل الاختيار.|البدائل|الأثاث|الأطعمة
-راجع {who} ____ السابقة قبل إصدار الحكم.|الوقائع|المواعيد|الرحلات
-شرح {who} سبب ____ الخطة بعد ظهور معلومات جديدة.|تعديل|تلوين|تصوير
-تجنّب {who} ____ إلى النتائج دون دليل.|القفز|المشي|النوم
-`);
 
 function shuffle(a){
-const b=[...a];
-for(let i=b.length-1;i>0;i--){
-const j=Math.floor(Math.random()*(i+1));
-[b[i],b[j]]=[b[j],b[i]];
+a=[...a];
+for(let i=a.length-1;i>0;i--){
+let j=Math.floor(Math.random()*(i+1));
+[a[i],a[j]]=[a[j],a[i]];
 }
-return b;
-}
-
-function code(number){
-return "ACC-"+String(number).padStart(6,"0");
+return a;
 }
 
-function prize(score){
-return score===3?"chocolate":
-       score===2?"toffee":"none";
+function code(id){
+if(!/^[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i.test(id||""))
+return "LEGACY";
+const alphabet="ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+let n=BigInt("0x"+id.replace(/-/g,"").slice(0,10));
+let out="";
+for(let i=0;i<8;i++){
+out=alphabet[Number(n%32n)]+out;
+n/=32n;
+}
+return out.slice(0,4)+"-"+out.slice(4);
 }
 
-function time(t){
-return t.toLocaleString("en-US",{
-hour:"numeric",
-minute:"2-digit",
-hour12:true,
+const prize=score=>
+score===3?"chocolate":score===2?"toffee":"none";
+
+const date=t=>t.toLocaleString("en-US",{
 year:"numeric",
 month:"short",
-day:"numeric"
+day:"numeric",
+hour:"numeric",
+minute:"2-digit",
+hour12:true
 });
-}
-
-function uuid(){
-return crypto.randomUUID();
-}
-
-async function prepareDevice(){
-try{
-deviceId=localStorage.getItem(DEVICE_KEY);
-
-if(!deviceId){
-deviceId=uuid();
-localStorage.setItem(DEVICE_KEY,deviceId);
-}
-
-const devRef=db.collection("devices").doc(deviceId);
-const counterRef=db.collection("meta")
-.doc("visitorCounter");
-
-device=await db.runTransaction(async tx=>{
-const devSnap=await tx.get(devRef);
-
-if(devSnap.exists)return devSnap.data();
-
-const counter=await tx.get(counterRef);
-const number=counter.exists
-?counter.data().nextNumber:1;
-
-if(number>999999){
-throw Error("Visitor limit reached");
-}
-
-tx.set(counterRef,{nextNumber:number+1});
-
-tx.set(devRef,{
-number,
-firstResultId:null,
-createdAt:firebase.firestore
-.FieldValue.serverTimestamp()
-});
-
-return {number,firstResultId:null};
-});
-
-$("visitorCode").textContent=code(device.number);
-$("start").disabled=false;
-$("start").textContent="🚀 Enter the Challenge";
-
-$("retryNotice").classList.toggle(
-"hide",!device.firstResultId
-);
-
-$("introStatus").textContent=
-"Your code stays with this browser. You can win only on its first completed quiz.";
-
-}catch(err){
-console.error(err);
-$("visitorCode").textContent="Unavailable";
-$("introStatus").textContent=
-"Cannot connect to Firebase. Check the new Rules and your internet, then reload.";
-}
-}
 
 function theme(){
-const level=$("level").value;
-document.body.dataset.theme=level;
-
-const maps={
-beginner:[
-"🌸🦋🌳",
-"Magical Garden",
-"Flowers, animals and familiar words"
-],
-intermediate:[
-"🏮🐪🌇",
-"Golden Bazaar",
-"Lanterns, travel and clever objects"
-],
-advanced:[
-"👑🏰✨",
-"Royal Kingdom",
-"Knowledge, science and rare sentence challenges"
-]
+const v=$("level").value;
+document.body.dataset.level=v;
+const themes={
+beginner:["🌺🦋🌳","Magical Garden","Flowers and familiar words"],
+intermediate:["🏮🐪🌇","Golden Bazaar","Market and travel words"],
+advanced:["👑🏰✨","Royal Kingdom","Knowledge and rare sentence surprises"]
 };
-
-const [emoji,title,caption]=maps[level];
-
-$("sceneIcon").textContent=emoji;
-$("sceneTitle").textContent=title;
-$("sceneCaption").textContent=caption;
+const t=themes[v];
+$("sceneIcon").textContent=t[0];
+$("sceneTitle").textContent=t[1];
+$("sceneInfo").textContent=t[2];
 }
 
-function makeQuestions(level,setNumber){
-const pool=words[level];
-
-// 10,000 distinct ordered 3-picture combinations.
-// Each question uses a different picture.
-const offset={
-beginner:151,
-intermediate:331,
-advanced:977
-}[level];
-
-const index=(
-(setNumber*7919+offset)%10000+10000
-)%10000;
-
-let rank=(index*97+317)%(50*49*48);
-const ids=[];
-
-for(const width of [50,49,48]){
-const selection=rank%width;
-rank=Math.floor(rank/width);
-
-const unused=[...Array(50).keys()]
-.filter(x=>!ids.includes(x));
-
-ids.push(unused[selection]);
+async function register(){
+try{
+deviceId=localStorage.getItem(DEVICE_KEY);
+if(!deviceId){
+deviceId=crypto.randomUUID();
+localStorage.setItem(DEVICE_KEY,deviceId);
 }
-
-const questions=ids.map(id=>{
-const [picture,correct]=pool[id];
-
-const distractors=shuffle(
-pool.filter(x=>x[1]!==correct)
-).slice(0,2).map(x=>x[1]);
-
-const opts=shuffle([correct,...distractors]);
-
-return {
-type:"picture",
-picture,
-opts,
-answer:opts.indexOf(correct)
-};
+const ref=db.collection("devices").doc(deviceId);
+const counter=db.collection("meta").doc("visitorCounter");
+device=await db.runTransaction(async tx=>{
+const old=await tx.get(ref);
+if(old.exists)return old.data();
+const last=await tx.get(counter);
+const number=last.exists?last.data().nextNumber:1;
+if(number>999999)throw Error("Registration limit reached");
+tx.set(counter,{nextNumber:number+1});
+tx.set(ref,{
+number,
+firstResultId:null,
+createdAt:firebase.firestore.FieldValue.serverTimestamp()
 });
+return {number,firstResultId:null};
+});
+$("visitorCode").textContent=code(deviceId);
+$("warning").classList.toggle("hide",!device.firstResultId);
+$("start").disabled=false;
+$("start").textContent="🚀 Start Quiz";
+}catch(e){
+console.error(e);
+$("status").textContent=
+"Connection failed. Check Firebase Rules and internet, then reload.";
+}
+}
 
-// 1 in 159 Advanced attempts gets one sentence.
-if(level==="advanced" &&
-Math.floor(Math.random()*159)===0){
-
-const x=rare[
-Math.floor(Math.random()*rare.length)
-];
-
-const opts=shuffle(x.options);
-const slot=Math.floor(Math.random()*3);
-
-questions[slot]={
-type:"sentence",
-sentence:x.sentence,
-opts,
-answer:opts.indexOf(x.correct)
+function questionsFor(level,n){
+const pool=words[level];
+const offset={beginner:151,intermediate:331,advanced:977}[level];
+const index=((n*7919+offset)%10000+10000)%10000;
+let rank=(index*97+317)%(50*49*48);
+let ids=[];
+for(const width of [50,49,48]){
+const available=Array.from(
+{length:50},(_,i)=>i
+).filter(i=>!ids.includes(i));
+ids.push(available[rank%width]);
+rank=Math.floor(rank/width);
+}
+const q=ids.map(i=>{
+const [picture,right]=pool[i];
+const wrong=shuffle(
+pool.filter(x=>x[1]!==right)
+).slice(0,2).map(x=>x[1]);
+const options=shuffle([right,...wrong]);
+return {picture,options,correct:options.indexOf(right)};
+});
+if(level==="advanced"&&Math.floor(Math.random()*159)===0){
+const s=rare[Math.floor(Math.random()*rare.length)];
+const options=shuffle(s.options);
+const i=Math.floor(Math.random()*3);
+q[i]={
+sentence:s.text,
+options,
+correct:options.indexOf(s.right)
 };
 }
-
-return {questions,setIndex:index+1};
+return {q,quizSet:index+1};
 }
 
-function begin(){
-if(!device||playing)return;
-
-const name=$("name").value.trim()
-.replace(/\s+/g," ");
-
+function start(){
+if(!device||game)return;
+const name=$("name").value.trim().replace(/\s+/g," ");
 if(!name){
-$("introStatus").textContent=
-"Please enter your name.";
+$("status").textContent="Enter your name first.";
 return;
 }
-
 const level=$("level").value;
-
-const attempts=Number(
-localStorage.getItem(ATTEMPT_KEY)||"0"
-)+1;
-
-try{
-localStorage.setItem(
-ATTEMPT_KEY,String(attempts)
-);
-}catch(e){console.warn(e);}
-
-const {questions,setIndex}=makeQuestions(
-level,device.number+attempts-1
-);
-
-playing={
-name,
-level,
-questions,
-setIndex,
-score:0,
-i:0,
-selected:null,
-state:"playing",
-wasRetry:!!device.firstResultId
+const attempt=Number(localStorage.getItem(ATTEMPT_KEY)||"0")+1;
+localStorage.setItem(ATTEMPT_KEY,String(attempt));
+const {q,quizSet}=questionsFor(level,device.number+attempt-1);
+game={
+name,level,q,quizSet,i:0,score:0,choice:null,
+phase:"playing",retry:!!device.firstResultId
 };
-
 $("welcome").classList.add("hide");
 $("quiz").classList.remove("hide");
-render();
+showQuestion();
 }
 
-function render(){
-const q=playing.questions[playing.i];
-const answered=playing.selected!==null;
-
+function showQuestion(){
+const q=game.q[game.i];
+const answered=game.choice!==null;
 $("progress").textContent=
-`Question ${playing.i+1}/3 • ${playing.score} correct`;
-
-$("barFill").style.width=
-((playing.i+(answered?1:0))/3*100)+"%";
-
-$("picture").textContent=
-q.type==="picture"?q.picture:"✍️";
-
-$("hint").textContent=
-q.type==="sentence"?
-"RARE ADVANCED CHALLENGE: Choose the missing Arabic word!":"";
-
+`Question ${game.i+1}/3 · ${game.score} correct`;
+$("bar").style.width=
+(100*(game.i+(answered?1:0))/3)+"%";
+$("picture").textContent=q.sentence?"✍️":q.picture;
+$("hint").textContent=q.sentence?
+"RARE ADVANCED CHALLENGE — Fill the blank!":"";
 $("question").textContent=
-q.type==="sentence"?q.sentence:
-"What is the Arabic word for this picture?";
-
-$("question").classList.toggle(
-"ar",q.type==="sentence"
-);
-
-const target=$("choices");
-target.replaceChildren();
-
-q.opts.forEach((txt,i)=>{
+q.sentence||"What is the Arabic word for this picture?";
+$("question").classList.toggle("ar",!!q.sentence);
+$("choices").replaceChildren();
+q.options.forEach((x,i)=>{
 const b=document.createElement("button");
-b.textContent=txt;
+b.textContent=x;
 b.disabled=answered;
-b.onclick=()=>answer(i);
-target.appendChild(b);
+b.onclick=()=>choose(i);
+$("choices").appendChild(b);
 });
-
-$("feedback").textContent=answered?
-(playing.selected===q.answer?
-"✅ Correct!":
-"❌ Wrong. Answer: "+q.opts[q.answer]):"";
-
+$("feedback").textContent=!answered?
+"":game.choice===q.correct?
+"✅ Correct!":"❌ Wrong! Correct answer: "+q.options[q.correct];
 $("feedback").className=
-"feedback "+(answered?
-(playing.selected===q.answer?
-"correct":"incorrect"):"");
-
+"center "+(game.choice===q.correct?"good":"bad");
 $("next").classList.toggle("hide",!answered);
-
-$("next").textContent=playing.i===2?
-"Reveal My Result 🎁":"Next ➜";
+$("next").textContent=game.i===2?"See My Result 🎁":"Next →";
 }
 
-function answer(i){
-if(!playing||
-playing.state!=="playing"||
-playing.selected!==null)return;
-
-if(i===playing.questions[playing.i].answer){
-playing.score++;
-}
-
-playing.selected=i;
-render();
+function choose(i){
+if(!game||game.choice!==null)return;
+if(i===game.q[game.i].correct)game.score++;
+game.choice=i;
+showQuestion();
 }
 
 function next(){
-if(!playing||
-playing.selected===null||
-playing.state!=="playing")return;
-
-if(playing.i<2){
-playing.i++;
-playing.selected=null;
-render();
-}else{
-finish();
-}
+if(game.choice===null)return;
+if(game.i<2){
+game.i++;
+game.choice=null;
+showQuestion();
+}else finish();
 }
 
-function showResult(){
-const p=playing.isFirst?
-prize(playing.score):"none";
-
+function result(){
+const reward=game.first?prize(game.score):"none";
 $("quiz").classList.add("hide");
 $("result").classList.remove("hide");
-$("resultBox").className="result "+p;
-
-$("resultEmoji").textContent=
-p==="chocolate"?"🏆🍫":
-p==="toffee"?"🍬":"🌟";
-
-$("score").textContent=
-`${playing.name}: ${playing.score}/3`;
-
-$("prizeTitle").textContent=
-!playing.isFirst?
-"Practice attempt — no prize":
-p==="chocolate"?
-"Chocolate Champion!":
-p==="toffee"?
-"Toffee Star!":
-"Thank you for playing!";
-
-$("prizeInfo").textContent=
-!playing.isFirst?
-"You have already used this visitor code. Replays cannot win prizes.":
-p==="none"?
-"No prize for this score.":
-`You earned one ${p}! Waiting for admin approval. Keep this page open.`;
-
+$("resultBox").className="result "+reward;
+$("resultIcon").textContent=
+reward==="chocolate"?"🏆🍫":
+reward==="toffee"?"🍬":"🌟";
+$("resultScore").textContent=`${game.name}: ${game.score}/3`;
+$("resultTitle").textContent=
+!game.first?"Practice attempt — no prize":
+reward==="chocolate"?"Chocolate Champion!":
+reward==="toffee"?"Toffee Star!":"Thank you for playing!";
+$("resultInfo").textContent=
+!game.first?
+"You have already used this code. Replays do not win prizes.":
+reward==="none"?"No prize for this score.":
+`You earned one ${reward}! Waiting for admin approval.`;
+$("warning").classList.toggle("hide",!!game.first);
 $("saveStatus").textContent=
-playing.state==="saving"?
-"Saving your result…":
-playing.state==="failed"?
-"⚠️ Result not saved. Ask the organizer to help.":
-"✅ Result saved to the admin dashboard.";
-
-$("retryNotice").classList.toggle(
-"hide",playing.isFirst
-);
+game.phase==="saving"?"Saving result…":
+game.phase==="failed"?"⚠️ Result not saved. Ask the organizer.":
+"✅ Result saved!";
 }
 
 async function finish(){
-if(playing.state!=="playing")return;
-
-playing.state="saving";
-playing.isFirst=!playing.wasRetry;
-showResult();
-
+if(game.phase!=="playing")return;
+game.phase="saving";
+game.first=!game.retry;
+result();
 try{
 const devRef=db.collection("devices").doc(deviceId);
 const resultRef=db.collection("results").doc();
-
-const isFirst=await db.runTransaction(async tx=>{
+const first=await db.runTransaction(async tx=>{
 const snap=await tx.get(devRef);
-
-if(!snap.exists){
-throw Error("Visitor code missing. Ask the organizer.");
-}
-
+if(!snap.exists)throw Error("Visitor code missing");
 const first=!snap.data().firstResultId;
-
-if(first){
-tx.update(devRef,{
-firstResultId:resultRef.id
-});
-}
-
+if(first)tx.update(devRef,{firstResultId:resultRef.id});
 tx.set(resultRef,{
-name:playing.name,
-level:playing.level,
-score:playing.score,
+name:game.name,
+level:game.level,
+score:game.score,
 total:3,
-won:first&&playing.score>=2,
+won:first&&game.score>=2,
 firstAttempt:first,
 deviceId,
 visitorNumber:snap.data().number,
-quizSet:playing.setIndex,
-createdAt:firebase.firestore
-.FieldValue.serverTimestamp()
+quizSet:game.quizSet,
+createdAt:firebase.firestore.FieldValue.serverTimestamp()
 });
-
 return first;
 });
-
-playing.isFirst=isFirst;
-playing.resultId=resultRef.id;
-playing.state="saved";
-
-device.firstResultId=
-device.firstResultId||resultRef.id;
-
-showResult();
-
-if(isFirst&&playing.score>=2){
-watchApproval();
-}
-
-}catch(err){
-console.error(err);
-playing.state="failed";
-showResult();
+game.first=first;
+game.id=resultRef.id;
+game.phase="saved";
+device.firstResultId=device.firstResultId||game.id;
+result();
+if(first&&game.score>=2)watchApproval();
+}catch(e){
+console.error(e);
+game.phase="failed";
+result();
 }
 }
 
 function watchApproval(){
-approvalStop=db.collection("approvals")
-.doc(playing.resultId)
-.onSnapshot(s=>{
+stopApproval=db.collection("approvals")
+.doc(game.id).onSnapshot(s=>{
 if(!s.exists||s.data().accepted!==true)return;
-
-const data=s.data();
-
-playing.approvedAt=data.acceptedAt?.toDate?
-data.acceptedAt.toDate():new Date();
-
-showTicket();
-
-if(approvalStop){
-approvalStop();
-approvalStop=null;
-}
-
-},err=>{
-console.error(err);
-$("saveStatus").textContent=
-"Cannot read approval. Ask the organizer.";
-});
-}
-
-function showTicket(){
-const reward=prize(playing.score);
-
+const approval=s.data();
+const reward=prize(game.score);
 $("result").classList.add("hide");
 $("ticket").classList.remove("hide");
-
-$("ticket").classList.toggle(
-"toffee",reward==="toffee"
-);
-
-$("ticketEmoji").textContent=
+$("ticket").className="ticket "+reward;
+$("ticketIcon").textContent=
 reward==="chocolate"?"🏆🍫":"🌟🍬";
-
 $("ticketPrize").textContent=
-reward==="chocolate"?
-"CHOCOLATE CHAMPION":"TOFFEE STAR";
-
-$("ticketName").textContent=playing.name;
-
-$("ticketScore").textContent=
-`Score: ${playing.score}/3 · ${playing.level}`;
-
-$("ticketCode").textContent=code(device.number);
-
-$("ticketId").textContent=
-playing.resultId.slice(-8).toUpperCase();
-
-$("ticketTime").textContent=time(
-playing.approvedAt
+reward==="chocolate"?"CHOCOLATE CHAMPION":"TOFFEE STAR";
+$("ticketName").textContent=game.name;
+$("ticketScore").textContent=game.score+"/3 · "+game.level;
+$("ticketCode").textContent=code(deviceId);
+$("ticketId").textContent=game.id.slice(-8).toUpperCase();
+$("ticketTime").textContent=date(
+approval.acceptedAt?.toDate?
+approval.acceptedAt.toDate():new Date()
 );
-
 $("ticketBanner").textContent=
-"SHOW THIS SCREEN TO COLLECT YOUR "+
-reward.toUpperCase();
-
+"SHOW THIS SCREEN TO COLLECT YOUR "+reward.toUpperCase();
 $("certificate").classList.toggle(
 "hide",reward!=="chocolate"
 );
-
-const confetti=$("confetti");
-confetti.replaceChildren();
-
-for(let i=0;i<24;i++){
-const x=document.createElement("i");
-x.style.left=(i*37%97)+"%";
-x.style.background=[
-"#f2b945","#a565cf",
-"#45d296","#ff8cac"
-][i%4];
-x.style.animationDelay=(i%8*.12)+"s";
-confetti.appendChild(x);
+if(stopApproval){
+stopApproval();
+stopApproval=null;
 }
+},e=>{
+console.error(e);
+$("saveStatus").textContent="Cannot check approval. Ask organizer.";
+});
 }
 
-$("level").addEventListener("change",theme);
-$("start").addEventListener("click",begin);
-$("next").addEventListener("click",next);
-
+$("level").onchange=theme;
+$("start").onclick=start;
+$("next").onclick=next;
 theme();
-prepareDevice();
+register();
 </script>
 </body>
 </html>
