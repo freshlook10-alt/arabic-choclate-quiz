@@ -4,196 +4,187 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Arabic Chocolate Challenge — Admin</title>
+<title>Arabic Chocolate Challenge | Admin</title>
+
 <style>
 :root{
 --bg:#070810;
---card:#171929;
---line:#37344b;
---purple:#bc8dff;
---gold:#ffd277;
---pink:#ff8ebd;
---green:#75eac0;
---red:#ff93ab;
---muted:#aea6c1
+--line:#34364d;
+--muted:#aaa9be;
+--purple:#bf96ff;
+--gold:#ffd77f;
+--pink:#ffa4ca;
+--green:#7fe7b4;
+--red:#ff879e
 }
 *{box-sizing:border-box}
 body{
 margin:0;min-height:100vh;
 background:
-radial-gradient(circle at 8% 0%,#4c298366,transparent 40%),
-radial-gradient(circle at 94% 8%,#78521d44,transparent 33%),
+radial-gradient(ellipse at 10% 0%,#42207685,transparent 42%),
+radial-gradient(ellipse at 100% 12%,#61441c45,transparent 38%),
 var(--bg);
-color:#f9f6ff;font:15px system-ui,Arial,sans-serif
+color:#f9f6ff;
+font:15px system-ui,Arial,sans-serif
 }
-body::before{
-content:"";position:fixed;inset:0;pointer-events:none;
-opacity:.14;
-background-image:radial-gradient(#ad8bff 1px,transparent 1px);
-background-size:30px 30px
+body:before{
+content:"";
+position:fixed;inset:0;
+pointer-events:none;
+background-image:radial-gradient(#b697e0 1px,transparent 1px);
+background-size:30px 30px;
+opacity:.13
 }
 main{
-position:relative;max-width:1320px;
-margin:auto;padding:25px 15px 60px
+position:relative;max-width:1300px;
+margin:auto;padding:24px 15px 50px
 }
-.head{
-display:flex;align-items:center;
-justify-content:space-between;
-flex-wrap:wrap;gap:12px
-}
-.head h1{
-font-size:clamp(29px,4vw,42px);
+h1{
+font-size:clamp(28px,4vw,43px);
 margin:7px 0
 }
-.head h1 em{
-color:var(--purple);font-style:normal
-}
+h1 em{color:var(--purple);font-style:normal}
+h2{margin:0 0 10px}
+p{line-height:1.55}
+.muted{color:var(--muted)}
 .eyebrow{
-color:var(--gold);font-size:12px;
-letter-spacing:3px;font-weight:900
+color:var(--gold);
+font-size:12px;letter-spacing:3px;
+font-weight:900
 }
-.muted{color:var(--muted);line-height:1.5}
+.head,.top,.sectionhead,.actions,.filters{
+display:flex;gap:12px;
+align-items:center;flex-wrap:wrap
+}
+.head,.top,.sectionhead{justify-content:space-between}
+.head{margin-bottom:17px}
 .live{
-color:var(--green);border:1px solid #40735c;
-border-radius:90px;background:#12372799;
-padding:10px 14px;font-weight:800
+color:var(--green);border:1px solid #416b57;
+background:#163d2c66;border-radius:30px;
+padding:10px 13px;font-weight:800
 }
 .card{
 background:linear-gradient(155deg,#202235,#11131f);
-border:1px solid var(--line);border-radius:22px;
-padding:21px;margin:17px 0;
-box-shadow:0 14px 40px #0005
+border:1px solid var(--line);
+border-radius:20px;padding:21px;
+margin:16px 0;box-shadow:0 14px 35px #0005
 }
-.login{max-width:480px;margin:32px auto}
-h2{margin:0 0 12px}
+.login{max-width:450px;margin:35px auto}
 label{
-display:block;font-weight:750;
-margin:12px 0 6px
+display:block;font-weight:800;
+margin:14px 0 6px
+}
+input,select,button{
+font:inherit;padding:12px;border-radius:11px
 }
 input,select{
-background:#0d101b;border:1px solid #55536b;
-color:#fff;padding:12px;border-radius:12px;
-font:inherit
+background:#0e1020;color:white;
+border:1px solid #57546c;min-height:43px
 }
 input:focus,select:focus{
 outline:2px solid var(--purple)
 }
 .login input{width:100%}
 button{
-border:0;border-radius:12px;padding:12px 15px;
-font:inherit;font-weight:850;cursor:pointer;
-color:#fff;
-background:linear-gradient(110deg,#9d6cec,#6944c2)
+border:0;
+background:linear-gradient(110deg,#9c69ec,#6844bb);
+color:white;font-weight:800;cursor:pointer
 }
 button:disabled{opacity:.55;cursor:default}
-.goldbutton{
-background:linear-gradient(115deg,#ffdb88,#c48c32);
-color:#21190b
+.login button{
+display:block;width:100%;margin-top:11px
 }
-.secondary{
-background:#323249;border:1px solid #58546b
+.goldBtn{
+color:#281b05;
+background:linear-gradient(100deg,#ffe29a,#d39b40)
 }
+.secondary{background:#323348}
 .danger{
-background:#66253c;color:#ffd3df;
-border:1px solid #af5065
+background:#70283e;color:#ffe3eb;
+border:1px solid #b34c66
 }
-.login button{margin-top:11px;width:100%}
-.hidden{display:none!important}
+.hide{display:none!important}
+.error{color:var(--red)!important}
 .message{
-min-height:18px;color:var(--muted);
+color:var(--muted);font-size:13px;
 line-height:1.6
-}
-.error{color:var(--red)}
-.top{
-display:flex;justify-content:space-between;
-gap:15px;align-items:center;flex-wrap:wrap
-}
-.actions,.filters{
-display:flex;gap:9px;flex-wrap:wrap
 }
 .stats{
 display:grid;
-grid-template-columns:repeat(4,minmax(0,1fr));
-gap:12px
+grid-template-columns:repeat(5,minmax(0,1fr));
+gap:12px;margin:17px 0
 }
-.stats .card{margin:0;min-height:140px}
+.stats .card{margin:0;min-height:145px}
 .stats strong{
 display:block;
-font-size:clamp(28px,4vw,43px);
-margin:9px 0
+font-size:clamp(26px,3.2vw,42px);
+margin:9px 0;
+font-variant-numeric:tabular-nums
 }
-.stats small{color:var(--muted)}
+.stats small{
+color:var(--muted);font-weight:700
+}
 .purple{color:var(--purple)}
 .pink{color:var(--pink)}
 .gold{color:var(--gold)}
 .green{color:var(--green)}
-.sectionhead{
-display:flex;justify-content:space-between;
-align-items:center;gap:10px;flex-wrap:wrap;
-margin-bottom:15px
-}
-.filters input{width:min(260px,100%)}
+.filters{justify-content:flex-start}
+.filters input{width:260px}
 .tablewrap{
-max-height:72vh;overflow:auto;
-border:1px solid var(--line);border-radius:13px
+overflow:auto;max-height:73vh;
+border:1px solid var(--line);
+border-radius:12px
 }
 table{
-width:100%;min-width:1140px;border-collapse:collapse
+width:100%;min-width:1120px;
+border-collapse:collapse
 }
 th,td{
+border-bottom:1px solid #343449;
 padding:13px;text-align:left;
-border-bottom:1px solid #323246
+vertical-align:middle;font-size:13px
 }
 th{
-background:#28223b;position:sticky;top:0;
-color:#eddcff;font-size:12px
+background:#29233b;
+color:#e8d7ff;
+position:sticky;top:0;
+white-space:nowrap
 }
-td{font-size:13px}
-tr:hover td{background:#ffffff08}
-.ticket{
-color:var(--gold);
-font-family:Consolas,monospace;
-font-weight:800
+tr:hover td{background:#ffffff09}
+.id{
+font:800 13px ui-monospace,Consolas,monospace;
+color:var(--gold)
 }
-.approved{color:var(--green);font-weight:800}
-.badge{
-padding:6px 9px;border-radius:25px;
-white-space:nowrap;font-weight:850
+.approved{
+color:var(--green);font-weight:900
 }
-.badge.chocolate{
-color:#ffe1a7;background:#583c1e
-}
-.badge.toffee{
-color:#ffc1d8;background:#53263e
-}
-.badge.none{
-color:#d1cde0;background:#383749
-}
-.badge.retry{
-color:#ffb1c1;background:#5b2436
+.subtime{
+font-size:12px;color:var(--muted);
+margin-top:4px
 }
 .approve{
-font-size:12px;padding:10px;background:#6844a6
+padding:10px 12px;
+font-size:12px;white-space:nowrap
 }
-.approve.choc{background:#a06a22}
-.resetpanel{
-max-width:750px;border-color:#bd5a70;
-background:linear-gradient(140deg,#391e2e,#18131f)
+.approve.choc{background:#a47729}
+.resetPanel{
+border-color:#aa4965;
+background:linear-gradient(145deg,#391c2e,#18141f)
 }
-.resetpanel h2{color:#ffc0d0}
-.resetpanel input{width:min(420px,100%)}
-.footer{
-text-align:center;color:#9287a6;
+.resetPanel input{width:min(420px,100%)}
+.foot{
+text-align:center;color:#88829c;
 font-size:12px;margin-top:25px
 }
-@media(max-width:850px){
-.stats{grid-template-columns:repeat(2,1fr)}
+@media(max-width:1000px){
+.stats{grid-template-columns:repeat(3,minmax(0,1fr))}
 }
-@media(max-width:520px){
+@media(max-width:600px){
+.stats{grid-template-columns:repeat(2,minmax(0,1fr))}
 .card{padding:15px}
-.actions button{flex:1}
 .filters input,.filters select{width:100%}
-main{padding:14px 8px}
+.actions button{flex:1}
+main{padding:14px 9px}
 }
 </style>
 </head>
@@ -202,13 +193,9 @@ main{padding:14px 8px}
 <main>
 <header class="head">
 <div>
-<div class="eyebrow">
-✦ EXHIBITION CONTROL ROOM ✦
-</div>
+<div class="eyebrow">✦ EXHIBITION CONTROL ROOM ✦</div>
 <h1>🍫 Arabic Challenge <em>ADMIN</em></h1>
-<div class="muted">
-Black Neon Edition · Visitor codes · Prize approvals
-</div>
+<p class="muted">Black Neon Edition · Live visitors & rewards</p>
 </div>
 <div class="live">● LIVE DASHBOARD</div>
 </header>
@@ -216,44 +203,41 @@ Black Neon Edition · Visitor codes · Prize approvals
 <section id="login" class="card login">
 <h2>🔐 Organizer Login</h2>
 <p class="muted">
-Only authorized Firebase admin accounts can see results.
+Sign in with your authorized Firebase account.
 </p>
 <form id="loginForm">
-<label for="email">Admin email</label>
+<label for="email">Email</label>
 <input id="email" type="email"
-required autocomplete="username">
+autocomplete="username" required>
 
 <label for="password">Password</label>
 <input id="password" type="password"
-required autocomplete="current-password">
+autocomplete="current-password" required>
 
 <button id="signIn" type="submit">
-🔓 Open Control Room
+Open Control Room
 </button>
 </form>
-
-<button id="resetEmail" class="secondary">
-Forgot password? Send reset email
+<button id="resetEmail" class="secondary" type="button">
+Forgot password?
 </button>
 <p id="loginMessage" class="message"></p>
 </section>
 
-<section id="dashboard" class="hidden">
+<section id="dashboard" class="hide">
 <div class="card top">
 <div>
 <div class="eyebrow">WELCOME BACK</div>
-<strong id="adminEmail"></strong>
-<div class="muted">
-Prize approval counts as giving the prize.
-Replays are not eligible.
+<b id="adminEmail"></b>
+<p class="muted">
+Repeated plays are recorded but cannot win another prize.
+</p>
 </div>
-</div>
-
 <div class="actions">
-<button id="csv" class="goldbutton">
+<button id="csv" class="goldBtn">
 ⬇ Download CSV
 </button>
-<button id="openReset" class="danger hidden">
+<button id="openReset" class="danger hide">
 🗑 Reset Visitors
 </button>
 <button id="logout" class="secondary">
@@ -266,46 +250,53 @@ Log Out
 <div class="card purple">
 👥
 <strong id="visitors">0</strong>
-<small>Total Quiz Results</small>
+<small>Total Quiz Plays</small>
 </div>
+
 <div class="card pink">
 🍬
 <strong id="toffees">0</strong>
 <small>Toffees Given Out</small>
 </div>
+
 <div class="card gold">
 🍫
 <strong id="chocolates">0</strong>
 <small>Chocolates Given Out</small>
 </div>
+
 <div class="card green">
 ⏳
 <strong id="pending">0</strong>
 <small>Awaiting Approval</small>
 </div>
+
+<div class="card purple">
+🔁
+<strong id="repeats">0</strong>
+<small>Times Repeated</small>
+</div>
 </div>
 
-<section id="resetPanel" class="card resetpanel hidden">
-<h2>⚠️ Reset all exhibition records?</h2>
+<section id="resetPanel" class="card resetPanel hide">
+<h2>Reset All Exhibition Data</h2>
 <p>
-This permanently removes results, approvals,
-browser-code registrations and the visitor-number
-sequence. All counters return to zero.
-Your admin accounts and website remain.
+This permanently deletes visitor results,
+prize approvals, browser registrations,
+and the visitor-number counter.
+Your website and admin accounts are not deleted.
 </p>
 <p class="muted">
-Download your CSV first. No one should play
-during a reset. The operation cannot be undone.
+Download your CSV first. Do not reset while visitors are playing.
 </p>
-<label for="ownerPassword">
-Enter your main admin password
-</label>
+
+<label for="ownerPassword">Main admin password</label>
 <input id="ownerPassword" type="password"
 autocomplete="current-password">
 
 <div class="actions">
 <button id="doReset" class="danger">
-Permanently Reset Everything
+Delete All Visitor Data
 </button>
 <button id="cancelReset" class="secondary">
 Cancel
@@ -318,24 +309,23 @@ Cancel
 <div class="sectionhead">
 <div>
 <h2>✨ Visitor Results</h2>
-<div class="muted">
-First attempts, replay detection,
-12-hour time and ticket codes
-</div>
+<p class="muted">
+Short Visitor IDs · Repeated plays · 12-hour time
+</p>
 </div>
 
 <div class="filters">
-<input type="search" id="search"
-placeholder="🔎 Name or visitor code">
+<input id="search" type="search"
+placeholder="Search name or Visitor ID">
 
 <select id="filter">
 <option value="all">All results</option>
-<option value="eligible">First attempts</option>
-<option value="retry">Replays — no prize</option>
+<option value="first">First plays</option>
+<option value="retry">Repeated plays</option>
 <option value="pending">Awaiting approval</option>
 <option value="approved">Approved prizes</option>
-<option value="toffee">🍬 Toffee</option>
-<option value="chocolate">🍫 Chocolate</option>
+<option value="toffee">Toffee</option>
+<option value="chocolate">Chocolate</option>
 </select>
 </div>
 </div>
@@ -347,7 +337,7 @@ placeholder="🔎 Name or visitor code">
 <th>Name</th>
 <th>Level</th>
 <th>Score</th>
-<th>Visitor Code</th>
+<th>Visitor ID</th>
 <th>Attempt</th>
 <th>Prize</th>
 <th>Quiz Set</th>
@@ -364,9 +354,9 @@ Connecting to Firebase…
 </section>
 </section>
 
-<div class="footer">
+<p class="foot">
 Arabic Chocolate Challenge · Organizer Control Room
-</div>
+</p>
 </main>
 
 <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-app-compat.js"></script>
@@ -378,22 +368,38 @@ Arabic Chocolate Challenge · Organizer Control Room
 const $=id=>document.getElementById(id);
 const auth=firebase.auth();
 
-const OWNER_UID=
-"DWoqJv8nnNhp84t4mwz6uD5q8HQ2";
+const OWNER_UID="DWoqJv8nnNhp84t4mwz6uD5q8HQ2";
 
 let results=[];
 let approvals=new Map();
-
-let stopResults=null;
-let stopApprovals=null;
-
-let readyResults=false;
-let readyApprovals=false;
-
-let errMsg="";
+let offResults=null;
+let offApprovals=null;
+let resultsReady=false;
+let approvalsReady=false;
+let error="";
 let resetting=false;
 
-const fmt=t=>t?.toDate?
+// Same short ID as the visitor page.
+function visitorID(deviceId){
+if(!/^[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i.test(deviceId||""))
+return "Older entry";
+
+const alphabet="ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+
+let n=BigInt(
+"0x"+deviceId.replace(/-/g,"").slice(0,10)
+);
+
+let out="";
+for(let i=0;i<8;i++){
+out=alphabet[Number(n%32n)]+out;
+n/=32n;
+}
+
+return out.slice(0,4)+"-"+out.slice(4);
+}
+
+const when=t=>t?.toDate?
 t.toDate().toLocaleString("en-US",{
 year:"numeric",
 month:"short",
@@ -403,37 +409,30 @@ minute:"2-digit",
 hour12:true
 }):"Saving…";
 
-const code=n=>Number.isInteger(n)?
-"ACC-"+String(n).padStart(6,"0"):
-"Legacy";
+const repeated=p=>p.firstAttempt===false;
 
-function eligible(p){
-return p.score>=2 &&
+const eligible=p=>
+p.score>=2 &&
 p.won===true &&
-p.firstAttempt!==false;
-}
+!repeated(p);
 
-function isRetry(p){
-return p.firstAttempt===false;
-}
-
-function prize(p){
-return !eligible(p)?"none":
+const reward=p=>
+!eligible(p)?"none":
 p.score===3?"chocolate":"toffee";
-}
 
-const prizeName=p=>
-prize(p)==="chocolate"?"Chocolate":
-prize(p)==="toffee"?"Toffee":"No prize";
+const rewardLabel=p=>
+reward(p)==="chocolate"?"Chocolate":
+reward(p)==="toffee"?"Toffee":"No prize";
 
 function stop(){
-if(stopResults)stopResults();
-if(stopApprovals)stopApprovals();
-stopResults=stopApprovals=null;
+if(offResults)offResults();
+if(offApprovals)offApprovals();
+offResults=null;
+offApprovals=null;
 }
 
-$("loginForm").addEventListener(
-"submit",async e=>{
+// LOGIN
+$("loginForm").onsubmit=async e=>{
 e.preventDefault();
 $("signIn").disabled=true;
 $("loginMessage").textContent="";
@@ -443,30 +442,31 @@ await auth.signInWithEmailAndPassword(
 $("email").value.trim(),
 $("password").value
 );
-}catch(err){
-console.error(err);
+}catch(e){
+console.error(e);
 $("loginMessage").textContent=
-"Login failed. Check your details.";
+"Login failed. Check email and password.";
 }finally{
 $("signIn").disabled=false;
 }
-});
+};
 
+// PASSWORD RESET EMAIL
 $("resetEmail").onclick=async()=>{
-try{
-if(!$("email").value.trim()){
-throw Error("Enter your email first.");
+const email=$("email").value.trim();
+
+if(!email){
+$("loginMessage").textContent="Enter your email first.";
+return;
 }
 
-await auth.sendPasswordResetEmail(
-$("email").value.trim()
-);
-
+try{
+await auth.sendPasswordResetEmail(email);
 $("loginMessage").textContent=
-"Check your email for a password-reset link.";
-
-}catch(err){
-$("loginMessage").textContent=err.message;
+"If registered, check your inbox for a reset link.";
+}catch(e){
+console.error(e);
+$("loginMessage").textContent="Unable to send reset email.";
 }
 };
 
@@ -476,70 +476,68 @@ if(!resetting)auth.signOut();
 
 $("search").oninput=draw;
 $("filter").onchange=draw;
-$("csv").onclick=csv;
+$("csv").onclick=downloadCSV;
 
+// LIVE RESULTS
 auth.onAuthStateChanged(user=>{
 stop();
-
 results=[];
 approvals=new Map();
+resultsReady=false;
+approvalsReady=false;
+error="";
 
-readyResults=false;
-readyApprovals=false;
-errMsg="";
-
-$("resetPanel").classList.add("hidden");
+$("resetPanel").classList.add("hide");
 
 if(!user){
-$("dashboard").classList.add("hidden");
-$("login").classList.remove("hidden");
+$("dashboard").classList.add("hide");
+$("login").classList.remove("hide");
 return;
 }
 
-$("login").classList.add("hidden");
-$("dashboard").classList.remove("hidden");
+$("login").classList.add("hide");
+$("dashboard").classList.remove("hide");
 
 $("adminEmail").textContent=user.email||"Admin";
 
 $("openReset").classList.toggle(
-"hidden",user.uid!==OWNER_UID
+"hide",user.uid!==OWNER_UID
 );
 
-stopResults=db.collection("results")
+draw();
+
+offResults=db.collection("results")
 .orderBy("createdAt","desc")
 .onSnapshot(s=>{
 results=s.docs.map(d=>({
-id:d.id,...d.data()
+id:d.id,
+...d.data()
 }));
-
-readyResults=true;
+resultsReady=true;
 draw();
-
 },e=>{
 console.error(e);
-errMsg=
-"Cannot read results. Check admin UID in Firebase Rules.";
+error="Cannot read results. Check Firestore admin permissions.";
 draw();
 });
 
-stopApprovals=db.collection("approvals")
+offApprovals=db.collection("approvals")
 .onSnapshot(s=>{
 approvals=new Map(
-s.docs.filter(d=>d.data().accepted===true)
+s.docs
+.filter(d=>d.data().accepted===true)
 .map(d=>[d.id,d.data()])
 );
-
-readyApprovals=true;
+approvalsReady=true;
 draw();
-
 },e=>{
 console.error(e);
-errMsg=
-"Cannot read approvals. Check Firebase Rules.";
+error="Cannot read approvals. Check Firestore rules.";
 draw();
 });
 });
 
+// APPROVAL: REPEATED PLAYERS CANNOT BE APPROVED
 async function approve(p,button){
 if(!eligible(p)||resetting)return;
 
@@ -551,143 +549,149 @@ await db.runTransaction(async tx=>{
 const resultRef=db.collection("results").doc(p.id);
 const approvalRef=db.collection("approvals").doc(p.id);
 
-const result=await tx.get(resultRef);
-const old=await tx.get(approvalRef);
+const current=await tx.get(resultRef);
+const existing=await tx.get(approvalRef);
 
-if(!result.exists||!eligible(result.data())){
-throw Error("Ineligible replay or missing result");
+if(!current.exists||!eligible(current.data())){
+throw Error("Ineligible attempt");
 }
 
-if(!old.exists){
+if(!existing.exists){
 tx.set(approvalRef,{
 accepted:true,
-acceptedAt:firebase.firestore
-.FieldValue.serverTimestamp()
+acceptedAt:firebase.firestore.FieldValue.serverTimestamp()
 });
 }
 });
 
-}catch(err){
-console.error(err);
+}catch(e){
+console.error(e);
 button.disabled=false;
-button.textContent="Approve "+prizeName(p);
-errMsg="Approval failed. Check your Firebase Rules.";
+button.textContent="Approve prize";
+error="Approval failed. Check Firebase permissions.";
 draw();
 }
 }
 
+// RESULTS TABLE
 function draw(){
-const table=$("rows");
-table.replaceChildren();
+const body=$("rows");
+body.replaceChildren();
 
-const term=$("search").value.toLowerCase().trim();
-const f=$("filter").value;
+const search=$("search").value.trim().toLowerCase();
+const filter=$("filter").value;
 
-const filtered=results.filter(p=>{
+const shown=results.filter(p=>{
+const r=reward(p);
 const approved=approvals.has(p.id);
-const v=prize(p);
 
 const matches=(
 String(p.name||"")+" "+
-code(p.visitorNumber)+" "+p.id
-).toLowerCase().includes(term);
+visitorID(p.deviceId)+" "+
+p.id
+).toLowerCase().includes(search);
 
 return matches&&(
-f==="all"||
-(f==="eligible"&&!isRetry(p))||
-(f==="retry"&&isRetry(p))||
-(f==="pending"&&v!=="none"&&!approved)||
-(f==="approved"&&v!=="none"&&approved)||
-f===v
+filter==="all"||
+(filter==="first"&&!repeated(p))||
+(filter==="retry"&&repeated(p))||
+(filter==="pending"&&r!=="none"&&!approved)||
+(filter==="approved"&&r!=="none"&&approved)||
+filter===r
 );
 });
 
-filtered.forEach(p=>{
-const tr=table.insertRow();
+for(const p of shown){
+const row=body.insertRow();
 
 [
 p.name||"Visitor",
 p.level||"",
 p.score+"/3",
-code(p.visitorNumber),
-isRetry(p)?"RETRY":"First",
-p.firstAttempt===false?
-"Practice only":prizeName(p),
+visitorID(p.deviceId),
+repeated(p)?"Repeated":"First play",
+repeated(p)?"No prize":rewardLabel(p),
 p.quizSet||"—",
-fmt(p.createdAt)
-].forEach((txt,i)=>{
-const cell=tr.insertCell();
-cell.textContent=txt;
+when(p.createdAt)
+].forEach((value,i)=>{
+const cell=row.insertCell();
+cell.textContent=value;
 
-if(i===3)cell.className="ticket";
-if(i===4&&isRetry(p))cell.className="error";
+if(i===3)cell.className="id";
 });
 
-const cell=tr.insertCell();
-const a=approvals.get(p.id);
+const action=row.insertCell();
+const approval=approvals.get(p.id);
 
-if(!eligible(p)){
-cell.textContent=isRetry(p)?
-"❌ Replay: no prize":"No prize";
+if(repeated(p)){
+// Normal plain text, no red label and no approval button.
+action.textContent="Repeated";
 
-}else if(a){
-const strong=document.createElement("strong");
-strong.className="approved";
-strong.textContent="✅ Approved";
+}else if(!eligible(p)){
+action.textContent="No prize";
 
-const when=document.createElement("div");
-when.className="muted";
-when.textContent=fmt(a.acceptedAt);
+}else if(approval){
+const label=document.createElement("strong");
+label.className="approved";
+label.textContent="Approved";
 
-cell.append(strong,when);
+const approvedTime=document.createElement("div");
+approvedTime.className="subtime";
+approvedTime.textContent=when(approval.acceptedAt);
+
+action.append(label,approvedTime);
 
 }else{
-const b=document.createElement("button");
-b.className="approve "+
-(p.score===3?"choc":"");
+const button=document.createElement("button");
+button.className="approve"+(p.score===3?" choc":"");
 
-b.textContent="Approve "+prizeName(p);
-b.disabled=resetting;
-b.onclick=()=>approve(p,b);
-cell.appendChild(b);
+button.textContent="Approve "+rewardLabel(p);
+button.disabled=resetting;
+button.onclick=()=>approve(p,button);
+
+action.append(button);
 }
-});
+}
 
+// COUNTERS
 $("visitors").textContent=results.length;
 
 $("toffees").textContent=results.filter(
-p=>prize(p)==="toffee"&&approvals.has(p.id)
+p=>reward(p)==="toffee"&&approvals.has(p.id)
 ).length;
 
 $("chocolates").textContent=results.filter(
-p=>prize(p)==="chocolate"&&approvals.has(p.id)
+p=>reward(p)==="chocolate"&&approvals.has(p.id)
 ).length;
 
 $("pending").textContent=results.filter(
 p=>eligible(p)&&!approvals.has(p.id)
 ).length;
 
-$("message").textContent=errMsg||
-(!readyResults||!readyApprovals?
+$("repeats").textContent=results.filter(repeated).length;
+
+$("message").textContent=error||
+(!resultsReady||!approvalsReady?
 "Connecting…":
-filtered.length?"":results.length?
-"No matching results.":"No quiz results yet.");
+shown.length?"":results.length?
+"No results match.":"No visitors yet.");
+
+$("message").classList.toggle("error",!!error);
 }
 
-function csvSafe(v){
+// CSV
+function csvCell(v){
 let x=String(v??"");
 
-if(/^\s*[=+@\-]/.test(x)){
-x="'"+x;
-}
+if(/^\s*[=+@\-]/.test(x))x="'"+x;
 
 return '"'+x.replaceAll('"','""')+'"';
 }
 
-function csv(){
-if(!readyResults||!readyApprovals||errMsg){
+function downloadCSV(){
+if(!resultsReady||!approvalsReady||error){
 $("message").textContent=
-"Wait for all results to finish loading.";
+"Wait for Firebase to load all results.";
 return;
 }
 
@@ -695,103 +699,106 @@ const rows=[[
 "Name",
 "Level",
 "Score",
-"Visitor Code",
+"Visitor ID",
 "Attempt",
 "Prize",
 "Quiz Set",
 "Ticket ID",
 "Time Played",
-"Admin Approved",
+"Admin Approval",
 "Approved At",
 "Toffees Given Out",
-"Chocolates Given Out"
+"Chocolates Given Out",
+"Repeated"
 ]];
 
 results.forEach(p=>{
 const a=approvals.get(p.id);
-const yes=!!a&&eligible(p);
+const approved=!!a&&eligible(p);
+
+const approvalStatus=
+repeated(p)?"Repeated":
+approved?"Approved":
+eligible(p)?"Pending":"No prize";
 
 rows.push([
 p.name,
 p.level,
 p.score+"/3",
-code(p.visitorNumber),
-isRetry(p)?"Retry":"First",
-prizeName(p),
+visitorID(p.deviceId),
+repeated(p)?"Repeated":"First play",
+repeated(p)?"No prize":rewardLabel(p),
 p.quizSet||"",
 p.id.slice(-8).toUpperCase(),
-fmt(p.createdAt),
-yes?"Yes":"No",
-yes?fmt(a.acceptedAt):"",
-yes&&p.score===2?1:0,
-yes&&p.score===3?1:0
+when(p.createdAt),
+approvalStatus,
+approved?when(a.acceptedAt):"",
+approved&&p.score===2?1:0,
+approved&&p.score===3?1:0,
+repeated(p)?"Yes":"No"
 ]);
 });
-
-const t=results.filter(
-p=>prize(p)==="toffee"&&approvals.has(p.id)
-).length;
-
-const c=results.filter(
-p=>prize(p)==="chocolate"&&approvals.has(p.id)
-).length;
 
 rows.push([
-"TOTAL PRIZES GIVEN OUT",
-"","","","","","","","","","",t,c
+"TOTALS","","","","","","","","","","",
+$("toffees").textContent,
+$("chocolates").textContent,
+$("repeats").textContent
 ]);
 
-const content="\uFEFF"+rows.map(
-row=>row.map(csvSafe).join(",")
+const csv="\uFEFF"+rows.map(
+r=>r.map(csvCell).join(",")
 ).join("\r\n");
 
-const blob=new Blob([content],{
+const url=URL.createObjectURL(
+new Blob([csv],{
 type:"text/csv;charset=utf-8"
-});
+})
+);
 
-const url=URL.createObjectURL(blob);
 const a=document.createElement("a");
-
 a.href=url;
-a.download="arabic-challenge-prizes.csv";
+a.download="arabic-challenge-results.csv";
 
-document.body.append(a);
+document.body.appendChild(a);
 a.click();
 a.remove();
 
 setTimeout(()=>URL.revokeObjectURL(url),1000);
 }
 
+// PASSWORD PROTECTED RESET
 $("openReset").onclick=()=>{
 if(auth.currentUser?.uid!==OWNER_UID)return;
 
 $("ownerPassword").value="";
 $("resetStatus").textContent="";
-$("resetPanel").classList.remove("hidden");
-$("ownerPassword").focus();
+$("resetPanel").classList.remove("hide");
 };
 
 $("cancelReset").onclick=()=>{
 if(!resetting){
-$("resetPanel").classList.add("hidden");
+$("resetPanel").classList.add("hide");
 }
 };
 
 async function eraseCollection(name){
 let count=0;
 
-for(;;){
-const snap=await db.collection(name)
+while(true){
+const s=await db.collection(name)
 .limit(200).get({source:"server"});
 
-if(snap.empty)return count;
+if(s.empty)return count;
 
 const batch=db.batch();
 
-snap.docs.forEach(doc=>batch.delete(doc.ref));
-await batch.commit();
+s.docs.forEach(doc=>{
+batch.delete(doc.ref);
+});
 
-count+=snap.size;
+await batch.commit();
+count+=s.size;
 
 $("resetStatus").textContent=
 `Deleting ${name}: ${count} removed…`;
@@ -803,28 +810,29 @@ const user=auth.currentUser;
 
 if(resetting||!user||user.uid!==OWNER_UID)return;
 
-const pwd=$("ownerPassword").value;
+const password=$("ownerPassword").value;
 
-if(!pwd){
+if(!password){
 $("resetStatus").textContent=
-"Please enter your admin password.";
+"Type your current admin password.";
 return;
 }
 
 resetting=true;
 $("doReset").disabled=true;
 $("cancelReset").disabled=true;
+$("logout").disabled=true;
 
 try{
 await user.reauthenticateWithCredential(
 firebase.auth.EmailAuthProvider.credential(
-user.email,pwd
+user.email,password
 )
 );
 
 $("ownerPassword").value="";
 $("resetStatus").textContent=
-"Password correct. Removing event data…";
+"Password checked. Deleting visitor data…";
 
 await eraseCollection("approvals");
 await eraseCollection("results");
@@ -834,21 +842,20 @@ await db.collection("meta")
 .doc("visitorCounter").delete();
 
 $("resetStatus").textContent=
-"✅ Reset finished. All quiz results, approvals and visitor codes are cleared. New codes begin at ACC-000001.";
+"Reset complete. All visitor counts are now zero.";
 
-}catch(err){
-console.error(err);
-
+}catch(e){
+console.error(e);
+$("ownerPassword").value="";
 $("resetStatus").textContent=
-"❌ Reset incomplete: "+
-(err.code==="auth/wrong-password"?
-"Wrong password":err.message)+
-". Check the dashboard before retrying.";
-
+"Reset incomplete: "+(
+e.message||"Check Firebase rules."
+);
 }finally{
 resetting=false;
 $("doReset").disabled=false;
 $("cancelReset").disabled=false;
+$("logout").disabled=false;
 draw();
 }
 };
