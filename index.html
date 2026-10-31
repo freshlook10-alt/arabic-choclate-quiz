@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,86 +7,509 @@
 <title>Arabic Chocolate Challenge</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;min-height:100vh;padding:18px;font:16px system-ui,Arial;color:#39274c;background:#d2f6de}
-body[data-level=beginner]{background:radial-gradient(circle at top left,#ffef9a,transparent 40%),linear-gradient(135deg,#c3f9df,#81cb99)}
-body[data-level=intermediate]{background:radial-gradient(circle at top left,#fff5bd,transparent 45%),linear-gradient(140deg,#f5cf8b,#c77d56)}
-body[data-level=advanced]{background:radial-gradient(circle at top right,#af80d3,transparent 40%),linear-gradient(130deg,#191238,#56397b)}
-main{max-width:620px;margin:auto;background:#fffcfc;border-radius:28px;border:4px solid #fff5cb;padding:24px;box-shadow:0 18px 55px #25102d4c}
+
+body{
+margin:0;
+min-height:100vh;
+padding:18px;
+font:16px system-ui,Arial;
+color:#39274c;
+background:#d2f6de;
+}
+
+body[data-level=beginner]{
+background:linear-gradient(135deg,#c3f9df,#81cb99);
+}
+body[data-level=intermediate]{
+background:linear-gradient(140deg,#f5cf8b,#c77d56);
+}
+body[data-level=advanced]{
+background:linear-gradient(130deg,#191238,#56397b);
+}
+
+/* BLURRED FANTASY BACKGROUND */
+.fantasy-background{
+position:fixed;
+inset:-22px;
+z-index:0;
+pointer-events:none;
+overflow:hidden;
+}
+
+.world-art{
+position:absolute;
+inset:0;
+width:100%;
+height:100%;
+opacity:0;
+filter:blur(13px) saturate(1.08);
+transition:opacity .55s ease;
+}
+
+body[data-level=beginner] .art-garden,
+body[data-level=intermediate] .art-bazaar,
+body[data-level=advanced] .art-kingdom{
+opacity:.9;
+}
+
+main{
+position:relative;
+z-index:1;
+max-width:620px;
+margin:auto;
+background:rgba(255,252,252,.92);
+backdrop-filter:blur(10px);
+border-radius:28px;
+border:4px solid #fff5cb;
+padding:24px;
+box-shadow:0 18px 55px #25102d4c;
+}
+
+body[data-level=advanced] main{
+border-color:#e6d1a3;
+}
+
 h1,h2,.center{text-align:center}
-h1{font-size:clamp(28px,5vw,39px);color:#8440b8}
-.subtitle{text-align:center;color:#765d89}
-input,select,button{display:block;width:100%;font:inherit;border-radius:13px;padding:14px;margin:12px 0}
-input,select{border:2px solid #dbbce8;background:white;color:#32203b}
-button{background:linear-gradient(115deg,#7740b7,#bc62d3);color:white;font-weight:800;border:0;cursor:pointer}
+
+h1{
+font-size:clamp(28px,5vw,39px);
+color:#8440b8;
+}
+
+.subtitle{
+text-align:center;
+color:#765d89;
+}
+
+input,select,button{
+display:block;
+width:100%;
+font:inherit;
+border-radius:13px;
+padding:14px;
+margin:12px 0;
+}
+
+input,select{
+border:2px solid #dbbce8;
+background:white;
+color:#32203b;
+}
+
+button{
+background:linear-gradient(115deg,#7740b7,#bc62d3);
+color:white;
+font-weight:800;
+border:0;
+cursor:pointer;
+}
+
 button:disabled{opacity:.6}
 .hide{display:none!important}
-.scene{text-align:center;padding:18px;background:linear-gradient(#f0ffdd,#fff7c7);border:3px solid #9fdbad;border-radius:20px;margin:18px 0}
+
+.scene{
+text-align:center;
+padding:18px;
+background:linear-gradient(#f0ffdd,#fff7c7);
+border:3px solid #9fdbad;
+border-radius:20px;
+margin:18px 0;
+}
+
 .scene .emoji{font-size:58px}
-body[data-level=intermediate] .scene{background:linear-gradient(#ffeeb6,#ffc98c);border-color:#d8a05f}
-body[data-level=advanced] .scene{background:linear-gradient(#312054,#81539d);color:#ffe8a6;border-color:#d7ac55}
-.prizes{display:flex;justify-content:center;flex-wrap:wrap;gap:8px}
-.prizes span{background:#f3e5ff;border-radius:30px;padding:8px;font-weight:750;font-size:12px}
-.visitor{display:flex;justify-content:center;align-items:center;gap:7px;margin:7px auto 12px;padding:0;color:#777080;font-size:12px}
-.visitor strong{display:inline;font:600 12px ui-monospace,Consolas,monospace;letter-spacing:.3px;color:#575066}
-.warning{color:#716979;background:none;border:0;padding:0;margin:6px auto 12px;font-size:12px;font-weight:500;text-align:center}
-.picture{font-size:106px;text-align:center;display:grid;place-items:center;background:#f8e7ff;border:4px solid #dcb7f4;border-radius:24px;width:min(100%,290px);height:200px;margin:20px auto;box-shadow:0 8px 0 #e7d0f1}
-body[data-level=beginner] .picture{background:#dff8dc;border-color:#99d4a9}
-body[data-level=intermediate] .picture{background:#fff1bb;border-color:#deb67b}
-body[data-level=advanced] .picture{background:#4e3373;border-color:#e5b95b}
-.question{text-align:center;font-size:23px;font-weight:850}
-.question.ar{direction:rtl;font-size:28px;background:#f4ebfa;padding:15px;border-radius:15px}
-.choices button{direction:rtl;font-size:25px}
-.bar{height:13px;border-radius:15px;background:#ead6f0;overflow:hidden}
-.bar div{background:linear-gradient(90deg,#70ce86,#d2a05a,#ab71e6);height:100%;width:0;transition:width .25s}
+
+body[data-level=intermediate] .scene{
+background:linear-gradient(#ffeeb6,#ffc98c);
+border-color:#d8a05f;
+}
+
+body[data-level=advanced] .scene{
+background:linear-gradient(#312054,#81539d);
+color:#ffe8a6;
+border-color:#d7ac55;
+}
+
+.prizes{
+display:flex;
+justify-content:center;
+flex-wrap:wrap;
+gap:8px;
+}
+
+.prizes span{
+background:#f3e5ff;
+border-radius:30px;
+padding:8px;
+font-weight:750;
+font-size:12px;
+}
+
+.visitor{
+display:flex;
+justify-content:center;
+align-items:center;
+gap:7px;
+margin:7px auto 12px;
+padding:0;
+color:#777080;
+font-size:12px;
+}
+
+.visitor strong{
+display:inline;
+font:600 12px ui-monospace,Consolas,monospace;
+letter-spacing:.3px;
+color:#575066;
+}
+
+.warning{
+color:#716979;
+background:none;
+border:0;
+padding:0;
+margin:6px auto 12px;
+font-size:12px;
+font-weight:500;
+text-align:center;
+}
+
+.picture{
+font-size:106px;
+text-align:center;
+display:grid;
+place-items:center;
+background:#f8e7ff;
+border:4px solid #dcb7f4;
+border-radius:24px;
+width:min(100%,290px);
+height:200px;
+margin:20px auto;
+box-shadow:0 8px 0 #e7d0f1;
+}
+
+body[data-level=beginner] .picture{
+background:#dff8dc;
+border-color:#99d4a9;
+}
+
+body[data-level=intermediate] .picture{
+background:#fff1bb;
+border-color:#deb67b;
+}
+
+body[data-level=advanced] .picture{
+background:#4e3373;
+border-color:#e5b95b;
+}
+
+.question{
+text-align:center;
+font-size:23px;
+font-weight:850;
+}
+
+.question.ar{
+direction:rtl;
+font-size:28px;
+background:#f4ebfa;
+padding:15px;
+border-radius:15px;
+}
+
+.choices button{
+direction:rtl;
+font-size:25px;
+}
+
+.bar{
+height:13px;
+border-radius:15px;
+background:#ead6f0;
+overflow:hidden;
+}
+
+.bar div{
+background:linear-gradient(90deg,#70ce86,#d2a05a,#ab71e6);
+height:100%;
+width:0;
+transition:width .25s;
+}
+
 .good{color:#158047;font-weight:800}
 .bad{color:#bf284b;font-weight:800}
-.result,.ticket{text-align:center;border-radius:23px;padding:20px;background:#f4ebff}
-.result.toffee,.ticket.toffee{background:#fff1d4}
-.result.chocolate,.ticket.chocolate{background:#e6faeb}
+
+.result,.ticket{
+text-align:center;
+border-radius:23px;
+padding:20px;
+background:#f4ebff;
+}
+
+.result.toffee,.ticket.toffee{
+background:#fff1d4;
+}
+
+.result.chocolate,.ticket.chocolate{
+background:#e6faeb;
+}
+
 .big{font-size:67px}
-.ticket{border:4px solid #d9af4b}
+
+.ticket{
+border:4px solid #d9af4b;
+}
+
 .ticket h2{color:#137849}
-.ticket .field{background:white;border-radius:12px;padding:15px;margin:12px 0;overflow-wrap:anywhere}
-.ticket .banner{background:#177644;color:white;padding:15px;border-radius:13px;font-weight:900}
-.ticket.toffee .banner{background:#a76b24}
-.small{font-size:13px;color:#6c6170;text-align:center}
-.confetti{font-size:25px;letter-spacing:10px;animation:wiggle 2s infinite alternate}
-@keyframes wiggle{to{transform:translateY(-9px)}}
-@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+.ticket .field{
+background:white;
+border-radius:12px;
+padding:15px;
+margin:12px 0;
+overflow-wrap:anywhere;
+}
+
+.ticket .banner{
+background:#177644;
+color:white;
+padding:15px;
+border-radius:13px;
+font-weight:900;
+}
+
+.ticket.toffee .banner{
+background:#a76b24;
+}
+
+.small{
+font-size:13px;
+color:#6c6170;
+text-align:center;
+}
+
+.confetti{
+font-size:25px;
+letter-spacing:10px;
+animation:wiggle 2s infinite alternate;
+}
+
+@keyframes wiggle{
+to{transform:translateY(-9px)}
+}
+
+@media(max-width:620px){
+.world-art{filter:blur(11px)}
+body{padding:12px}
+main{padding:19px}
+}
+
+@media(prefers-reduced-motion:reduce){
+*{animation:none!important;transition:none!important}
+}
 </style>
 </head>
+
 <body data-level="beginner">
+
+<!-- THREE SOFT FANTASY BACKGROUND PICTURES -->
+<div class="fantasy-background" aria-hidden="true">
+
+<!-- BEGINNER: ENCHANTED GARDEN -->
+<svg class="world-art art-garden"
+viewBox="0 0 1200 850"
+preserveAspectRatio="xMidYMid slice"
+xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient id="gardSky" x2="0" y2="1">
+<stop stop-color="#8fcbea"/>
+<stop offset=".52" stop-color="#dbf5bd"/>
+<stop offset="1" stop-color="#92d7a6"/>
+</linearGradient>
+<radialGradient id="gardGlow">
+<stop stop-color="#fff6a7"/>
+<stop offset="1" stop-color="#fff6a7" stop-opacity="0"/>
+</radialGradient>
+</defs>
+<rect width="1200" height="850" fill="url(#gardSky)"/>
+<circle cx="950" cy="140" r="240" fill="url(#gardGlow)"/>
+<path d="M0 530Q170 390 350 515T730 490T1200 495V850H0" fill="#7bbb8c"/>
+<path d="M0 640Q280 490 530 640T1200 580V850H0" fill="#4ea17c"/>
+<path d="M430 850Q590 660 635 540Q700 665 860 850Z" fill="#f8e9bb" opacity=".75"/>
+<g fill="#367b64">
+<rect x="92" y="310" width="34" height="300" rx="10"/>
+<rect x="1050" y="270" width="42" height="350" rx="12"/>
+<rect x="905" y="450" width="21" height="210" rx="8"/>
+</g>
+<g fill="#4aaf7e">
+<circle cx="100" cy="335" r="124"/>
+<circle cx="206" cy="395" r="100"/>
+<circle cx="1065" cy="300" r="144"/>
+<circle cx="950" cy="403" r="105"/>
+<circle cx="900" cy="450" r="70"/>
+</g>
+<g fill="#eab5dc">
+<circle cx="240" cy="670" r="28"/>
+<circle cx="318" cy="735" r="35"/>
+<circle cx="960" cy="710" r="37"/>
+<circle cx="1080" cy="667" r="25"/>
+</g>
+<g fill="#ffe9a0">
+<circle cx="180" cy="725" r="24"/>
+<circle cx="1020" cy="778" r="30"/>
+<circle cx="382" cy="660" r="20"/>
+</g>
+<g fill="#f7fbde" opacity=".7">
+<circle cx="300" cy="270" r="10"/>
+<circle cx="590" cy="160" r="7"/>
+<circle cx="740" cy="380" r="9"/>
+<circle cx="960" cy="130" r="7"/>
+</g>
+</svg>
+
+<!-- INTERMEDIATE: ARABIAN BAZAAR -->
+<svg class="world-art art-bazaar"
+viewBox="0 0 1200 850"
+preserveAspectRatio="xMidYMid slice"
+xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient id="bazSky" x2="0" y2="1">
+<stop stop-color="#99548d"/>
+<stop offset=".48" stop-color="#f8b179"/>
+<stop offset="1" stop-color="#fce2a0"/>
+</linearGradient>
+<radialGradient id="bazLight">
+<stop stop-color="#ffe4ac"/>
+<stop offset="1" stop-color="#ffe4ac" stop-opacity="0"/>
+</radialGradient>
+</defs>
+<rect width="1200" height="850" fill="url(#bazSky)"/>
+<circle cx="910" cy="245" r="250" fill="url(#bazLight)"/>
+<path d="M0 565Q210 465 390 535T790 510T1200 520V850H0" fill="#d78d6f"/>
+<path d="M470 850L560 540H650L810 850" fill="#f9d398"/>
+<g fill="#9b5562">
+<rect x="0" y="250" width="245" height="460"/>
+<rect x="960" y="260" width="240" height="480"/>
+<rect x="260" y="370" width="220" height="305"/>
+<rect x="725" y="360" width="225" height="325"/>
+</g>
+<g fill="#c87770">
+<path d="M0 250Q120 60 245 250Z"/>
+<path d="M260 370Q370 210 480 370Z"/>
+<path d="M725 360Q835 190 950 360Z"/>
+<path d="M960 260Q1075 70 1200 260Z"/>
+</g>
+<g fill="#ffd08b">
+<rect x="105" y="340" width="47" height="90" rx="23"/>
+<rect x="1010" y="360" width="65" height="98" rx="29"/>
+<rect x="345" y="455" width="47" height="72" rx="22"/>
+<rect x="805" y="440" width="47" height="72" rx="22"/>
+</g>
+<path d="M35 590H480L430 655H80Z" fill="#e7a963"/>
+<path d="M730 590H1160L1120 665H770Z" fill="#f4bc75"/>
+<g stroke="#ffe7b2" stroke-width="5" fill="none" opacity=".8">
+<path d="M0 130Q600 260 1200 130"/>
+<path d="M100 200Q600 300 1100 200"/>
+</g>
+<g fill="#ffe39b">
+<path d="M205 169l15 -25 15 25v42h-30z"/>
+<path d="M590 203l14 -24 14 24v43h-28z"/>
+<path d="M1000 167l15 -25 15 25v42h-30z"/>
+</g>
+</svg>
+
+<!-- ADVANCED: FANTASY KINGDOM -->
+<svg class="world-art art-kingdom"
+viewBox="0 0 1200 850"
+preserveAspectRatio="xMidYMid slice"
+xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient id="kingSky" x2="0" y2="1">
+<stop stop-color="#170e3c"/>
+<stop offset=".55" stop-color="#58488c"/>
+<stop offset="1" stop-color="#ce8cbb"/>
+</linearGradient>
+<radialGradient id="kingGlow">
+<stop stop-color="#ebd3ff" stop-opacity=".9"/>
+<stop offset="1" stop-color="#d6b7ff" stop-opacity="0"/>
+</radialGradient>
+</defs>
+<rect width="1200" height="850" fill="url(#kingSky)"/>
+<circle cx="930" cy="170" r="210" fill="url(#kingGlow)"/>
+<circle cx="940" cy="175" r="85" fill="#fff0c3"/>
+<path d="M0 630Q245 370 400 580T830 505T1200 560V850H0" fill="#443067"/>
+<path d="M0 720Q280 530 520 695T1200 625V850H0" fill="#2e235b"/>
+<g fill="#271c4c" stroke="#cfa86a" stroke-width="8">
+<rect x="370" y="290" width="470" height="425"/>
+<rect x="260" y="350" width="140" height="360"/>
+<rect x="810" y="350" width="145" height="360"/>
+<path d="M415 290Q600 80 795 290Z"/>
+<path d="M246 350l85 -190 85 190Z"/>
+<path d="M792 350l88 -190 88 190Z"/>
+</g>
+<g fill="#e9c57f">
+<rect x="473" y="370" width="55" height="90" rx="26"/>
+<rect x="670" y="370" width="55" height="90" rx="26"/>
+<rect x="293" y="420" width="43" height="85" rx="18"/>
+<rect x="872" y="420" width="43" height="85" rx="18"/>
+<path d="M560 715V585Q600 510 640 585V715Z"/>
+</g>
+<path d="M520 850L575 710H625L690 850" fill="#c39abe" opacity=".75"/>
+<g fill="#fbe8b6">
+<circle cx="110" cy="140" r="6"/>
+<circle cx="225" cy="310" r="5"/>
+<circle cx="420" cy="115" r="7"/>
+<circle cx="690" cy="105" r="5"/>
+<circle cx="1080" cy="305" r="6"/>
+<circle cx="1050" cy="100" r="5"/>
+</g>
+</svg>
+</div>
+
 <main>
 <div class="center confetti">✨ 🍫 🍬 ✨</div>
 <h1>Arabic Chocolate Challenge</h1>
-<p class="subtitle">A magical 3-question Arabic adventure!</p>
+<p class="subtitle">
+A magical 3-question Arabic adventure!
+</p>
+
 <div class="prizes">
 <span>0–1/3: No prize</span>
 <span>2/3: 🍬 Toffee</span>
 <span>3/3: 🍫 Chocolate</span>
 </div>
+
 <div class="scene">
 <div class="emoji" id="sceneIcon">🌷🦋🌳</div>
 <h2 id="sceneTitle">Magical Garden</h2>
 <p id="sceneInfo">Explore Arabic words!</p>
 </div>
+
 <div class="visitor">
 <span>Visitor ID</span>
 <strong id="visitorCode">Connecting…</strong>
 </div>
-<div id="warning" class="warning hide">You have repeated</div>
+
+<div id="warning" class="warning hide">
+You have repeated
+</div>
+
 <section id="welcome">
 <label>Your first name or nickname</label>
 <input id="name" maxlength="35" placeholder="Enter your name">
+
 <label>Choose your level</label>
 <select id="level">
 <option value="beginner">🌱 Beginner — Garden</option>
 <option value="intermediate">🏮 Intermediate — Bazaar</option>
 <option value="advanced">👑 Advanced — Kingdom</option>
 </select>
-<button id="start" disabled>Connecting to Firebase…</button>
+
+<button id="start" disabled>
+Connecting to Firebase…
+</button>
 <p id="status" class="small"></p>
 </section>
+
 <section id="quiz" class="hide">
 <p id="progress" class="center"></p>
 <div class="bar"><div id="bar"></div></div>
@@ -98,6 +520,7 @@ body[data-level=advanced] .picture{background:#4e3373;border-color:#e5b95b}
 <p id="feedback" class="center"></p>
 <button id="next" class="hide">Next →</button>
 </section>
+
 <section id="result" class="hide">
 <div id="resultBox" class="result">
 <div id="resultIcon" class="big"></div>
@@ -107,15 +530,36 @@ body[data-level=advanced] .picture{background:#4e3373;border-color:#e5b95b}
 </div>
 <p id="saveStatus" class="small"></p>
 </section>
+
 <section id="ticket" class="ticket hide">
 <div class="big" id="ticketIcon"></div>
 <h2>✅ ADMIN APPROVED!</h2>
 <h2 id="ticketPrize"></h2>
-<div class="field"><strong id="ticketName"></strong><p id="ticketScore"></p></div>
-<div class="field">VISITOR ID<br><strong id="ticketCode"></strong></div>
-<div class="field">TICKET ID<br><strong id="ticketId"></strong></div>
-<div class="field">APPROVED AT<br><strong id="ticketTime"></strong></div>
-<div class="field hide" id="certificate">👑 ARABIC CHAMPION CERTIFICATE — 3/3!</div>
+
+<div class="field">
+<strong id="ticketName"></strong>
+<p id="ticketScore"></p>
+</div>
+
+<div class="field">
+VISITOR ID
+<strong id="ticketCode"></strong>
+</div>
+
+<div class="field">
+TICKET ID
+<strong id="ticketId"></strong>
+</div>
+
+<div class="field">
+APPROVED AT
+<strong id="ticketTime"></strong>
+</div>
+
+<div class="field hide" id="certificate">
+👑 ARABIC CHAMPION CERTIFICATE — 3/3!
+</div>
+
 <div class="banner" id="ticketBanner"></div>
 </section>
 </main>
@@ -123,10 +567,12 @@ body[data-level=advanced] .picture{background:#4e3373;border-color:#e5b95b}
 <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore-compat.js"></script>
 <script src="firebase-config.js"></script>
+
 <script>
 const $=id=>document.getElementById(id);
 const DEVICE_KEY="ACC_BROWSER_DEVICE_V3";
 const ATTEMPT_KEY="ACC_BROWSER_ATTEMPTS_V3";
+
 let deviceId,device,game,stopApproval;
 
 const pictureBanks={
@@ -290,7 +736,9 @@ level,text.trim().split("\n").map(x=>x.split("|"))
 ])
 );
 
+/* 300 RARE ADVANCED SENTENCE VARIATIONS */
 const names=["أحمد","خالد","سامي","يوسف","عمر","فهد"];
+
 const sentences=`قرأ {who} ____ لفهم موضوع الدرس.|الكتاب|المظلة|النافذة
 أعد {who} ____ قبل تقديم المشروع.|الخطة|الحديقة|الحقيبة
 شاهد {who} ____ في السماء ليلاً.|القمر|المائدة|الكرسي
@@ -360,9 +808,11 @@ let j=Math.floor(Math.random()*(i+1));
 return a;
 }
 
+/* SMALL VISITOR ID */
 function code(id){
-if(!/^[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i.test(id||""))
+if(!/^[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i.test(id||"")){
 return "LEGACY";
+}
 
 const alphabet="ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 let n=BigInt("0x"+id.replace(/-/g,"").slice(0,10));
@@ -372,35 +822,60 @@ for(let i=0;i<8;i++){
 out=alphabet[Number(n%32n)]+out;
 n/=32n;
 }
+
 return out.slice(0,4)+"-"+out.slice(4);
 }
 
-const prize=score=>score===3?"chocolate":score===2?"toffee":"none";
+const prize=score=>
+score===3?"chocolate":score===2?"toffee":"none";
+
 const date=t=>t.toLocaleString("en-US",{
-year:"numeric",month:"short",day:"numeric",
-hour:"numeric",minute:"2-digit",hour12:true
+year:"numeric",
+month:"short",
+day:"numeric",
+hour:"numeric",
+minute:"2-digit",
+hour12:true
 });
 
+/* CHANGE FANTASY BACKGROUND WITH LEVEL */
 function theme(){
 const v=$("level").value;
 document.body.dataset.level=v;
+
 const t={
-beginner:["🌺🦋🌳","Magical Garden","Flowers and familiar words"],
-intermediate:["🏮🐪🌇","Golden Bazaar","Market and travel words"],
-advanced:["👑🏰✨","Royal Kingdom","Knowledge and rare sentence surprises"]
+beginner:[
+"🌺🦋🌳",
+"Magical Garden",
+"Flowers and familiar words"
+],
+intermediate:[
+"🏮🐪🌇",
+"Golden Bazaar",
+"Market and travel words"
+],
+advanced:[
+"👑🏰✨",
+"Royal Kingdom",
+"Knowledge and rare sentence surprises"
+]
 }[v];
+
 $("sceneIcon").textContent=t[0];
 $("sceneTitle").textContent=t[1];
 $("sceneInfo").textContent=t[2];
 }
 
+/* REGISTER VISITOR */
 async function register(){
 try{
 deviceId=localStorage.getItem(DEVICE_KEY);
+
 if(!deviceId){
 deviceId=crypto.randomUUID();
 localStorage.setItem(DEVICE_KEY,deviceId);
 }
+
 const ref=db.collection("devices").doc(deviceId);
 const counter=db.collection("meta").doc("visitorCounter");
 
@@ -410,91 +885,150 @@ if(old.exists)return old.data();
 
 const last=await tx.get(counter);
 const number=last.exists?last.data().nextNumber:1;
+
 if(number>999999)throw Error("Registration limit reached");
 
 tx.set(counter,{nextNumber:number+1});
 tx.set(ref,{
-number,firstResultId:null,
+number,
+firstResultId:null,
 createdAt:firebase.firestore.FieldValue.serverTimestamp()
 });
+
 return {number,firstResultId:null};
 });
 
 $("visitorCode").textContent=code(deviceId);
 $("warning").classList.toggle("hide",!device.firstResultId);
+
 $("start").disabled=false;
 $("start").textContent="🚀 Start Quiz";
+
 }catch(e){
 console.error(e);
-$("status").textContent="Connection failed. Check Firebase Rules and internet, then reload.";
+$("status").textContent=
+"Connection failed. Check Firebase Rules and internet, then reload.";
 }
 }
 
+/* 10,000 QUIZ COMBINATIONS PER LEVEL */
 function questionsFor(level,n){
 const pool=words[level];
-const offset={beginner:151,intermediate:331,advanced:977}[level];
+
+const offset={
+beginner:151,
+intermediate:331,
+advanced:977
+}[level];
+
 const index=((n*7919+offset)%10000+10000)%10000;
-let rank=(index*97+317)%(50*49*48),ids=[];
+let rank=(index*97+317)%(50*49*48);
+let ids=[];
 
 for(const width of [50,49,48]){
-const available=Array.from({length:50},(_,i)=>i)
-.filter(i=>!ids.includes(i));
+const available=Array.from(
+{length:50},(_,i)=>i
+).filter(i=>!ids.includes(i));
+
 ids.push(available[rank%width]);
 rank=Math.floor(rank/width);
 }
 
 const q=ids.map(i=>{
 const [picture,right]=pool[i];
-const wrong=shuffle(pool.filter(x=>x[1]!==right))
-.slice(0,2).map(x=>x[1]);
+
+const wrong=shuffle(
+pool.filter(x=>x[1]!==right)
+).slice(0,2).map(x=>x[1]);
+
 const options=shuffle([right,...wrong]);
-return {picture,options,correct:options.indexOf(right)};
+
+return {
+picture,
+options,
+correct:options.indexOf(right)
+};
 });
 
+/* ADVANCED SENTENCE CHANCE: 1 IN 159 */
 if(level==="advanced"&&Math.floor(Math.random()*159)===0){
 const s=rare[Math.floor(Math.random()*rare.length)];
 const options=shuffle(s.options);
 const i=Math.floor(Math.random()*3);
-q[i]={sentence:s.text,options,correct:options.indexOf(s.right)};
+
+q[i]={
+sentence:s.text,
+options,
+correct:options.indexOf(s.right)
+};
 }
 
 return {q,quizSet:index+1};
 }
 
+/* START QUIZ */
 function start(){
 if(!device||game)return;
 
 const name=$("name").value.trim().replace(/\s+/g," ");
+
 if(!name){
 $("status").textContent="Enter your name first.";
 return;
 }
 
 const level=$("level").value;
-const attempt=Number(localStorage.getItem(ATTEMPT_KEY)||"0")+1;
+const attempt=Number(
+localStorage.getItem(ATTEMPT_KEY)||"0"
+)+1;
+
 localStorage.setItem(ATTEMPT_KEY,String(attempt));
 
-const {q,quizSet}=questionsFor(level,device.number+attempt-1);
+const {q,quizSet}=questionsFor(
+level,device.number+attempt-1
+);
+
 game={
-name,level,q,quizSet,i:0,score:0,choice:null,
-phase:"playing",retry:!!device.firstResultId
+name,
+level,
+q,
+quizSet,
+i:0,
+score:0,
+choice:null,
+phase:"playing",
+retry:!!device.firstResultId
 };
 
 $("welcome").classList.add("hide");
+$("warning").classList.add("hide");
 $("quiz").classList.remove("hide");
+
 showQuestion();
 }
 
+/* QUESTION SCREEN */
 function showQuestion(){
-const q=game.q[game.i],answered=game.choice!==null;
-$("progress").textContent=`Question ${game.i+1}/3 · ${game.score} correct`;
-$("bar").style.width=(100*(game.i+(answered?1:0))/3)+"%";
+const q=game.q[game.i];
+const answered=game.choice!==null;
+
+$("progress").textContent=
+`Question ${game.i+1}/3 · ${game.score} correct`;
+
+$("bar").style.width=
+(100*(game.i+(answered?1:0))/3)+"%";
+
 $("picture").textContent=q.sentence?"✍️":q.picture;
+
 $("hint").textContent=q.sentence?
 "RARE ADVANCED CHALLENGE — Fill the blank!":"";
-$("question").textContent=q.sentence||
+
+$("question").textContent=
+q.sentence||
 "What is the Arabic word for this picture?";
+
 $("question").classList.toggle("ar",!!q.sentence);
+
 $("choices").replaceChildren();
 
 q.options.forEach((x,i)=>{
@@ -505,16 +1039,22 @@ b.onclick=()=>choose(i);
 $("choices").appendChild(b);
 });
 
-$("feedback").textContent=!answered?"":game.choice===q.correct?
-"✅ Correct!":"❌ Wrong! Correct answer: "+q.options[q.correct];
+$("feedback").textContent=!answered?
+"":game.choice===q.correct?
+"✅ Correct!":
+"❌ Wrong! Correct answer: "+q.options[q.correct];
 
-$("feedback").className="center "+(game.choice===q.correct?"good":"bad");
+$("feedback").className=
+"center "+(game.choice===q.correct?"good":"bad");
+
 $("next").classList.toggle("hide",!answered);
-$("next").textContent=game.i===2?"See My Result 🎁":"Next →";
+$("next").textContent=
+game.i===2?"See My Result 🎁":"Next →";
 }
 
 function choose(i){
 if(!game||game.choice!==null)return;
+
 if(i===game.q[game.i].correct)game.score++;
 game.choice=i;
 showQuestion();
@@ -522,38 +1062,55 @@ showQuestion();
 
 function next(){
 if(game.choice===null)return;
+
 if(game.i<2){
-game.i++;game.choice=null;showQuestion();
-}else finish();
+game.i++;
+game.choice=null;
+showQuestion();
+}else{
+finish();
+}
 }
 
+/* RESULTS — NO REPEATED OR PRACTICE MESSAGE */
 function result(){
 const reward=game.first?prize(game.score):"none";
+
 $("quiz").classList.add("hide");
 $("result").classList.remove("hide");
 $("resultBox").className="result "+reward;
-$("resultIcon").textContent=reward==="chocolate"?"🏆🍫":
+
+$("resultIcon").textContent=
+reward==="chocolate"?"🏆🍫":
 reward==="toffee"?"🍬":"🌟";
-$("resultScore").textContent=`${game.name}: ${game.score}/3`;
 
-$("resultTitle").textContent=!game.first?
-"Practice attempt — no prize":
+$("resultScore").textContent=
+`${game.name}: ${game.score}/3`;
+
+$("resultTitle").textContent=
+!game.first?"Thank you for playing!":
 reward==="chocolate"?"Chocolate Champion!":
-reward==="toffee"?"Toffee Star!":"Thank you for playing!";
+reward==="toffee"?"Toffee Star!":
+"Thank you for playing!";
 
-$("resultInfo").textContent=!game.first?
-"Repeated attempt — no prize.":
+$("resultInfo").textContent=
+!game.first?"Thanks for taking part!":
 reward==="none"?"No prize for this score.":
 `You earned one ${reward}! Waiting for admin approval.`;
 
-$("warning").classList.toggle("hide",!!game.first);
-$("saveStatus").textContent=game.phase==="saving"?"Saving result…":
-game.phase==="failed"?"⚠️ Result not saved. Ask the organizer.":
+$("warning").classList.add("hide");
+
+$("saveStatus").textContent=
+game.phase==="saving"?"Saving result…":
+game.phase==="failed"?
+"⚠️ Result not saved. Ask the organizer.":
 "✅ Result saved!";
 }
 
+/* FIREBASE SAVE */
 async function finish(){
 if(game.phase!=="playing")return;
+
 game.phase="saving";
 game.first=!game.retry;
 result();
@@ -564,10 +1121,16 @@ const resultRef=db.collection("results").doc();
 
 const first=await db.runTransaction(async tx=>{
 const snap=await tx.get(devRef);
+
 if(!snap.exists)throw Error("Visitor code missing");
 
 const first=!snap.data().firstResultId;
-if(first)tx.update(devRef,{firstResultId:resultRef.id});
+
+if(first){
+tx.update(devRef,{
+firstResultId:resultRef.id
+});
+}
 
 tx.set(resultRef,{
 name:game.name,
@@ -581,16 +1144,22 @@ visitorNumber:snap.data().number,
 quizSet:game.quizSet,
 createdAt:firebase.firestore.FieldValue.serverTimestamp()
 });
+
 return first;
 });
 
 game.first=first;
 game.id=resultRef.id;
 game.phase="saved";
+
 device.firstResultId=device.firstResultId||game.id;
+
 result();
 
-if(first&&game.score>=2)watchApproval();
+if(first&&game.score>=2){
+watchApproval();
+}
+
 }catch(e){
 console.error(e);
 game.phase="failed";
@@ -598,40 +1167,62 @@ result();
 }
 }
 
+/* ADMIN APPROVAL */
 function watchApproval(){
-stopApproval=db.collection("approvals").doc(game.id)
-.onSnapshot(s=>{
+stopApproval=db.collection("approvals")
+.doc(game.id).onSnapshot(s=>{
 if(!s.exists||s.data().accepted!==true)return;
-const approval=s.data(),reward=prize(game.score);
+
+const approval=s.data();
+const reward=prize(game.score);
 
 $("result").classList.add("hide");
 $("ticket").classList.remove("hide");
 $("ticket").className="ticket "+reward;
-$("ticketIcon").textContent=reward==="chocolate"?"🏆🍫":"🌟🍬";
-$("ticketPrize").textContent=reward==="chocolate"?
+
+$("ticketIcon").textContent=
+reward==="chocolate"?"🏆🍫":"🌟🍬";
+
+$("ticketPrize").textContent=
+reward==="chocolate"?
 "CHOCOLATE CHAMPION":"TOFFEE STAR";
+
 $("ticketName").textContent=game.name;
-$("ticketScore").textContent=game.score+"/3 · "+game.level;
+$("ticketScore").textContent=
+game.score+"/3 · "+game.level;
+
 $("ticketCode").textContent=code(deviceId);
 $("ticketId").textContent=game.id.slice(-8).toUpperCase();
+
 $("ticketTime").textContent=date(
 approval.acceptedAt?.toDate?
 approval.acceptedAt.toDate():new Date()
 );
-$("ticketBanner").textContent="SHOW THIS SCREEN TO COLLECT YOUR "+
-reward.toUpperCase();
-$("certificate").classList.toggle("hide",reward!=="chocolate");
 
-if(stopApproval){stopApproval();stopApproval=null;}
+$("ticketBanner").textContent=
+"SHOW THIS SCREEN TO COLLECT YOUR "+
+reward.toUpperCase();
+
+$("certificate").classList.toggle(
+"hide",reward!=="chocolate"
+);
+
+if(stopApproval){
+stopApproval();
+stopApproval=null;
+}
+
 },e=>{
 console.error(e);
-$("saveStatus").textContent="Cannot check approval. Ask organizer.";
+$("saveStatus").textContent=
+"Cannot check approval. Ask organizer.";
 });
 }
 
 $("level").onchange=theme;
 $("start").onclick=start;
 $("next").onclick=next;
+
 theme();
 register();
 </script>
