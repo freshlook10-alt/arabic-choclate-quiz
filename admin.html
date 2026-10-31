@@ -6,40 +6,119 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Arabic Chocolate Challenge | Admin</title>
 <style>
-:root{--bg:#070810;--line:#34364d;--muted:#aaa9be;--purple:#bf96ff;--gold:#ffd77f;--pink:#ffa4ca;--green:#7fe7b4;--red:#ff879e}
+:root{
+--bg:#070810;--line:#34364d;
+--muted:#aaa9be;--purple:#bf96ff;
+--gold:#ffd77f;--pink:#ffa4ca;
+--green:#7fe7b4;--red:#ff879e
+}
 *{box-sizing:border-box}
-body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 10% 0%,#42207685,transparent 42%),radial-gradient(ellipse at 100% 12%,#61441c45,transparent 38%),var(--bg);color:#f9f6ff;font:15px system-ui,Arial,sans-serif}
-body:before{content:"";position:fixed;inset:0;pointer-events:none;background-image:radial-gradient(#b697e0 1px,transparent 1px);background-size:30px 30px;opacity:.13}
-main{position:relative;max-width:1300px;margin:auto;padding:24px 15px 50px}
-h1{font-size:clamp(28px,4vw,43px);margin:7px 0}
+body{
+margin:0;min-height:100vh;
+background:
+radial-gradient(ellipse at 10% 0%,#42207685,transparent 42%),
+radial-gradient(ellipse at 100% 12%,#61441c45,transparent 38%),
+var(--bg);
+color:#f9f6ff;
+font:15px system-ui,Arial,sans-serif
+}
+body:before{
+content:"";position:fixed;inset:0;pointer-events:none;
+background-image:radial-gradient(#b697e0 1px,transparent 1px);
+background-size:30px 30px;opacity:.13
+}
+main{
+position:relative;max-width:1300px;
+margin:auto;padding:24px 15px 50px
+}
+h1{
+font-size:clamp(28px,4vw,43px);
+margin:7px 0
+}
 h1 em{color:var(--purple);font-style:normal}
 h2{margin:0 0 10px}
 p{line-height:1.55}
 .muted{color:var(--muted)}
-.eyebrow{color:var(--gold);font-size:12px;letter-spacing:3px;font-weight:900}
-.head,.top,.sectionhead,.actions,.filters{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.eyebrow{
+color:var(--gold);font-size:12px;
+letter-spacing:3px;font-weight:900
+}
+.head,.top,.sectionhead,.actions,.filters{
+display:flex;gap:12px;align-items:center;flex-wrap:wrap
+}
 .head,.top,.sectionhead{justify-content:space-between}
-.head{margin-bottom:17px}
-.live{color:var(--green);border:1px solid #416b57;background:#163d2c66;border-radius:30px;padding:10px 13px;font-weight:800}
-.card{background:linear-gradient(155deg,#202235,#11131f);border:1px solid var(--line);border-radius:20px;padding:21px;margin:16px 0;box-shadow:0 14px 35px #0005}
+.head{
+margin-bottom:17px;padding:19px;
+border:1px solid #514068;border-radius:22px;
+background:linear-gradient(110deg,#241a3cbb,#111322cc)
+}
+.live{
+color:var(--green);border:1px solid #416b57;
+background:#163d2c66;border-radius:30px;
+padding:10px 13px;font-weight:800;
+box-shadow:0 0 0 5px #1e79401c
+}
+.card{
+background:linear-gradient(155deg,#202235,#11131f);
+border:1px solid var(--line);
+border-radius:20px;padding:21px;
+margin:16px 0;box-shadow:0 14px 35px #0005
+}
 .login{max-width:450px;margin:35px auto}
 label{display:block;font-weight:800;margin:14px 0 6px}
-input,select,button{font:inherit;padding:12px;border-radius:11px}
-input,select{background:#0e1020;color:white;border:1px solid #57546c;min-height:43px}
-input:focus,select:focus{outline:2px solid var(--purple)}
+input,select,button{
+font:inherit;padding:12px;border-radius:11px
+}
+input,select{
+background:#0e1020;color:white;
+border:1px solid #57546c;min-height:43px
+}
+input:focus,select:focus{
+outline:2px solid var(--purple)
+}
 .login input{width:100%}
-button{border:0;background:linear-gradient(110deg,#9c69ec,#6844bb);color:white;font-weight:800;cursor:pointer}
+button{
+border:0;
+background:linear-gradient(110deg,#9c69ec,#6844bb);
+color:white;font-weight:800;cursor:pointer
+}
 button:disabled{opacity:.55;cursor:default}
-.login button{display:block;width:100%;margin-top:11px}
-.goldBtn{color:#281b05;background:linear-gradient(100deg,#ffe29a,#d39b40)}
+.login button{
+display:block;width:100%;margin-top:11px
+}
+.goldBtn{
+color:#281b05;
+background:linear-gradient(100deg,#ffe29a,#d39b40)
+}
 .secondary{background:#323348}
-.danger{background:#70283e;color:#ffe3eb;border:1px solid #b34c66}
+.danger{
+background:#70283e;color:#ffe3eb;
+border:1px solid #b34c66
+}
 .hide{display:none!important}
 .error{color:var(--red)!important}
-.message{color:var(--muted);font-size:13px;line-height:1.6}
-.stats{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin:17px 0}
-.stats .card{margin:0;min-height:145px}
-.stats strong{display:block;font-size:clamp(26px,3.2vw,42px);margin:9px 0;font-variant-numeric:tabular-nums}
+.message{
+color:var(--muted);font-size:13px;line-height:1.6
+}
+.stats{
+display:grid;
+grid-template-columns:repeat(5,minmax(0,1fr));
+gap:12px;margin:17px 0
+}
+.stats .card{
+margin:0;min-height:145px;position:relative;
+overflow:hidden;border-color:#48415e;
+background:linear-gradient(145deg,#24213b,#111420)
+}
+.stats .card:after{
+content:"";position:absolute;right:-22px;top:-30px;
+width:105px;height:105px;border-radius:50%;
+background:currentColor;opacity:.06
+}
+.stats strong{
+display:block;font-size:clamp(26px,3.2vw,43px);
+margin:9px 0;font-variant-numeric:tabular-nums
+}
 .stats small{color:var(--muted);font-weight:700}
 .purple{color:var(--purple)}
 .pink{color:var(--pink)}
@@ -47,29 +126,99 @@ button:disabled{opacity:.55;cursor:default}
 .green{color:var(--green)}
 .filters{justify-content:flex-start}
 .filters input{width:260px}
-.tablewrap{overflow:auto;max-height:73vh;border:1px solid var(--line);border-radius:12px}
-table{width:100%;min-width:1120px;border-collapse:collapse}
-th,td{border-bottom:1px solid #343449;padding:13px;text-align:left;vertical-align:middle;font-size:13px}
-th{background:#29233b;color:#e8d7ff;position:sticky;top:0;white-space:nowrap}
+.tablewrap{
+overflow:auto;max-height:73vh;
+border:1px solid var(--line);border-radius:12px
+}
+table{
+width:100%;min-width:1120px;border-collapse:collapse
+}
+th,td{
+border-bottom:1px solid #343449;
+padding:13px;text-align:left;
+vertical-align:middle;font-size:13px
+}
+th{
+background:#29233b;color:#e8d7ff;
+position:sticky;top:0;white-space:nowrap
+}
 tr:hover td{background:#ffffff09}
-.id{font:800 13px ui-monospace,Consolas,monospace;color:var(--gold)}
+.id{
+font:800 13px ui-monospace,Consolas,monospace;
+color:var(--gold)
+}
 .approved{color:var(--green);font-weight:900}
-.subtime{font-size:12px;color:var(--muted);margin-top:4px}
-.approve{padding:10px 12px;font-size:12px;white-space:nowrap}
+.subtime{
+font-size:12px;color:var(--muted);margin-top:4px
+}
+.approve{
+padding:10px 12px;font-size:12px;
+white-space:nowrap
+}
 .approve.choc{background:#a47729}
-.resetPanel{border-color:#aa4965;background:linear-gradient(145deg,#391c2e,#18141f)}
+.commandGrid{
+display:grid;
+grid-template-columns:1fr 1fr;gap:15px;margin:15px 0
+}
+.commandGrid .card{margin:0}
+.adminBadge{
+display:inline-block;font-size:11px;
+color:#ffe4a3;border:1px solid #77603c;
+border-radius:30px;padding:5px 9px
+}
+.miniLabel{
+display:flex;justify-content:space-between;
+gap:9px;font-size:13px;color:#cbc4dd
+}
+.meter{
+height:11px;background:#3b344b;
+border-radius:30px;overflow:hidden;margin:9px 0 14px
+}
+.meter span{
+display:block;width:0;height:100%;
+background:linear-gradient(90deg,#c48bfa,#f8cb78);
+transition:width .4s
+}
+.feed{
+list-style:none;margin:0;padding:0;
+max-height:230px;overflow:auto
+}
+.feed li{
+padding:10px 0;border-bottom:1px solid #353047;
+display:flex;justify-content:space-between;
+gap:12px;font-size:13px
+}
+.feed li:last-child{border:0}
+.feed .time{color:var(--muted)}
+.resetPanel{
+border-color:#aa4965;
+background:linear-gradient(145deg,#391c2e,#18141f)
+}
 .resetPanel input{width:min(420px,100%)}
-.foot{text-align:center;color:#88829c;font-size:12px;margin-top:25px}
-@media(max-width:1000px){.stats{grid-template-columns:repeat(3,minmax(0,1fr))}}
-@media(max-width:600px){
+.foot{
+text-align:center;color:#88829c;
+font-size:12px;margin-top:25px
+}
+@media(max-width:1050px){
+.stats{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:760px){
 .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+.commandGrid{grid-template-columns:1fr}
+}
+@media(max-width:600px){
 .card{padding:15px}
 .filters input,.filters select{width:100%}
 .actions button{flex:1}
 main{padding:14px 9px}
+.stats strong{font-size:30px}
+}
+@media(prefers-reduced-motion:reduce){
+.meter span{transition:none}
 }
 </style>
 </head>
+
 <body>
 <main>
 <header class="head">
@@ -88,10 +237,13 @@ main{padding:14px 9px}
 <label for="email">Email</label>
 <input id="email" type="email" autocomplete="username" required>
 <label for="password">Password</label>
-<input id="password" type="password" autocomplete="current-password" required>
+<input id="password" type="password"
+autocomplete="current-password" required>
 <button id="signIn" type="submit">Open Control Room</button>
 </form>
-<button id="resetEmail" class="secondary" type="button">Forgot password?</button>
+<button id="resetEmail" class="secondary" type="button">
+Forgot password?
+</button>
 <p id="loginMessage" class="message"></p>
 </section>
 
@@ -100,7 +252,9 @@ main{padding:14px 9px}
 <div>
 <div class="eyebrow">WELCOME BACK</div>
 <b id="adminEmail"></b>
-<p class="muted">Repeated plays are recorded, but cannot win another prize.</p>
+<p class="muted">
+Repeated plays are recorded, but cannot win another prize.
+</p>
 </div>
 <div class="actions">
 <button id="csv" class="goldBtn">⬇ Download CSV</button>
@@ -110,19 +264,76 @@ main{padding:14px 9px}
 </div>
 
 <div class="stats">
-<div class="card purple">👥<strong id="visitors">0</strong><small>Total Quiz Plays</small></div>
-<div class="card pink">🍬<strong id="toffees">0</strong><small>Toffees Given Out</small></div>
-<div class="card gold">🍫<strong id="chocolates">0</strong><small>Chocolates Given Out</small></div>
-<div class="card green">⏳<strong id="pending">0</strong><small>Awaiting Approval</small></div>
-<div class="card purple">🔁<strong id="repeats">0</strong><small>Times Repeated</small></div>
+<div class="card purple">
+👥<strong id="visitors">0</strong>
+<small>Total Quiz Plays</small>
+</div>
+<div class="card pink">
+🍬<strong id="toffees">0</strong>
+<small>Toffees Given Out</small>
+</div>
+<div class="card gold">
+🍫<strong id="chocolates">0</strong>
+<small>Chocolates Given Out</small>
+</div>
+<div class="card green">
+⏳<strong id="pending">0</strong>
+<small>Awaiting Approval</small>
+</div>
+<div class="card purple">
+🔁<strong id="repeats">0</strong>
+<small>Times Repeated</small>
+</div>
+</div>
+
+<div class="commandGrid">
+<section class="card">
+<div class="eyebrow">✦ EXHIBITION PULSE</div>
+<h2>Live Overview <span class="adminBadge">AUTO-UPDATING</span></h2>
+
+<div class="miniLabel">
+<span>First-time plays</span><strong id="firstCount">0</strong>
+</div>
+<div class="meter"><span id="firstMeter"></span></div>
+
+<div class="miniLabel">
+<span>Repeated plays</span><strong id="repeatCount">0</strong>
+</div>
+<div class="meter"><span id="repeatMeter"></span></div>
+
+<div class="miniLabel">
+<span>Approved rewards</span><strong id="approvedCount">0</strong>
+</div>
+<div class="meter"><span id="approvedMeter"></span></div>
+
+<p class="message">
+Live calculations from Firebase results and approvals.
+</p>
+</section>
+
+<section class="card">
+<div class="eyebrow">✦ LATEST ACTIVITY</div>
+<h2>Recent Approvals</h2>
+<ul id="recentFeed" class="feed">
+<li>Waiting for activity…</li>
+</ul>
+</section>
 </div>
 
 <section id="resetPanel" class="card resetPanel hide">
 <h2>⚠️ Reset All Exhibition Data</h2>
-<p>This permanently deletes visitor results, prize approvals, browser registrations and the visitor-number counter. Your website and admin accounts are not deleted.</p>
-<p class="muted">Download your CSV first. Do not reset while visitors are playing.</p>
+<p>
+This permanently deletes visitor results, prize approvals,
+browser registrations and the visitor-number counter.
+Your website and admin accounts are not deleted.
+</p>
+<p class="muted">
+Download your CSV first. Do not reset while visitors are playing.
+</p>
 <label for="ownerPassword">Main admin password</label>
-<input id="ownerPassword" type="password" autocomplete="current-password" placeholder="Type your current password">
+<input id="ownerPassword" type="password"
+autocomplete="current-password"
+placeholder="Type your current password">
 <div class="actions">
 <button id="doReset" class="danger">Delete All Visitor Data</button>
 <button id="cancelReset" class="secondary">Cancel</button>
@@ -134,21 +345,25 @@ main{padding:14px 9px}
 <div class="sectionhead">
 <div>
 <h2>✨ Visitor Results</h2>
-<p class="muted">Short Visitor IDs · Repeated plays · 12-hour times</p>
+<p class="muted">
+Short Visitor IDs · Repeated plays · 12-hour time
+</p>
 </div>
 <div class="filters">
-<input id="search" type="search" placeholder="Search name or Visitor ID">
+<input id="search" type="search"
+placeholder="Search name or Visitor ID">
 <select id="filter">
 <option value="all">All results</option>
 <option value="first">First plays</option>
 <option value="retry">Repeated plays</option>
 <option value="pending">Awaiting approval</option>
 <option value="approved">Approved prizes</option>
-<option value="toffee">🍬 Toffee</option>
-<option value="chocolate">🍫 Chocolate</option>
+<option value="toffee">Toffee</option>
+<option value="chocolate">Chocolate</option>
 </select>
 </div>
 </div>
+
 <div class="tablewrap">
 <table>
 <thead>
@@ -167,11 +382,15 @@ main{padding:14px 9px}
 <tbody id="rows"></tbody>
 </table>
 </div>
-<p id="message" class="message" role="status">Connecting to Firebase…</p>
+<p id="message" class="message" role="status">
+Connecting to Firebase…
+</p>
 </section>
 </section>
 
-<p class="foot">Arabic Chocolate Challenge · Organizer Control Room</p>
+<p class="foot">
+Arabic Chocolate Challenge · Organizer Control Room
+</p>
 </main>
 
 <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-app-compat.js"></script>
@@ -185,20 +404,17 @@ const OWNER_UID="DWoqJv8nnNhp84t4mwz6uD5q8HQ2";
 
 let results=[];
 let approvals=new Map();
-let offResults=null;
-let offApprovals=null;
-let resultsReady=false;
-let approvalsReady=false;
+let offResults=null,offApprovals=null;
+let resultsReady=false,approvalsReady=false;
 let error="",resetting=false;
 
+// Matches the short ID from index.html.
 function visitorID(deviceId){
 if(!/^[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i.test(deviceId||""))
 return "Older entry";
-
 const alphabet="ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 let n=BigInt("0x"+deviceId.replace(/-/g,"").slice(0,10));
 let out="";
-
 for(let i=0;i<8;i++){
 out=alphabet[Number(n%32n)]+out;
 n/=32n;
@@ -206,16 +422,20 @@ n/=32n;
 return out.slice(0,4)+"-"+out.slice(4);
 }
 
-const when=t=>t?.toDate?t.toDate().toLocaleString("en-US",{
+const when=t=>t?.toDate?
+t.toDate().toLocaleString("en-US",{
 year:"numeric",month:"short",day:"numeric",
 hour:"numeric",minute:"2-digit",hour12:true
 }):"Saving…";
 
 const repeated=p=>p.firstAttempt===false;
-const eligible=p=>p.score>=2&&p.won===true&&!repeated(p);
-const reward=p=>!eligible(p)?"none":p.score===3?"chocolate":"toffee";
-const rewardLabel=p=>reward(p)==="chocolate"?"🍫 Chocolate":
-reward(p)==="toffee"?"🍬 Toffee":"No prize";
+const eligible=p=>
+p.score>=2&&p.won===true&&!repeated(p);
+const reward=p=>
+!eligible(p)?"none":p.score===3?"chocolate":"toffee";
+const rewardLabel=p=>
+reward(p)==="chocolate"?"Chocolate":
+reward(p)==="toffee"?"Toffee":"No prize";
 
 function stop(){
 if(offResults)offResults();
@@ -233,8 +453,11 @@ $("email").value.trim(),$("password").value
 );
 }catch(e){
 console.error(e);
-$("loginMessage").textContent="Login failed. Check email and password.";
-}finally{$("signIn").disabled=false;}
+$("loginMessage").textContent=
+"Login failed. Check email and password.";
+}finally{
+$("signIn").disabled=false;
+}
 };
 
 $("resetEmail").onclick=async()=>{
@@ -245,7 +468,8 @@ return;
 }
 try{
 await auth.sendPasswordResetEmail(email);
-$("loginMessage").textContent="If registered, check your inbox for a reset link.";
+$("loginMessage").textContent=
+"If registered, check your inbox for a reset link.";
 }catch(e){
 console.error(e);
 $("loginMessage").textContent="Unable to send reset email.";
@@ -255,7 +479,6 @@ $("loginMessage").textContent="Unable to send reset email.";
 $("logout").onclick=()=>{
 if(!resetting)auth.signOut();
 };
-
 $("search").oninput=draw;
 $("filter").onchange=draw;
 $("csv").onclick=downloadCSV;
@@ -274,11 +497,14 @@ $("dashboard").classList.add("hide");
 $("login").classList.remove("hide");
 return;
 }
-
 $("login").classList.add("hide");
 $("dashboard").classList.remove("hide");
 $("adminEmail").textContent=user.email||"Admin";
-$("openReset").classList.toggle("hide",user.uid!==OWNER_UID);
+
+$("openReset").classList.toggle(
+"hide",user.uid!==OWNER_UID
+);
+
 draw();
 
 offResults=db.collection("results")
@@ -317,6 +543,7 @@ try{
 await db.runTransaction(async tx=>{
 const resultRef=db.collection("results").doc(p.id);
 const approvalRef=db.collection("approvals").doc(p.id);
+
 const current=await tx.get(resultRef);
 const existing=await tx.get(approvalRef);
 
@@ -367,14 +594,11 @@ for(const p of shown){
 const row=body.insertRow();
 
 [
-p.name||"Visitor",
-p.level||"",
-p.score+"/3",
-visitorID(p.deviceId),
+p.name||"Visitor",p.level||"",
+p.score+"/3",visitorID(p.deviceId),
 repeated(p)?"Repeated":"First play",
 repeated(p)?"No prize":rewardLabel(p),
-p.quizSet||"—",
-when(p.createdAt)
+p.quizSet||"—",when(p.createdAt)
 ].forEach((value,i)=>{
 const cell=row.insertCell();
 cell.textContent=value;
@@ -392,35 +616,89 @@ action.textContent="No prize";
 const label=document.createElement("strong");
 label.className="approved";
 label.textContent="Approved";
-const date=document.createElement("div");
-date.className="subtime";
-date.textContent=when(approval.acceptedAt);
-action.append(label,date);
+
+const approvalTime=document.createElement("div");
+approvalTime.className="subtime";
+approvalTime.textContent=when(approval.acceptedAt);
+
+action.append(label,approvalTime);
 }else{
-const b=document.createElement("button");
-b.className="approve"+(p.score===3?" choc":"");
-b.textContent="Approve "+rewardLabel(p);
-b.disabled=resetting;
-b.onclick=()=>approve(p,b);
-action.append(b);
+const button=document.createElement("button");
+button.className="approve"+(p.score===3?" choc":"");
+button.textContent="Approve "+rewardLabel(p);
+button.disabled=resetting;
+button.onclick=()=>approve(p,button);
+action.append(button);
 }
 }
 
+// LIVE COUNTERS
 $("visitors").textContent=results.length;
+
 $("toffees").textContent=results.filter(
 p=>reward(p)==="toffee"&&approvals.has(p.id)
 ).length;
+
 $("chocolates").textContent=results.filter(
 p=>reward(p)==="chocolate"&&approvals.has(p.id)
 ).length;
+
 $("pending").textContent=results.filter(
 p=>eligible(p)&&!approvals.has(p.id)
 ).length;
+
 $("repeats").textContent=results.filter(repeated).length;
 
+// LIVE EXHIBITION PULSE
+const firstCount=results.filter(p=>!repeated(p)).length;
+const repeatCount=results.filter(repeated).length;
+const approvedList=results.filter(
+p=>eligible(p)&&approvals.has(p.id)
+);
+
+$("firstCount").textContent=firstCount;
+$("repeatCount").textContent=repeatCount;
+$("approvedCount").textContent=approvedList.length;
+
+const total=Math.max(results.length,1);
+$("firstMeter").style.width=(firstCount/total*100)+"%";
+$("repeatMeter").style.width=(repeatCount/total*100)+"%";
+$("approvedMeter").style.width=
+(approvedList.length/total*100)+"%";
+
+// RECENT APPROVALS
+const feed=$("recentFeed");
+feed.replaceChildren();
+
+const latest=approvedList.sort((a,b)=>
+(approvals.get(b.id)?.acceptedAt?.toMillis?.()||0)-
+(approvals.get(a.id)?.acceptedAt?.toMillis?.()||0)
+).slice(0,5);
+
+if(!latest.length){
+const li=document.createElement("li");
+li.textContent="No approved prizes yet.";
+feed.append(li);
+}
+
+for(const p of latest){
+const li=document.createElement("li");
+const name=document.createElement("span");
+const time=document.createElement("span");
+name.textContent=(p.score===3?"🍫 ":"🍬 ")+
+(p.name||"Visitor");
+time.className="time";
+time.textContent=when(approvals.get(p.id).acceptedAt);
+li.append(name,time);
+feed.append(li);
+}
+
 $("message").textContent=error||
-(!resultsReady||!approvalsReady?"Connecting…":
-shown.length?"":results.length?"No results match.":"No visitors yet.");
+(!resultsReady||!approvalsReady?
+"Connecting…":
+shown.length?"":results.length?
+"No results match.":"No visitors yet.");
+
 $("message").classList.toggle("error",!!error);
 }
 
@@ -432,27 +710,32 @@ return '"'+x.replaceAll('"','""')+'"';
 
 function downloadCSV(){
 if(!resultsReady||!approvalsReady||error){
-$("message").textContent="Wait for Firebase to load all results.";
+$("message").textContent=
+"Wait for Firebase to load all results.";
 return;
 }
 
 const rows=[[
-"Name","Level","Score","Visitor ID","Attempt","Prize",
-"Quiz Set","Ticket ID","Time Played","Admin Approval",
-"Approved At","Toffees Given Out","Chocolates Given Out","Repeated"
+"Name","Level","Score","Visitor ID","Attempt",
+"Prize","Quiz Set","Ticket ID","Time Played",
+"Admin Approval","Approved At",
+"Toffees Given Out","Chocolates Given Out","Repeated"
 ]];
 
 results.forEach(p=>{
 const a=approvals.get(p.id);
 const approved=!!a&&eligible(p);
+
 rows.push([
-p.name,p.level,p.score+"/3",visitorID(p.deviceId),
+p.name,p.level,p.score+"/3",
+visitorID(p.deviceId),
 repeated(p)?"Repeated":"First play",
 repeated(p)?"No prize":rewardLabel(p),
-p.quizSet||"",p.id.slice(-8).toUpperCase(),
+p.quizSet||"",
+p.id.slice(-8).toUpperCase(),
 when(p.createdAt),
-repeated(p)?"Repeated":approved?"Approved":
-eligible(p)?"Pending":"No prize",
+repeated(p)?"Repeated":
+approved?"Approved":eligible(p)?"Pending":"No prize",
 approved?when(a.acceptedAt):"",
 approved&&p.score===2?1:0,
 approved&&p.score===3?1:0,
@@ -467,13 +750,14 @@ $("chocolates").textContent,
 $("repeats").textContent
 ]);
 
-const csv="\uFEFF"+rows.map(
-r=>r.map(csvCell).join(",")
+const csv="\uFEFF"+rows.map(r=>
+r.map(csvCell).join(",")
 ).join("\r\n");
 
 const url=URL.createObjectURL(
 new Blob([csv],{type:"text/csv;charset=utf-8"})
 );
+
 const a=document.createElement("a");
 a.href=url;
 a.download="arabic-challenge-results.csv";
@@ -483,6 +767,7 @@ a.remove();
 setTimeout(()=>URL.revokeObjectURL(url),1000);
 }
 
+// PASSWORD-PROTECTED RESET
 $("openReset").onclick=()=>{
 if(auth.currentUser?.uid!==OWNER_UID)return;
 $("ownerPassword").value="";
@@ -497,14 +782,15 @@ if(!resetting)$("resetPanel").classList.add("hide");
 async function eraseCollection(name){
 let count=0;
 while(true){
-const s=await db.collection(name).limit(200)
-.get({source:"server"});
-if(s.empty)return count;
+const snap=await db.collection(name)
+.limit(200).get({source:"server"});
+
+if(snap.empty)return count;
 
 const batch=db.batch();
-s.docs.forEach(doc=>batch.delete(doc.ref));
+snap.docs.forEach(doc=>batch.delete(doc.ref));
 await batch.commit();
-count+=s.size;
+count+=snap.size;
 
 $("resetStatus").textContent=
 `Deleting ${name}: ${count} removed…`;
@@ -517,7 +803,8 @@ if(resetting||!user||user.uid!==OWNER_UID)return;
 
 const password=$("ownerPassword").value;
 if(!password){
-$("resetStatus").textContent="Type your current admin password.";
+$("resetStatus").textContent=
+"Type your current admin password.";
 return;
 }
 
@@ -528,11 +815,14 @@ $("logout").disabled=true;
 
 try{
 await user.reauthenticateWithCredential(
-firebase.auth.EmailAuthProvider.credential(user.email,password)
+firebase.auth.EmailAuthProvider.credential(
+user.email,password
+)
 );
 
 $("ownerPassword").value="";
-$("resetStatus").textContent="Password checked. Deleting visitor data…";
+$("resetStatus").textContent=
+"Password checked. Deleting visitor data…";
 
 await eraseCollection("approvals");
 await eraseCollection("results");
@@ -540,12 +830,12 @@ await eraseCollection("devices");
 await db.collection("meta").doc("visitorCounter").delete();
 
 $("resetStatus").textContent=
-"✅ Reset complete. All visitor counts are now zero.";
+"Reset complete. All visitor counts are now zero.";
 }catch(e){
 console.error(e);
 $("ownerPassword").value="";
 $("resetStatus").textContent=
-"❌ Reset incomplete: "+(e.message||"Check Firebase rules.");
+"Reset incomplete: "+(e.message||"Check Firebase rules.");
 }finally{
 resetting=false;
 $("doReset").disabled=false;
