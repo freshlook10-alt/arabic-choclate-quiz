@@ -1,461 +1,792 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>EDEX | Ball Game Admin</title>
 
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;900&family=Outfit:wght@400;600;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://freshlook10-alt.github.io/Edex-Word-Portal/style.css">
 
-  <meta name="theme-color" content="#090b21">
-
-  <title>EDEX | Ball Game Admin</title>
-
-  <link rel="preconnect"
-        href="https://fonts.googleapis.com">
-
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;900&family=Outfit:wght@400;500;600;700;800;900&display=swap"
-        rel="stylesheet">
-
-  <!-- Use the design from the Word Portal website -->
-  <link rel="stylesheet"
-        href="https://freshlook10-alt.github.io/Edex-Word-Portal/style.css">
-
-  <style>
-    .edex-admin-nav {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 12px;
-      margin: 16px auto 30px;
-    }
-
-    .edex-admin-nav a {
-      padding: 13px 20px;
-      border: 1px solid #bda5e85c;
-      border-radius: 14px;
-      background: #41325a55;
-      color: #eee1ff;
-      font-size: 13px;
-      font-weight: 800;
-      text-decoration: none;
-    }
-
-    .edex-admin-nav a.active {
-      color: #3b2716;
-      background: linear-gradient(
-        110deg, #f3ca8a, #fff0bc
-      );
-      border-color: #ffdf9d;
-    }
-
-    .edex-admin-nav a:hover {
-      filter: brightness(1.15);
-    }
-
-    .game-shortcut {
-      text-align: center;
-      margin: 20px auto;
-    }
-
-    .game-shortcut a {
-      display: inline-block;
-      padding: 13px 24px;
-      border-radius: 13px;
-      color: #192137;
-      background: linear-gradient(
-        110deg, #a9b4ff, #86e0ed
-      );
-      font-weight: 800;
-    }
-
-    .admin-description {
-      text-align: center;
-      color: #bbb0d0;
-      font-size: 13px;
-      margin-bottom: 25px;
-    }
-
-    .dashboard-grid > .panel {
-      min-width: 0;
-    }
-
-    .table-scroll {
-      max-height: 480px;
-      overflow: auto;
-    }
-
-    .admin-heading {
-      text-align: center;
-      margin: 20px 0;
-      font-size: 38px;
-      font-weight: 900;
-    }
-  </style>
+<style>
+[hidden]{display:none!important}
+.nav{
+  display:flex;justify-content:center;
+  flex-wrap:wrap;gap:12px;margin:15px auto 28px
+}
+.nav a{
+  padding:13px 22px;border-radius:13px;
+  background:#41325a;color:#f1e5ff;
+  text-decoration:none;font-weight:800;
+  border:1px solid #bda5e855
+}
+.nav a.active{
+  background:linear-gradient(110deg,#f2c782,#fff0be);
+  color:#302115
+}
+.dashboard{max-width:1180px}
+.pad{margin-bottom:18px}
+.reset-area{
+  border:1px solid #e48e9977;
+  background:linear-gradient(140deg,#3e2437,#17142c);
+  border-radius:20px;padding:24px;
+  margin:24px 0
+}
+.reset-area h2{color:#ffbec8}
+.reset-area input{
+  display:block;width:min(100%,370px);margin:14px 0
+}
+.reset-area button{margin:5px 7px 5px 0}
+.notice{
+  font-size:13px;color:#d6cce5;
+  min-height:22px;line-height:1.6
+}
+.notice.error{color:#ff9aa7}
+.toolbar{
+  display:flex;justify-content:space-between;
+  align-items:center;gap:12px;flex-wrap:wrap
+}
+.live-box{
+  padding:18px;border-radius:15px;
+  background:#151329;border:1px solid #5f4a8177;
+  text-align:center;margin:12px 0
+}
+.live-box strong{
+  display:block;font:900 44px Cairo,sans-serif;
+  color:#f8d79e
+}
+.live-box span{color:#b7aacf}
+button:disabled{opacity:.45;cursor:not-allowed}
+@media(max-width:520px){
+  .dashboard{padding:15px}
+  .nav a{padding:11px}
+  .setting{flex-wrap:wrap}
+  .toolbar{align-items:flex-start}
+}
+</style>
 </head>
 
 <body>
-
-  <div class="aurora"></div>
-  <div class="dust"></div>
-
-  <!-- MAIN EDEX HEADER -->
-
-  <header class="topbar">
-    <a class="brand" href="admin.html">
-      <span class="gem">✦</span>
-
-      <span>
-        EDEX
-        <small>CONTROL CENTER</small>
-      </span>
-    </a>
-
-    <span class="live-dot">
-      ● ORGANIZER DASHBOARD
-    </span>
-  </header>
-
-  <!-- BOTH ADMIN SECTIONS -->
-
-  <nav class="edex-admin-nav">
-
-    <a href="admin.html">
-      ✦ Quiz Admin
-    </a>
-
-    <a href="ball-admin.html" class="active">
-      ◈ Ball Game Admin
-    </a>
-
-  </nav>
-
-  <main class="dashboard">
-
-    <!-- ORGANIZER LOGIN -->
-
-    <section class="panel auth-box" id="adminLogin">
-
-      <div class="eyebrow">
-        ✦ ORGANIZER ACCESS
-      </div>
-
-      <h1>
-        Enter the <em>Portal.</em>
-      </h1>
-
-      <p>
-        Sign in with your EDEX Word Portal
-        organizer account.
-      </p>
-
-      <form id="loginForm">
-
-        <input
-          id="email"
-          type="email"
-          autocomplete="username"
-          placeholder="Organizer Email"
-          required
-        >
-
-        <input
-          id="password"
-          type="password"
-          autocomplete="current-password"
-          placeholder="Password"
-          required
-        >
-
-        <button type="submit" class="btn aqua">
-          Unlock Dashboard
-        </button>
-
-      </form>
-
-      <p class="error" id="loginError"></p>
-
-    </section>
-
-    <!-- PRIVATE DASHBOARD -->
-
-    <section id="adminContent" hidden>
-
-      <div class="dashboard-head">
-
-        <div>
-          <div class="eyebrow">
-            ✦ EDEX EXHIBITION EXPERIENCE
-          </div>
-
-          <h1>
-            Ball Game <em>Studio.</em>
-          </h1>
-
-          <p>
-            Live statistics, rewards and
-            challenge management.
-          </p>
-        </div>
-
-        <button class="btn outline" id="signout">
-          Sign Out
-        </button>
-
-      </div>
-
-      <!-- MAIN STATISTICS -->
-
-      <div class="stats-grid">
-
-        <div class="stat panel">
-
-          <span>TOTAL ROUNDS PLAYED</span>
-
-          <strong id="played">0</strong>
-
-        </div>
-
-        <div class="stat panel">
-
-          <span>SUCCESSFUL ROUNDS</span>
-
-          <strong id="wins">0</strong>
-
-        </div>
-
-        <div class="stat panel">
-
-          <span>NOT WON</span>
-
-          <strong id="losses">0</strong>
-
-        </div>
-
-        <div class="stat panel accent">
-
-          <span>CHOCOLATES GIVEN 🍫</span>
-
-          <strong id="chocolates">0</strong>
-
-        </div>
-
-      </div>
-
-      <!-- CHOCOLATE STOCK AND WORD SETTINGS -->
-
-      <div class="dashboard-grid">
-
-        <section class="panel pad">
-
-          <div class="panel-title">
-            <span>
-              01 / CHOCOLATE INVENTORY
-            </span>
-          </div>
-
-          <p>
-            Set the total number of chocolates
-            available for this activity.
-          </p>
-
-          <div class="inventory">
-
-            <div>
-              <small>TOTAL CHOCOLATES</small>
-              <strong id="stock">—</strong>
-            </div>
-
-            <div>
-              <small>REMAINING STOCK</small>
-              <strong id="remainingStock">—</strong>
-            </div>
-
-          </div>
-
-          <div class="setting">
-
-            <input
-              type="number"
-              id="stockInput"
-              min="0"
-              step="1"
-              placeholder="Example: 200"
-            >
-
-            <button class="btn gold" id="stockBtn">
-              Save Stock
-            </button>
-
-          </div>
-
-          <p class="help">
-            A successful round records one chocolate.
-            An unsuccessful round records zero.
-          </p>
-
-        </section>
-
-        <!-- WORD BANK SETTINGS -->
-
-        <section class="panel pad">
-
-          <div class="panel-title">
-            <span>
-              02 / RANDOMIZER SETTINGS
-            </span>
-          </div>
-
-          <p>
-            Select real-word mode or all possible
-            three-letter combinations.
-          </p>
-
-          <label for="mode">
-            RANDOMIZER MODE
-          </label>
-
-          <select id="mode">
-
-            <option value="words">
-              Real Arabic Words
-            </option>
-
-            <option value="all">
-              All 125 Combinations
-            </option>
-
-          </select>
-
-          <label for="wordList">
-            ACCEPTED ARABIC WORDS
-          </label>
-
-          <textarea
-            id="wordList"
-            rows="5"
-            dir="rtl"
-            spellcheck="false"
-            placeholder="باب، تاج، تاب">
-          </textarea>
-
-          <button class="btn lavender" id="saveBank">
-            Save Word Settings
-          </button>
-
-          <button class="btn outline" id="resetCycle">
-            ↺ Reset Used Word Cycle
-          </button>
-
-          <p class="help" id="wordHelp">
-            The randomizer will not repeat
-            combinations within the same cycle.
-          </p>
-
-        </section>
-
-      </div>
-
-      <!-- RECENT RESULT HISTORY -->
-
-      <section class="panel pad">
-
-        <div class="panel-title">
-
-          <span>
-            03 / CHALLENGE HISTORY
-          </span>
-
-          <button class="btn outline" id="csv">
-            ↓ Export CSV
-          </button>
-
-        </div>
-
-        <p>
-          Every completed and unsuccessful
-          attempt is recorded here.
-        </p>
-
-        <div class="table-scroll">
-
-          <table>
-
-            <thead>
-
-              <tr>
-                <th>DATE & TIME</th>
-                <th>ARABIC WORD</th>
-                <th>RESULT</th>
-                <th>CHOCOLATE</th>
-                <th>TIME USED</th>
-              </tr>
-
-            </thead>
-
-            <tbody id="records">
-
-              <tr>
-                <td colspan="5">
-                  No rounds recorded yet.
-                </td>
-              </tr>
-
-            </tbody>
-
-          </table>
-
-        </div>
-
-        <p class="help">
-          The dashboard displays the latest 200 rounds.
-          CSV export includes all saved rounds.
-        </p>
-
-      </section>
-
-      <!-- GAME LINK -->
-
-      <div class="game-shortcut">
-
-        <a href="https://freshlook10-alt.github.io/Edex-Word-Portal/"
-           target="_blank"
-           rel="noopener">
-
-          ✧ Open Word Portal Game Screen
-
-        </a>
-
-      </div>
-
-    </section>
-
-  </main>
-
-  <!-- NOTIFICATIONS -->
-
-  <div id="toast"
-       class="toast"
-       role="status"
-       aria-live="polite">
+<div class="aurora"></div>
+<div class="dust"></div>
+
+<header class="topbar">
+  <a href="admin.html" class="brand">
+    <span class="gem">✦</span>
+    <span>EDEX<small>CONTROL CENTER</small></span>
+  </a>
+  <span class="live-dot">● ADMINISTRATION</span>
+</header>
+
+<nav class="nav">
+  <a href="admin.html">✦ Quiz Admin</a>
+  <a href="ball-admin.html" class="active">
+    ◈ Ball Game Admin
+  </a>
+</nav>
+
+<main class="dashboard">
+
+<section class="panel auth-box" id="loginPanel">
+  <div class="eyebrow">✦ ORGANIZER ACCESS</div>
+  <h1>Enter the <em>Portal.</em></h1>
+  <p>Sign in using your Word Portal organizer account.</p>
+
+  <form id="loginForm">
+    <input id="email" type="email"
+      placeholder="Organizer email"
+      autocomplete="username" required>
+
+    <input id="password" type="password"
+      placeholder="Password"
+      autocomplete="current-password" required>
+
+    <button class="btn aqua" type="submit">
+      Unlock Dashboard
+    </button>
+  </form>
+
+  <p class="notice error" id="loginError"></p>
+</section>
+
+<section id="dashboardContent" hidden>
+
+  <div class="dashboard-head">
+    <div>
+      <div class="eyebrow">✦ EDEX EXPERIENCE</div>
+      <h1>Ball Game <em>Studio.</em></h1>
+      <p>Live records and chocolate management.</p>
+    </div>
+    <button class="btn outline" id="logout">
+      Sign Out
+    </button>
   </div>
 
-  <!-- FIREBASE SDK -->
+  <div class="stats-grid">
+    <div class="stat panel">
+      <span>TOTAL ROUNDS</span>
+      <strong id="played">0</strong>
+    </div>
 
-  <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-app-compat.js"></script>
+    <div class="stat panel">
+      <span>COMPLETED</span>
+      <strong id="wins">0</strong>
+    </div>
 
-  <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-auth-compat.js"></script>
+    <div class="stat panel">
+      <span>NOT WON</span>
+      <strong id="losses">0</strong>
+    </div>
 
-  <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore-compat.js"></script>
+    <div class="stat panel accent">
+      <span>CHOCOLATES GIVEN 🍫</span>
+      <strong id="chocolates">0</strong>
+    </div>
+  </div>
 
-  <!-- LOAD THE NEW WORD PORTAL FIREBASE PROJECT -->
+  <div class="dashboard-grid">
 
-  <script src="https://freshlook10-alt.github.io/Edex-Word-Portal/firebase-config.js"></script>
+    <section class="panel pad">
+      <div class="panel-title">
+        01 / LIVE CHALLENGE
+      </div>
 
-  <!-- LOAD WORD PORTAL ADMIN LOGIC -->
+      <div class="live-box">
+        <strong id="liveWord" dir="rtl">✦</strong>
+        <span id="liveStage">STANDBY</span>
+      </div>
 
-  <script src="https://freshlook10-alt.github.io/Edex-Word-Portal/app.js"></script>
+      <p class="help">
+        The current challenge is synchronized
+        with the main Word Portal.
+      </p>
+
+      <a class="btn aqua"
+        style="display:inline-block;text-decoration:none"
+        href="https://freshlook10-alt.github.io/Edex-Word-Portal/"
+        target="_blank" rel="noopener">
+        ✧ Open Game Screen
+      </a>
+    </section>
+
+    <section class="panel pad">
+      <div class="panel-title">
+        02 / CHOCOLATE INVENTORY
+      </div>
+
+      <p>Enter the total chocolate stock available.</p>
+
+      <div class="inventory">
+        <div>
+          <small>TOTAL STOCK</small>
+          <strong id="stock">—</strong>
+        </div>
+        <div>
+          <small>REMAINING</small>
+          <strong id="remainingStock">—</strong>
+        </div>
+      </div>
+
+      <div class="setting">
+        <input id="stockInput" type="number"
+          min="0" step="1" placeholder="200">
+
+        <button id="saveStock" class="btn gold">
+          Save Stock
+        </button>
+      </div>
+    </section>
+
+  </div>
+
+  <section class="panel pad">
+    <div class="panel-title">
+      03 / WORD RANDOMIZER SETTINGS
+    </div>
+
+    <p>
+      Choose real Arabic words or all 125
+      possible three-letter combinations.
+    </p>
+
+    <label for="mode">RANDOMIZER MODE</label>
+
+    <select id="mode">
+      <option value="words">Real Word Bank</option>
+      <option value="all">All 125 Combinations</option>
+    </select>
+
+    <label for="wordList">ARABIC WORD BANK</label>
+
+    <textarea id="wordList" dir="rtl"
+      spellcheck="false" rows="4"></textarea>
+
+    <button class="btn lavender" id="saveBank">
+      Save Word Settings
+    </button>
+  </section>
+
+  <section class="panel pad">
+    <div class="toolbar">
+      <div class="panel-title">
+        04 / ROUND HISTORY
+      </div>
+
+      <button class="btn outline" id="csv">
+        ↓ Export All Results CSV
+      </button>
+    </div>
+
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>DATE & TIME</th>
+            <th>WORD</th>
+            <th>RESULT</th>
+            <th>CHOCOLATE</th>
+            <th>TIME USED</th>
+          </tr>
+        </thead>
+        <tbody id="records"></tbody>
+      </table>
+    </div>
+
+    <p class="help">
+      Showing the latest 200 rounds.
+      CSV export includes all saved rounds.
+    </p>
+  </section>
+
+  <!-- TWO DIFFERENT RESET OPTIONS -->
+
+  <section class="reset-area">
+    <div class="eyebrow">05 / RESET CONTROLS</div>
+    <h2>↺ Reset Management</h2>
+
+    <p>
+      Choose the reset you want.
+      The two options work differently.
+    </p>
+
+    <div class="panel"
+      style="padding:18px;margin:16px 0">
+
+      <h3>Reset Current Game</h3>
+
+      <p class="help">
+        Clears the active word, timer, and
+        used-word list. Your chocolates
+        and saved results remain unchanged.
+      </p>
+
+      <button class="btn lavender" id="resetGame">
+        ↺ Reset Current Game & Words
+      </button>
+    </div>
+
+    <div class="panel"
+      style="padding:18px;margin:16px 0">
+
+      <h3>Reset All Ball Game Event Data</h3>
+
+      <p class="help">
+        Permanently deletes all saved rounds,
+        chocolates given, wins, losses, and
+        used-word history. The original
+        Arabic Quiz will NOT be affected.
+      </p>
+
+      <label for="resetPassword">
+        ORGANIZER PASSWORD
+      </label>
+
+      <input id="resetPassword"
+        type="password"
+        autocomplete="current-password"
+        placeholder="Enter your password">
+
+      <button class="btn dark" id="resetAll">
+        Reset ALL Ball Game Data
+      </button>
+    </div>
+
+    <p id="resetStatus" class="notice"
+      role="status"></p>
+  </section>
+
+</section>
+</main>
+
+<div id="toast" class="toast"
+  aria-live="polite"></div>
+
+<script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore-compat.js"></script>
+
+<script src="https://freshlook10-alt.github.io/Edex-Word-Portal/firebase-config.js"></script>
+
+<script>
+(() => {
+  "use strict";
+
+  const $ = id => document.getElementById(id);
+
+  const liveRef =
+    db.collection("wordPortal").doc("live");
+
+  const settingsRef =
+    db.collection("wordSettings").doc("main");
+
+  const statsRef =
+    db.collection("wordStats").doc("total");
+
+  const historyRef =
+    db.collection("wordHistory");
+
+  const defaults = [
+    "باب","بات","تاب","تاج","جاب",
+    "ثاب","جثا","ثبت","بثت","تبت",
+    "جبت","جثث","تجب","تبث","تثب"
+  ];
+
+  let settings = {
+    durationSec: 120,
+    mode: "words",
+    words: defaults
+  };
+
+  let stats = {
+    played: 0,
+    wins: 0,
+    losses: 0,
+    chocolates: 0,
+    stockTotal: null
+  };
+
+  let live = {stage:"idle",word:""};
+  let records = [];
+  let loggedIn = false;
+  let busy = false;
+  let unsubscribers = [];
+
+  const status = (message, error = false) => {
+    $("resetStatus").textContent = message;
+    $("resetStatus").classList.toggle("error",error);
+  };
+
+  const message = error =>
+    error?.message || "Something went wrong.";
+
+  function setBusy(value) {
+    busy = value;
+
+    for (const id of [
+      "saveStock","saveBank","csv",
+      "resetGame","resetAll","logout"
+    ]) {
+      $(id).disabled = value;
+    }
+  }
+
+  async function execute(task) {
+    if (!loggedIn || busy) return;
+
+    setBusy(true);
+    status("");
+
+    try {
+      await task();
+    } catch (error) {
+      status("Error: " + message(error),true);
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  function render() {
+    if (!loggedIn) return;
+
+    for (const id of [
+      "played","wins","losses","chocolates"
+    ]) {
+      $(id).textContent =
+        Number(stats[id] || 0).toLocaleString();
+    }
+
+    const total = stats.stockTotal;
+    const hasStock = Number.isSafeInteger(total);
+
+    $("stock").textContent =
+      hasStock ? total.toLocaleString() : "—";
+
+    $("remainingStock").textContent =
+      hasStock
+        ? Math.max(
+            0,total - Number(stats.chocolates || 0)
+          ).toLocaleString()
+        : "—";
+
+    $("liveWord").textContent = live.word || "✦";
+    $("liveStage").textContent =
+      String(live.stage || "idle").toUpperCase();
+
+    const tbody = $("records");
+    tbody.replaceChildren();
+
+    if (!records.length) {
+      const tr = tbody.insertRow();
+      const td = tr.insertCell();
+      td.colSpan = 5;
+      td.textContent = "No rounds recorded.";
+      return;
+    }
+
+    for (const r of records) {
+      const row = tbody.insertRow();
+
+      const time = r.at?.toDate
+        ? r.at.toDate().toLocaleString()
+        : "Saving...";
+
+      const values = [
+        time,
+        r.word || "—",
+        r.outcome === "won" ? "Completed" : "Not Won",
+        r.chocolate || 0,
+        Math.round(r.elapsedSec || 0) + " sec"
+      ];
+
+      values.forEach((value,index) => {
+        const cell = row.insertCell();
+        cell.textContent = value;
+        if (index === 1) cell.className = "arabic";
+      });
+    }
+  }
+
+  function stopListeners() {
+    unsubscribers.forEach(fn => fn());
+    unsubscribers = [];
+  }
+
+  function startListeners() {
+    stopListeners();
+
+    unsubscribers.push(
+      liveRef.onSnapshot(snap => {
+        live = snap.data() || {stage:"idle",word:""};
+        render();
+      },error => status(message(error),true))
+    );
+
+    unsubscribers.push(
+      settingsRef.onSnapshot(snap => {
+        settings = {
+          ...settings,
+          ...(snap.data() || {})
+        };
+
+        $("mode").value = settings.mode;
+        $("wordList").value =
+          settings.words.join("، ");
+
+        render();
+      },error => status(message(error),true))
+    );
+
+    unsubscribers.push(
+      statsRef.onSnapshot(snap => {
+        stats = {
+          played:0,wins:0,losses:0,
+          chocolates:0,stockTotal:null,
+          ...(snap.data() || {})
+        };
+        render();
+      },error => status(message(error),true))
+    );
+
+    unsubscribers.push(
+      historyRef.orderBy("at","desc")
+        .limit(200)
+        .onSnapshot(snap => {
+          records = snap.docs.map(doc => doc.data());
+          render();
+        },error => status(message(error),true))
+    );
+  }
+
+  // ORGANIZER LOGIN
+  $("loginForm").onsubmit = async event => {
+    event.preventDefault();
+
+    $("loginError").textContent = "";
+
+    try {
+      const user = (
+        await auth.signInWithEmailAndPassword(
+          $("email").value.trim(),
+          $("password").value
+        )
+      ).user;
+
+      if (user.uid !== ADMIN_UID) {
+        await auth.signOut();
+        throw Error("Not an authorized organizer.");
+      }
+
+      $("password").value = "";
+    } catch (error) {
+      $("loginError").textContent = message(error);
+    }
+  };
+
+  auth.onAuthStateChanged(async user => {
+    loggedIn = Boolean(
+      user && user.uid === ADMIN_UID
+    );
+
+    stopListeners();
+
+    if (user && !loggedIn) {
+      await auth.signOut();
+      return;
+    }
+
+    $("loginPanel").hidden = loggedIn;
+    $("dashboardContent").hidden = !loggedIn;
+
+    if (loggedIn) startListeners();
+  });
+
+  $("logout").onclick = () => auth.signOut();
+
+  // SAVE CHOCOLATE STOCK
+  $("saveStock").onclick = () => execute(async () => {
+    const input = $("stockInput").value.trim();
+    const quantity = Number(input);
+
+    if (!input || !Number.isSafeInteger(quantity)
+        || quantity < 0) {
+      throw Error("Enter a valid whole number.");
+    }
+
+    await db.runTransaction(async tx => {
+      const snap = await tx.get(statsRef);
+      const given = snap.data()?.chocolates || 0;
+
+      if (quantity < given) {
+        throw Error(
+          "Stock cannot be below chocolates already given."
+        );
+      }
+
+      tx.set(statsRef,{
+        stockTotal: quantity
+      },{merge:true});
+    });
+
+    status("Chocolate stock saved.");
+  });
+
+  // SAVE RANDOMIZER SETTINGS
+  $("saveBank").onclick = () => execute(async () => {
+    const words = [...new Set(
+      $("wordList").value
+        .split(/[\s,،؛;]+/u)
+        .map(w => w.trim())
+        .filter(Boolean)
+    )];
+
+    if (!words.length ||
+        words.some(w => !/^[ابتثج]{3}$/u.test(w))) {
+      throw Error(
+        "Use only three-letter combinations of ا ب ت ث ج."
+      );
+    }
+
+    await settingsRef.set({
+      mode: $("mode").value,
+      words: words
+    },{merge:true});
+
+    status("Randomizer settings saved.");
+  });
+
+  // RESET THE CURRENT GAME AND WORD CYCLE
+  $("resetGame").onclick = () => execute(async () => {
+    const ok = confirm(
+      "Reset the current word, timer, and used words? Chocolate records will stay saved."
+    );
+
+    if (!ok) return;
+
+    await db.runTransaction(async tx => {
+      const snap = await tx.get(liveRef);
+
+      if (snap.data()?.stage === "maintenance") {
+        throw Error("Full event reset is in progress.");
+      }
+
+      tx.set(liveRef,{
+        stage: "idle",
+        word: "",
+        startedAt: null,
+        usedWords: [],
+        durationSec: settings.durationSec
+      },{merge:true});
+    });
+
+    status(
+      "Current game reset. All words are available again."
+    );
+  });
+
+  // FULL EVENT RESET — PASSWORD PROTECTED
+  $("resetAll").onclick = () => execute(async () => {
+    const user = auth.currentUser;
+
+    if (!user || user.uid !== ADMIN_UID) {
+      throw Error("Organizer access required.");
+    }
+
+    const password = $("resetPassword").value;
+
+    if (!password) {
+      throw Error("Enter your organizer password.");
+    }
+
+    const confirmText = prompt(
+      "WARNING: All Ball Game records and chocolate totals will be permanently deleted. Type RESET to confirm."
+    );
+
+    if (confirmText !== "RESET") {
+      status("Reset cancelled.");
+      return;
+    }
+
+    // Confirm the Firebase account password.
+    await user.reauthenticateWithCredential(
+      firebase.auth.EmailAuthProvider.credential(
+        user.email,password
+      )
+    );
+
+    $("resetPassword").value = "";
+
+    // Stop new rounds while data is being erased.
+    await liveRef.set({
+      stage: "maintenance",
+      word: "",
+      startedAt: null
+    },{merge:true});
+
+    status("Deleting Ball Game records...");
+
+    let deleted = 0;
+
+    // Delete in small batches to stay within Firestore limits.
+    while (true) {
+      const snapshot = await historyRef
+        .limit(200)
+        .get({source:"server"});
+
+      if (snapshot.empty) break;
+
+      const batch = db.batch();
+
+      snapshot.docs.forEach(doc => {
+        batch.delete(doc.ref);
+      });
+
+      await batch.commit();
+
+      deleted += snapshot.size;
+      status(deleted + " round records deleted...");
+    }
+
+    // Only reset counters after records were deleted.
+    const batch = db.batch();
+
+    batch.set(statsRef,{
+      played: 0,
+      wins: 0,
+      losses: 0,
+      chocolates: 0,
+      stockTotal: null
+    });
+
+    batch.set(liveRef,{
+      stage: "idle",
+      word: "",
+      startedAt: null,
+      usedWords: [],
+      roundId: 0,
+      durationSec: settings.durationSec
+    },{merge:true});
+
+    await batch.commit();
+
+    status(
+      "SUCCESS! All Ball Game records reset. " +
+      deleted + " saved rounds deleted. " +
+      "The original Quiz is unchanged."
+    );
+  });
+
+  // EXPORT RESULTS TO CSV
+  $("csv").onclick = () => execute(async () => {
+    const snapshot = await historyRef
+      .orderBy("at","desc")
+      .get({source:"server"});
+
+    const rows = [[
+      "Date","Word","Result","Chocolate","Seconds Used"
+    ]];
+
+    snapshot.docs.forEach(doc => {
+      const r = doc.data();
+
+      rows.push([
+        r.at?.toDate?.().toISOString() || "",
+        r.word || "",
+        r.outcome || "",
+        r.chocolate || 0,
+        r.elapsedSec || 0
+      ]);
+    });
+
+    const csvCell = value => {
+      let s = String(value ?? "");
+      if (/^\s*[=+\-@]/.test(s)) s = "'" + s;
+      return '"' + s.replace(/"/g,'""') + '"';
+    };
+
+    const content = "\uFEFF" +
+      rows.map(row => row.map(csvCell).join(","))
+          .join("\r\n");
+
+    const url = URL.createObjectURL(
+      new Blob([content],{
+        type:"text/csv;charset=utf-8"
+      })
+    );
+
+    const anchor = document.createElement("a");
+    anchor.href = url;
+    anchor.download = "edex-ball-game-results.csv";
+    document.body.append(anchor);
+    anchor.click();
+    anchor.remove();
+
+    setTimeout(() => URL.revokeObjectURL(url),1000);
+    status("Results CSV exported.");
+  });
+
+})();
+</script>
 
 </body>
 </html>
