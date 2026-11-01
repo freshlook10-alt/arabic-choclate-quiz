@@ -5,476 +5,238 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>EDEX | Quiz Admin</title>
-
 <style>
 :root {
-  --bg:#070810;
-  --line:#45405c;
-  --muted:#aaa9be;
-  --purple:#bf96ff;
-  --gold:#ffd77f;
-  --pink:#ffa4ca;
-  --green:#7fe7b4;
-  --red:#ff879e;
+  --bg:#070810;--line:#34364d;
+  --muted:#aaa9be;--purple:#bf96ff;
+  --gold:#ffd77f;--pink:#ffa4ca;
+  --green:#7fe7b4;--red:#ff879e;
 }
-
-* { box-sizing:border-box; }
-
-body {
-  margin:0;
-  min-height:100vh;
-  background:
-    radial-gradient(ellipse at 10% 0%,#42207685,transparent 42%),
-    radial-gradient(ellipse at 100% 12%,#61441c45,transparent 38%),
-    var(--bg);
-  color:#f9f6ff;
+*{box-sizing:border-box}
+body{
+  margin:0;min-height:100vh;color:#f9f6ff;
   font:15px system-ui,Arial,sans-serif;
+  background:
+  radial-gradient(ellipse at 10% 0%,#42207685,transparent 42%),
+  radial-gradient(ellipse at 100% 12%,#61441c45,transparent 38%),
+  var(--bg);
 }
-
-body:before {
-  content:"";
-  position:fixed;
-  inset:0;
-  pointer-events:none;
+body:before{
+  content:"";position:fixed;inset:0;pointer-events:none;
   background-image:radial-gradient(#b697e0 1px,transparent 1px);
-  background-size:30px 30px;
-  opacity:.13;
+  background-size:30px 30px;opacity:.13;
 }
-
-main {
-  position:relative;
-  max-width:1300px;
-  margin:auto;
-  padding:24px 15px 50px;
+main{
+  position:relative;max-width:1300px;
+  margin:auto;padding:24px 15px 50px;
 }
-
-h1 {
-  font-size:clamp(28px,4vw,43px);
-  margin:7px 0;
+h1{font-size:clamp(28px,4vw,43px);margin:7px 0}
+h1 em{color:var(--purple);font-style:normal}
+h2{margin:0 0 10px}
+p{line-height:1.55}
+.muted{color:var(--muted)}
+.hide{display:none!important}
+.eyebrow{
+  color:var(--gold);font-size:12px;
+  letter-spacing:3px;font-weight:900;
 }
-
-h1 em {
-  color:var(--purple);
-  font-style:normal;
-}
-
-h2 { margin:0 0 10px; }
-p { line-height:1.55; }
-.muted { color:var(--muted); }
-.hide { display:none!important; }
-
-.eyebrow {
-  color:var(--gold);
-  font-size:12px;
-  letter-spacing:3px;
-  font-weight:900;
-}
-
-/* MAIN HEADER */
-
-.head {
-  padding:20px 22px;
-  border:1px solid #514068;
-  border-radius:22px;
+.head{
+  padding:20px 22px;margin-bottom:17px;
+  border:1px solid #514068;border-radius:22px;
   background:linear-gradient(110deg,#241a3cbb,#111322cc);
   box-shadow:0 14px 40px #0005;
-  margin-bottom:17px;
 }
-
-.header-top {
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  flex-wrap:wrap;
-  gap:15px;
+.header-top{
+  display:flex;justify-content:space-between;
+  align-items:center;flex-wrap:wrap;gap:15px;
 }
-
-.live {
-  color:var(--green);
-  border:1px solid #416b57;
-  background:#163d2c66;
-  border-radius:30px;
-  padding:10px 13px;
-  font-size:12px;
-  font-weight:800;
+.live{
+  color:var(--green);border:1px solid #416b57;
+  background:#163d2c66;border-radius:30px;
+  padding:10px 13px;font-size:12px;font-weight:800;
 }
-
-/* IDENTICAL TABS ON ALL THREE ADMIN PAGES */
-
-.edex-tabs {
+.edex-tabs{
   display:grid;
   grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:12px;
-  margin-top:20px;
+  gap:12px;margin-top:20px;
 }
-
-.edex-tabs a {
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  min-height:52px;
-  padding:12px;
-  border:1px solid #81659d;
-  border-radius:13px;
-  background:#49345f;
-  color:#f7ecff;
-  font-size:14px;
-  font-weight:900;
-  text-decoration:none;
-  transition:.2s;
+.edex-tabs a{
+  display:flex;align-items:center;justify-content:center;
+  text-align:center;min-height:52px;padding:12px;
+  border:1px solid #81659d;border-radius:13px;
+  background:#49345f;color:#f7ecff;
+  font-size:14px;font-weight:900;text-decoration:none;
 }
-
-.edex-tabs a:hover {
-  background:#675080;
-  transform:translateY(-2px);
-}
-
-.edex-tabs a.active,
-.edex-tabs a[aria-current="page"] {
-  color:#291b0c;
+.edex-tabs a:hover{background:#675080}
+.edex-tabs a.active{
   background:linear-gradient(110deg,#ffe2a1,#f4ca74);
-  border-color:#ffe5a9;
+  color:#291b0c;border-color:#ffe5a9;
   box-shadow:0 4px 20px #ffd77f30;
 }
-
-.screen-link {
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  padding:12px 17px;
-  border-radius:12px;
-  background:#333047;
-  border:1px solid #655779;
-  color:#fff0c9;
-  font-size:13px;
-  font-weight:800;
-  text-decoration:none;
+.visitor-action{
+  text-align:center;margin:16px 0 22px;
 }
-
-.screen-link:hover {
-  background:#524368;
+.visitor-action a{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:min(100%,450px);min-height:54px;
+  padding:14px 22px;border-radius:14px;
+  background:linear-gradient(110deg,#f7d995,#e9b961);
+  border:1px solid #ffe3a5;color:#251808;
+  text-decoration:none;font-size:15px;font-weight:900;
+  box-shadow:0 9px 25px #d19a4230;
 }
-
-/* DASHBOARD CARDS */
-
-.card {
+.visitor-action a:hover{filter:brightness(1.08)}
+.card{
   background:linear-gradient(155deg,#202235,#11131f);
-  border:1px solid var(--line);
-  border-radius:20px;
-  padding:21px;
-  margin:16px 0;
+  border:1px solid var(--line);border-radius:20px;
+  padding:21px;margin:16px 0;
   box-shadow:0 14px 35px #0005;
 }
-
-.top,
-.actions,
-.sectionhead,
-.filters {
-  display:flex;
-  align-items:center;
-  flex-wrap:wrap;
-  gap:12px;
+.top,.sectionhead,.actions,.filters{
+  display:flex;align-items:center;flex-wrap:wrap;gap:12px;
 }
-
-.top,.sectionhead {
-  justify-content:space-between;
-}
-
-button {
-  border:0;
-  border-radius:11px;
-  padding:12px;
+.top,.sectionhead{justify-content:space-between}
+button{
+  border:0;border-radius:11px;padding:12px;
   background:linear-gradient(110deg,#9c69ec,#6844bb);
-  color:white;
-  font:inherit;
-  font-weight:800;
-  cursor:pointer;
+  color:white;font:inherit;font-weight:800;cursor:pointer;
 }
-
-button:disabled {
-  opacity:.55;
-  cursor:default;
-}
-
-.goldBtn {
-  background:linear-gradient(100deg,#ffe29a,#d39b40);
+button:disabled{opacity:.55;cursor:default}
+.goldBtn{
   color:#281b05;
+  background:linear-gradient(100deg,#ffe29a,#d39b40);
 }
-
-.secondary { background:#323348; }
-
-.danger {
-  background:#70283e;
-  color:#ffe3eb;
+.secondary{background:#323348}
+.danger{
+  background:#70283e;color:#ffe3eb;
   border:1px solid #b34c66;
 }
-
-label {
-  display:block;
-  font-weight:800;
-  margin:14px 0 6px;
+label{display:block;font-weight:800;margin:14px 0 6px}
+input,select{
+  font:inherit;padding:12px;min-height:43px;
+  border-radius:11px;background:#0e1020;
+  color:white;border:1px solid #57546c;
 }
-
-input,select {
-  font:inherit;
-  padding:12px;
-  min-height:43px;
-  border-radius:11px;
-  background:#0e1020;
-  color:white;
-  border:1px solid #57546c;
-}
-
-.login {
-  max-width:450px;
-  margin:35px auto;
-}
-
-.login input,
-.login button[type="submit"] {
-  width:100%;
-}
-
-.login button[type="submit"] {
-  margin-top:11px;
-}
-
-.message {
-  color:var(--muted);
-  font-size:13px;
-  line-height:1.6;
-}
-
-.error { color:var(--red)!important; }
-
-/* STATISTICS */
-
-.stats {
+.login{max-width:450px;margin:35px auto}
+.login input,.login button[type=submit]{width:100%}
+.login button[type=submit]{margin-top:11px}
+.message{color:var(--muted);font-size:13px;line-height:1.6}
+.error{color:var(--red)!important}
+.stats{
   display:grid;
   grid-template-columns:repeat(5,minmax(0,1fr));
-  gap:12px;
-  margin:17px 0;
+  gap:12px;margin:17px 0;
 }
-
-.stats .card {
-  margin:0;
-  min-height:145px;
+.stats .card{
+  margin:0;min-height:145px;
   border-color:#48415e;
   background:linear-gradient(145deg,#24213b,#111420);
 }
-
-.stats strong {
-  display:block;
-  font-size:clamp(28px,3.4vw,46px);
-  margin:9px 0;
-  font-variant-numeric:tabular-nums;
+.stats strong{
+  display:block;font-size:clamp(28px,3.4vw,46px);
+  margin:9px 0;font-variant-numeric:tabular-nums;
 }
-
-.stats small {
-  color:var(--muted);
-  font-weight:700;
-}
-
-.purple { color:var(--purple); }
-.pink { color:var(--pink); }
-.gold { color:var(--gold); }
-.green { color:var(--green); }
-
-/* OVERVIEW */
-
-.commandGrid {
-  display:grid;
-  grid-template-columns:1fr 1fr;
+.stats small{color:var(--muted);font-weight:700}
+.purple{color:var(--purple)}
+.pink{color:var(--pink)}
+.gold{color:var(--gold)}
+.green{color:var(--green)}
+.commandGrid{
+  display:grid;grid-template-columns:1fr 1fr;
   gap:15px;
 }
-
-.commandGrid .card { margin:0; }
-
-.adminBadge {
-  display:inline-block;
-  padding:5px 9px;
-  border:1px solid #77603c;
-  background:#4a371d44;
-  border-radius:30px;
-  color:#ffe4a3;
-  font-size:11px;
+.commandGrid .card{margin:0}
+.adminBadge{
+  display:inline-block;padding:5px 9px;
+  border:1px solid #77603c;background:#4a371d44;
+  border-radius:30px;color:#ffe4a3;font-size:11px;
 }
-
-.miniLabel {
-  display:flex;
-  justify-content:space-between;
-  gap:8px;
-  color:#cbc4dd;
-  font-size:13px;
+.miniLabel{
+  display:flex;justify-content:space-between;
+  gap:8px;color:#cbc4dd;font-size:13px;
 }
-
-.meter {
-  height:11px;
-  background:#3b344b;
-  border-radius:30px;
-  overflow:hidden;
-  margin:9px 0 14px;
+.meter{
+  height:11px;background:#3b344b;border-radius:30px;
+  overflow:hidden;margin:9px 0 14px;
 }
-
-.meter span {
-  display:block;
-  width:0;
-  height:100%;
+.meter span{
+  display:block;width:0;height:100%;
   background:linear-gradient(90deg,#c48bfa,#f8cb78);
-  transition:width .3s;
 }
-
-.feed {
-  list-style:none;
-  margin:0;
-  padding:0;
-  max-height:230px;
-  overflow:auto;
+.feed{
+  list-style:none;margin:0;padding:0;
+  max-height:230px;overflow:auto;
 }
-
-.feed li {
-  display:flex;
-  justify-content:space-between;
-  gap:12px;
+.feed li{
+  display:flex;justify-content:space-between;gap:12px;
   border-bottom:1px solid #353047;
-  padding:10px 0;
-  font-size:13px;
+  padding:10px 0;font-size:13px;
 }
-
-.feed .time {
-  color:var(--muted);
-  white-space:nowrap;
+.feed .time{color:var(--muted);white-space:nowrap}
+.filters input{width:260px}
+.tablewrap{
+  overflow:auto;max-height:73vh;
+  border:1px solid var(--line);border-radius:12px;
 }
-
-/* RESULTS */
-
-.filters input { width:260px; }
-
-.tablewrap {
-  overflow:auto;
-  max-height:73vh;
-  border:1px solid var(--line);
-  border-radius:12px;
-}
-
-table {
-  width:100%;
-  min-width:1120px;
-  border-collapse:collapse;
-}
-
-th,td {
+table{width:100%;min-width:1120px;border-collapse:collapse}
+th,td{
   border-bottom:1px solid #343449;
-  padding:13px;
-  text-align:left;
-  vertical-align:middle;
-  font-size:13px;
+  padding:13px;text-align:left;
+  vertical-align:middle;font-size:13px;
 }
-
-th {
-  position:sticky;
-  top:0;
-  background:#29233b;
-  color:#e8d7ff;
-  white-space:nowrap;
+th{
+  position:sticky;top:0;background:#29233b;
+  color:#e8d7ff;white-space:nowrap;
 }
-
-tr:hover td {
-  background:#ffffff09;
-}
-
-.id {
-  font:800 13px Consolas,monospace;
-  color:var(--gold);
-}
-
-.approved {
-  color:var(--green);
-  font-weight:900;
-}
-
-.subtime {
-  color:var(--muted);
-  font-size:12px;
-  margin-top:4px;
-}
-
-.approve.choc {
-  background:#a47729;
-}
-
-/* RESET */
-
-.resetPanel {
+tr:hover td{background:#ffffff09}
+.id{font:800 13px Consolas,monospace;color:var(--gold)}
+.approved{color:var(--green);font-weight:900}
+.subtime{color:var(--muted);font-size:12px;margin-top:4px}
+.approve.choc{background:#a47729}
+.resetPanel{
   border-color:#aa4965;
   background:linear-gradient(145deg,#391c2e,#18141f);
 }
-
-.resetPanel input {
-  width:min(420px,100%);
+.resetPanel input{width:min(420px,100%)}
+.foot{
+  text-align:center;color:#88829c;
+  font-size:12px;margin-top:25px;
 }
-
-.foot {
-  text-align:center;
-  color:#88829c;
-  font-size:12px;
-  margin-top:25px;
+@media(max-width:1000px){
+  .stats{grid-template-columns:repeat(3,minmax(0,1fr))}
 }
-
-@media(max-width:1000px) {
-  .stats {
-    grid-template-columns:repeat(3,minmax(0,1fr));
-  }
+@media(max-width:760px){
+  .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .commandGrid{grid-template-columns:1fr}
 }
-
-@media(max-width:760px) {
-  .stats {
-    grid-template-columns:repeat(2,minmax(0,1fr));
-  }
-  .commandGrid { grid-template-columns:1fr; }
-}
-
-@media(max-width:600px) {
-  main { padding:14px 9px; }
-  .card { padding:15px; }
-  .edex-tabs { gap:6px; }
-  .edex-tabs a {
-    padding:10px 5px;
-    font-size:11px;
-    min-height:48px;
-  }
-  .filters input,.filters select { width:100%; }
-  .actions button { flex:1; }
+@media(max-width:600px){
+  main{padding:14px 9px}
+  .card{padding:15px}
+  .edex-tabs{gap:6px}
+  .edex-tabs a{padding:10px 5px;font-size:11px;min-height:48px}
+  .filters input,.filters select{width:100%}
+  .actions button{flex:1}
 }
 </style>
 </head>
-
 <body>
 <main>
 
 <header class="head">
-
   <div class="header-top">
     <div>
-      <div class="eyebrow">
-        ✦ EXHIBITION CONTROL ROOM ✦
-      </div>
+      <div class="eyebrow">✦ EXHIBITION CONTROL ROOM ✦</div>
       <h1>🍫 Arabic Challenge <em>ADMIN</em></h1>
       <p class="muted">
         Black Neon Edition · Live visitors & rewards
       </p>
     </div>
-
     <div class="live">● LIVE DASHBOARD</div>
   </div>
 
-  <!-- THREE ADMIN TABS -->
-
   <nav class="edex-tabs" aria-label="EDEX Admin pages">
 
-    <a class="active"
-       aria-current="page"
+    <a class="active" aria-current="page"
        href="https://freshlook10-alt.github.io/arabic-choclate-quiz/admin.html">
       ✦ Quiz Admin
     </a>
@@ -488,46 +250,36 @@ tr:hover td {
     </a>
 
   </nav>
-
 </header>
 
-<a class="screen-link"
-   href="index.html"
-   target="_blank"
-   rel="noopener noreferrer">
-  ↗ Open Quiz Visitor Screen
-</a>
+<!-- VISIBLE VISITOR BUTTON INSIDE QUIZ ADMIN -->
 
-<!-- LOGIN -->
+<div class="visitor-action">
+  <a href="https://freshlook10-alt.github.io/arabic-choclate-quiz/"
+     target="_blank"
+     rel="noopener noreferrer">
+    ↗ OPEN QUIZ VISITOR SCREEN
+  </a>
+</div>
 
 <section id="login" class="card login">
-
   <h2>🔐 Organizer Login</h2>
-
   <p class="muted">
     Sign in with your authorized Firebase account.
   </p>
 
   <form id="loginForm">
-
     <label for="email">Email</label>
-
-    <input id="email"
-           type="email"
-           autocomplete="username"
-           required>
+    <input id="email" type="email"
+           autocomplete="username" required>
 
     <label for="password">Password</label>
-
-    <input id="password"
-           type="password"
-           autocomplete="current-password"
-           required>
+    <input id="password" type="password"
+           autocomplete="current-password" required>
 
     <button id="signIn" type="submit">
       Open Control Room
     </button>
-
   </form>
 
   <button id="resetEmail" class="secondary">
@@ -535,87 +287,59 @@ tr:hover td {
   </button>
 
   <p id="loginMessage" class="message"></p>
-
 </section>
-
-<!-- DASHBOARD -->
 
 <section id="dashboard" class="hide">
 
   <div class="card top">
-
     <div>
       <div class="eyebrow">WELCOME BACK</div>
       <b id="adminEmail"></b>
       <p class="muted">
-        Repeated plays are recorded, but cannot
-        win another prize.
+        Repeated plays are recorded,
+        but cannot win another prize.
       </p>
     </div>
 
     <div class="actions">
-
       <button id="csv" class="goldBtn">
         ⬇ Download CSV
       </button>
-
       <button id="openReset" class="danger hide">
         🗑 Reset Visitors
       </button>
-
       <button id="logout" class="secondary">
         Log Out
       </button>
-
     </div>
   </div>
-
-  <!-- STATISTICS -->
 
   <div class="stats">
-
     <div class="card purple">
-      👥
-      <strong id="visitors">0</strong>
+      👥<strong id="visitors">0</strong>
       <small>Total Quiz Plays</small>
     </div>
-
     <div class="card pink">
-      🍬
-      <strong id="toffees">0</strong>
+      🍬<strong id="toffees">0</strong>
       <small>Toffees Given Out</small>
     </div>
-
     <div class="card gold">
-      🍫
-      <strong id="chocolates">0</strong>
+      🍫<strong id="chocolates">0</strong>
       <small>Chocolates Given Out</small>
     </div>
-
     <div class="card green">
-      ⏳
-      <strong id="pending">0</strong>
+      ⏳<strong id="pending">0</strong>
       <small>Awaiting Approval</small>
     </div>
-
     <div class="card purple">
-      🔁
-      <strong id="repeats">0</strong>
+      🔁<strong id="repeats">0</strong>
       <small>Times Repeated</small>
     </div>
-
   </div>
 
-  <!-- LIVE OVERVIEW -->
-
   <div class="commandGrid">
-
     <section class="card">
-
-      <div class="eyebrow">
-        ✦ EXHIBITION PULSE
-      </div>
-
+      <div class="eyebrow">✦ EXHIBITION PULSE</div>
       <h2>
         Live Overview
         <span class="adminBadge">AUTO-UPDATING</span>
@@ -625,66 +349,45 @@ tr:hover td {
         <span>First-time plays</span>
         <strong id="firstCount">0</strong>
       </div>
-
-      <div class="meter">
-        <span id="firstMeter"></span>
-      </div>
+      <div class="meter"><span id="firstMeter"></span></div>
 
       <div class="miniLabel">
         <span>Repeated plays</span>
         <strong id="repeatCount">0</strong>
       </div>
-
-      <div class="meter">
-        <span id="repeatMeter"></span>
-      </div>
+      <div class="meter"><span id="repeatMeter"></span></div>
 
       <div class="miniLabel">
         <span>Approved rewards</span>
         <strong id="approvedCount">0</strong>
       </div>
-
-      <div class="meter">
-        <span id="approvedMeter"></span>
-      </div>
+      <div class="meter"><span id="approvedMeter"></span></div>
 
       <p class="message">
-        Live calculations from Firebase.
+        Calculations update from Firebase.
       </p>
-
     </section>
 
     <section class="card">
-
-      <div class="eyebrow">
-        ✦ LATEST ACTIVITY
-      </div>
-
+      <div class="eyebrow">✦ LATEST ACTIVITY</div>
       <h2>Recent Approvals</h2>
-
       <ul id="recentFeed" class="feed">
         <li>Waiting for activity…</li>
       </ul>
-
     </section>
-
   </div>
-
-  <!-- RESET -->
 
   <section id="resetPanel"
            class="card resetPanel hide">
-
     <h2>⚠️ Reset Quiz Visitor Data</h2>
-
     <p>
-      This deletes Quiz results, approvals,
-      browser registrations and visitor counter.
-      It does not reset Ball or Timer records.
+      This permanently deletes Quiz results,
+      approvals, browser registrations and
+      the Quiz visitor counter.
     </p>
-
     <p class="muted">
-      Download your CSV before resetting.
+      Download CSV first. Ball and Timer
+      records are separate.
     </p>
 
     <label for="ownerPassword">
@@ -697,29 +400,20 @@ tr:hover td {
            placeholder="Current password">
 
     <div class="actions">
-
       <button id="doReset" class="danger">
         Delete All Quiz Visitor Data
       </button>
-
       <button id="cancelReset" class="secondary">
         Cancel
       </button>
-
     </div>
 
-    <p id="resetStatus"
-       class="message"
+    <p id="resetStatus" class="message"
        role="status"></p>
-
   </section>
 
-  <!-- RESULTS -->
-
   <section class="card">
-
     <div class="sectionhead">
-
       <div>
         <h2>✨ Visitor Results</h2>
         <p class="muted">
@@ -728,13 +422,10 @@ tr:hover td {
       </div>
 
       <div class="filters">
-
-        <input id="search"
-               type="search"
-               placeholder="Search name or visitor ID">
+        <input id="search" type="search"
+               placeholder="Search name or Visitor ID">
 
         <select id="filter">
-
           <option value="all">All results</option>
           <option value="first">First plays</option>
           <option value="retry">Repeated plays</option>
@@ -742,14 +433,11 @@ tr:hover td {
           <option value="approved">Approved prizes</option>
           <option value="toffee">🍬 Toffee</option>
           <option value="chocolate">🍫 Chocolate</option>
-
         </select>
-
       </div>
     </div>
 
     <div class="tablewrap">
-
       <table>
         <thead>
           <tr>
@@ -764,36 +452,27 @@ tr:hover td {
             <th>Admin Approval</th>
           </tr>
         </thead>
-
         <tbody id="rows"></tbody>
       </table>
-
     </div>
 
-    <p id="message"
-       class="message"
-       role="status">
+    <p id="message" class="message" role="status">
       Connecting to Firebase…
     </p>
-
   </section>
 
 </section>
 
 <p class="foot">
-  EDEX EXPERIENCE · CENTRAL ADMIN
+  EDEX EXPERIENCE · QUIZ ADMIN
 </p>
 
 </main>
-
-<!-- EXISTING FIREBASE CONFIG -->
 
 <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore-compat.js"></script>
 <script src="firebase-config.js"></script>
-
-<!-- COMPLETE QUIZ ADMIN JAVASCRIPT -->
 
 <script>
 const $ = id => document.getElementById(id);
@@ -804,32 +483,22 @@ const OWNER_UID =
 
 let results = [];
 let approvals = new Map();
-
 let offResults = null;
 let offApprovals = null;
-
 let resultsReady = false;
 let approvalsReady = false;
-
 let error = "";
 let resetting = false;
 
-// SHORT VISITOR ID
-
 function visitorID(deviceId) {
-  const pattern =
-    /^[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i;
-
-  if (!pattern.test(deviceId || "")) {
-    return "Older entry";
-  }
+  if (!/^[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i
+    .test(deviceId || "")) return "Older entry";
 
   const alphabet =
     "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 
   let n = BigInt(
-    "0x" +
-    deviceId.replace(/-/g, "").slice(0, 10)
+    "0x" + deviceId.replace(/-/g, "").slice(0, 10)
   );
 
   let out = "";
@@ -839,12 +508,8 @@ function visitorID(deviceId) {
     n /= 32n;
   }
 
-  return out.slice(0, 4) +
-    "-" +
-    out.slice(4);
+  return out.slice(0, 4) + "-" + out.slice(4);
 }
-
-// DATE FORMAT
 
 function when(t) {
   return t?.toDate
@@ -859,10 +524,7 @@ function when(t) {
     : "Saving…";
 }
 
-// PRIZE RULES
-
-const repeated = p =>
-  p.firstAttempt === false;
+const repeated = p => p.firstAttempt === false;
 
 const eligible = p =>
   Number(p.score) >= 2 &&
@@ -883,21 +545,14 @@ const rewardLabel = p =>
       ? "🍬 Toffee"
       : "No prize";
 
-// FIREBASE LISTENERS
-
 function stopListeners() {
   if (offResults) offResults();
   if (offApprovals) offApprovals();
-
-  offResults = null;
-  offApprovals = null;
+  offResults = offApprovals = null;
 }
 
-// LOGIN
-
-$("loginForm").onsubmit = async event => {
-  event.preventDefault();
-
+$("loginForm").onsubmit = async e => {
+  e.preventDefault();
   $("signIn").disabled = true;
   $("loginMessage").textContent = "";
 
@@ -915,8 +570,6 @@ $("loginForm").onsubmit = async event => {
   }
 };
 
-// PASSWORD RECOVERY
-
 $("resetEmail").onclick = async () => {
   const email = $("email").value.trim();
 
@@ -928,7 +581,6 @@ $("resetEmail").onclick = async () => {
 
   try {
     await auth.sendPasswordResetEmail(email);
-
     $("loginMessage").textContent =
       "If registered, check your inbox.";
   } catch (err) {
@@ -938,27 +590,20 @@ $("resetEmail").onclick = async () => {
   }
 };
 
-// SIGN OUT
-
 $("logout").onclick = () => {
   if (!resetting) auth.signOut();
 };
 
-// SEARCH AND CSV
-
 $("search").oninput = draw;
 $("filter").onchange = draw;
 $("csv").onclick = downloadCSV;
-
-// AUTHENTICATION
 
 auth.onAuthStateChanged(user => {
   stopListeners();
 
   results = [];
   approvals = new Map();
-  resultsReady = false;
-  approvalsReady = false;
+  resultsReady = approvalsReady = false;
   error = "";
 
   $("resetPanel").classList.add("hide");
@@ -971,7 +616,6 @@ auth.onAuthStateChanged(user => {
 
   $("login").classList.add("hide");
   $("dashboard").classList.remove("hide");
-
   $("adminEmail").textContent =
     user.email || "Organizer";
 
@@ -982,16 +626,13 @@ auth.onAuthStateChanged(user => {
 
   draw();
 
-  // READ QUIZ RESULTS
-
   offResults = db.collection("results")
     .orderBy("createdAt", "desc")
     .onSnapshot(snapshot => {
       results = snapshot.docs.map(doc => ({
-        id:doc.id,
+        id: doc.id,
         ...doc.data()
       }));
-
       resultsReady = true;
       draw();
     }, err => {
@@ -1000,21 +641,13 @@ auth.onAuthStateChanged(user => {
       draw();
     });
 
-  // READ QUIZ APPROVALS
-
   offApprovals = db.collection("approvals")
     .onSnapshot(snapshot => {
       approvals = new Map(
         snapshot.docs
-          .filter(doc =>
-            doc.data().accepted === true
-          )
-          .map(doc => [
-            doc.id,
-            doc.data()
-          ])
+          .filter(doc => doc.data().accepted === true)
+          .map(doc => [doc.id, doc.data()])
       );
-
       approvalsReady = true;
       draw();
     }, err => {
@@ -1024,10 +657,8 @@ auth.onAuthStateChanged(user => {
     });
 });
 
-// APPROVE PRIZE
-
-async function approve(player, button) {
-  if (!eligible(player) || resetting) return;
+async function approve(p, button) {
+  if (!eligible(p) || resetting) return;
 
   button.disabled = true;
   button.textContent = "Approving…";
@@ -1035,10 +666,10 @@ async function approve(player, button) {
   try {
     await db.runTransaction(async tx => {
       const resultRef =
-        db.collection("results").doc(player.id);
+        db.collection("results").doc(p.id);
 
       const approvalRef =
-        db.collection("approvals").doc(player.id);
+        db.collection("approvals").doc(p.id);
 
       const current = await tx.get(resultRef);
       const existing = await tx.get(approvalRef);
@@ -1052,7 +683,8 @@ async function approve(player, button) {
         tx.set(approvalRef, {
           accepted:true,
           acceptedAt:
-            firebase.firestore.FieldValue.serverTimestamp()
+            firebase.firestore.FieldValue
+              .serverTimestamp()
         });
       }
     });
@@ -1060,12 +692,10 @@ async function approve(player, button) {
     console.error(err);
     button.disabled = false;
     button.textContent = "Approve prize";
-    error = "Approval failed. Check Firebase rules.";
+    error = "Approval failed.";
     draw();
   }
 }
-
-// DISPLAY DASHBOARD
 
 function draw() {
   const tbody = $("rows");
@@ -1082,24 +712,17 @@ function draw() {
 
     const matches = (
       String(p.name || "") + " " +
-      visitorID(p.deviceId) + " " +
-      p.id
+      visitorID(p.deviceId) + " " + p.id
     ).toLowerCase().includes(search);
 
     return matches && (
       filter === "all" ||
       (filter === "first" && !repeated(p)) ||
       (filter === "retry" && repeated(p)) ||
-      (
-        filter === "pending" &&
-        r !== "none" &&
-        !approved
-      ) ||
-      (
-        filter === "approved" &&
-        r !== "none" &&
-        approved
-      ) ||
+      (filter === "pending" &&
+       r !== "none" && !approved) ||
+      (filter === "approved" &&
+       r !== "none" && approved) ||
       filter === r
     );
   });
@@ -1107,7 +730,7 @@ function draw() {
   for (const p of shown) {
     const row = tbody.insertRow();
 
-    const values = [
+    [
       p.name || "Visitor",
       p.level || "",
       p.score + "/3",
@@ -1116,15 +739,10 @@ function draw() {
       repeated(p) ? "No prize" : rewardLabel(p),
       p.quizSet || "—",
       when(p.createdAt)
-    ];
-
-    values.forEach((value, index) => {
+    ].forEach((value, i) => {
       const cell = row.insertCell();
       cell.textContent = value;
-
-      if (index === 3) {
-        cell.className = "id";
-      }
+      if (i === 3) cell.className = "id";
     });
 
     const action = row.insertCell();
@@ -1135,15 +753,15 @@ function draw() {
     } else if (!eligible(p)) {
       action.textContent = "No prize";
     } else if (approval) {
-      const strong = document.createElement("strong");
-      strong.className = "approved";
-      strong.textContent = "Approved";
+      const title = document.createElement("strong");
+      title.className = "approved";
+      title.textContent = "Approved";
 
       const date = document.createElement("div");
       date.className = "subtime";
       date.textContent = when(approval.acceptedAt);
 
-      action.append(strong, date);
+      action.append(title, date);
     } else {
       const button = document.createElement("button");
 
@@ -1156,12 +774,9 @@ function draw() {
 
       button.disabled = resetting;
       button.onclick = () => approve(p, button);
-
       action.append(button);
     }
   }
-
-  // STATISTICS
 
   const toffees = results.filter(p =>
     reward(p) === "toffee" &&
@@ -1174,12 +789,10 @@ function draw() {
   ).length;
 
   const pending = results.filter(p =>
-    eligible(p) &&
-    !approvals.has(p.id)
+    eligible(p) && !approvals.has(p.id)
   ).length;
 
-  const repeats =
-    results.filter(repeated).length;
+  const repeats = results.filter(repeated).length;
 
   $("visitors").textContent = results.length;
   $("toffees").textContent = toffees;
@@ -1191,8 +804,7 @@ function draw() {
     results.filter(p => !repeated(p)).length;
 
   const approvedList = results.filter(p =>
-    eligible(p) &&
-    approvals.has(p.id)
+    eligible(p) && approvals.has(p.id)
   );
 
   $("firstCount").textContent = firstCount;
@@ -1210,8 +822,6 @@ function draw() {
 
   $("approvedMeter").style.width =
     approvedList.length / total * 100 + "%";
-
-  // LATEST ACTIVITY
 
   const feed = $("recentFeed");
   feed.replaceChildren();
@@ -1257,12 +867,9 @@ function draw() {
           : "No visitors yet.");
 
   $("message").classList.toggle(
-    "error",
-    Boolean(error)
+    "error", Boolean(error)
   );
 }
-
-// SAFE CSV CELL
 
 function csvCell(value) {
   let text = String(value ?? "");
@@ -1276,14 +883,11 @@ function csvCell(value) {
     '"';
 }
 
-// DOWNLOAD CSV
-
 function downloadCSV() {
   if (!resultsReady ||
-      !approvalsReady ||
-      error) {
+      !approvalsReady || error) {
     $("message").textContent =
-      "Wait for Firebase results to load.";
+      "Wait for Firebase to load results.";
     return;
   }
 
@@ -1346,23 +950,18 @@ function downloadCSV() {
     })
   );
 
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = "arabic-challenge-results.csv";
-
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = "arabic-challenge-results.csv";
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
 
   setTimeout(() => URL.revokeObjectURL(url),1000);
 }
 
-// RESET PANEL
-
 $("openReset").onclick = () => {
-  if (auth.currentUser?.uid !== OWNER_UID) {
-    return;
-  }
+  if (auth.currentUser?.uid !== OWNER_UID) return;
 
   $("ownerPassword").value = "";
   $("resetStatus").textContent = "";
@@ -1375,8 +974,6 @@ $("cancelReset").onclick = () => {
   }
 };
 
-// DELETE QUIZ COLLECTION IN BATCHES
-
 async function eraseCollection(name) {
   let count = 0;
 
@@ -1388,48 +985,35 @@ async function eraseCollection(name) {
     if (snap.empty) return count;
 
     const batch = db.batch();
-
-    snap.docs.forEach(doc => {
-      batch.delete(doc.ref);
-    });
-
+    snap.docs.forEach(doc => batch.delete(doc.ref));
     await batch.commit();
 
     count += snap.size;
-
     $("resetStatus").textContent =
       `Deleting ${name}: ${count} removed…`;
   }
 }
-
-// RESET QUIZ RECORDS
-// ONLY RUNS WHEN OWNER CONFIRMS WITH PASSWORD
 
 $("doReset").onclick = async () => {
   const user = auth.currentUser;
 
   if (resetting ||
       !user ||
-      user.uid !== OWNER_UID) {
-    return;
-  }
+      user.uid !== OWNER_UID) return;
 
   const password = $("ownerPassword").value;
 
   if (!password) {
     $("resetStatus").textContent =
-      "Enter your current admin password.";
+      "Enter your current password.";
     return;
   }
 
   if (!confirm(
-    "Permanently delete ALL Quiz visitor data?"
-  )) {
-    return;
-  }
+    "Permanently delete all Quiz visitor records?"
+  )) return;
 
   resetting = true;
-
   $("doReset").disabled = true;
   $("cancelReset").disabled = true;
   $("logout").disabled = true;
@@ -1456,6 +1040,7 @@ $("doReset").onclick = async () => {
 
     $("resetStatus").textContent =
       "✅ Quiz visitor data reset.";
+
   } catch (err) {
     console.error(err);
 
