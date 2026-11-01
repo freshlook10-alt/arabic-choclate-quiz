@@ -4,535 +4,221 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>EDEX | Central Admin Panel</title>
-
+<title>EDEX | Central Admin</title>
 <style>
 :root {
-  --bg: #070810;
-  --panel: #171a2b;
-  --line: #34364d;
-  --muted: #aaa9be;
-  --purple: #bf96ff;
-  --gold: #ffd77f;
-  --pink: #ffa4ca;
-  --green: #7fe7b4;
-  --red: #ff879e;
+  --bg:#070810;
+  --panel:#171a2b;
+  --line:#34364d;
+  --muted:#aaa9be;
+  --purple:#bf96ff;
+  --gold:#ffd77f;
+  --pink:#ffa4ca;
+  --green:#7fe7b4;
+  --red:#ff879e;
 }
-
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  min-height: 100vh;
-  color: #f9f6ff;
-  font: 15px system-ui, Arial, sans-serif;
+*{box-sizing:border-box}
+body{
+  margin:0;min-height:100vh;color:#f9f6ff;
+  font:15px system-ui,Arial,sans-serif;
   background:
     radial-gradient(ellipse at 10% 0%,#42207685,transparent 42%),
     radial-gradient(ellipse at 100% 12%,#61441c45,transparent 38%),
-    var(--bg);
-}
-
-body:before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  background-image:
-    radial-gradient(#b697e0 1px,transparent 1px);
-  background-size: 30px 30px;
-  opacity: .13;
-}
-
-main {
-  position: relative;
-  max-width: 1300px;
-  margin: auto;
-  padding: 24px 15px 50px;
-}
-
-h1 {
-  font-size: clamp(28px,4vw,43px);
-  margin: 7px 0;
-}
-
-h1 em {
-  color: var(--purple);
-  font-style: normal;
-}
-
-h2 {
-  margin: 0 0 10px;
-}
-
-p {
-  line-height: 1.55;
-}
-
-.muted {
-  color: var(--muted);
-}
-
-.eyebrow {
-  color: var(--gold);
-  font-size: 12px;
-  letter-spacing: 3px;
-  font-weight: 900;
-}
-
-.hide {
-  display: none !important;
-}
-
-/* MAIN HEADER */
-
-.head {
-  display: flex;
-  gap: 18px;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  padding: 20px 22px;
-  margin-bottom: 17px;
-  border: 1px solid #514068;
-  border-radius: 22px;
-  background:
-    linear-gradient(110deg,#241a3cbb,#111322cc);
-  box-shadow: 0 14px 40px #0005;
-}
-
-.head-title {
-  flex: 1;
-  min-width: 270px;
-}
-
-.live {
-  color: var(--green);
-  border: 1px solid #416b57;
-  background: #163d2c66;
-  border-radius: 30px;
-  padding: 10px 13px;
-  font-size: 12px;
-  font-weight: 800;
-  white-space: nowrap;
-  box-shadow: 0 0 0 5px #1e79401c;
-  animation: pulse 2.8s infinite;
-}
-
-@keyframes pulse {
-  50% {
-    box-shadow: 0 0 0 9px #1e79400d;
-  }
-}
-
-/* ALL THREE ADMIN TABS */
-
-.admin-tabs {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: flex-end;
-}
-
-.admin-tabs a {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 48px;
-  padding: 13px 17px;
-  border-radius: 12px;
-  background: #4b355f;
-  border: 1px solid #82659c;
-  color: #f7eaff;
-  text-decoration: none;
-  font-size: 13px;
-  font-weight: 900;
-  white-space: nowrap;
-  transition: .2s;
-}
-
-.admin-tabs a:hover {
-  background: #664b80;
-  transform: translateY(-2px);
-}
-
-.admin-tabs a.active {
-  color: #281b05;
-  border-color: #ffe29a;
-  background:
-    linear-gradient(110deg,#ffe2a1,#f4ca74);
-}
-
-/* CARDS */
-
-.card {
-  background:
-    linear-gradient(155deg,#202235,#11131f);
-  border: 1px solid var(--line);
-  border-radius: 20px;
-  padding: 21px;
-  margin: 16px 0;
-  box-shadow: 0 14px 35px #0005;
-}
-
-.top,
-.sectionhead,
-.actions,
-.filters {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.top,
-.sectionhead {
-  justify-content: space-between;
-}
-
-.actions {
-  justify-content: flex-end;
-}
-
-/* BUTTONS */
-
-button {
-  border: 0;
-  padding: 12px;
-  border-radius: 11px;
-  color: white;
-  background:
-    linear-gradient(110deg,#9c69ec,#6844bb);
-  font: inherit;
-  font-weight: 800;
-  cursor: pointer;
-}
-
-button:hover:not(:disabled) {
-  filter: brightness(1.1);
-}
-
-button:disabled {
-  opacity: .55;
-  cursor: default;
-}
-
-.goldBtn {
-  color: #281b05;
-  background:
-    linear-gradient(100deg,#ffe29a,#d39b40);
-}
-
-.secondary {
-  background: #323348;
-}
-
-.danger {
-  color: #ffe3eb;
-  background: #70283e;
-  border: 1px solid #b34c66;
-}
-
-/* FORMS */
-
-label {
-  display: block;
-  margin: 14px 0 6px;
-  font-weight: 800;
-}
-
-input,
-select {
-  font: inherit;
-  padding: 12px;
-  min-height: 43px;
-  color: white;
-  background: #0e1020;
-  border: 1px solid #57546c;
-  border-radius: 11px;
-}
-
-input:focus,
-select:focus {
-  outline: 2px solid var(--purple);
-}
-
-.login {
-  max-width: 450px;
-  margin: 35px auto;
-}
-
-.login input,
-.login button[type="submit"] {
-  width: 100%;
-}
-
-.login button[type="submit"] {
-  margin-top: 11px;
-}
-
-.error {
-  color: var(--red) !important;
-}
-
-.message {
-  color: var(--muted);
-  font-size: 13px;
-  line-height: 1.6;
-}
-
-/* STATISTICS CARDS */
-
-.stats {
-  display: grid;
-  grid-template-columns:
-    repeat(5,minmax(0,1fr));
-  gap: 12px;
-  margin: 17px 0;
-}
-
-.stats .card {
-  position: relative;
-  overflow: hidden;
-  margin: 0;
-  min-height: 145px;
-  border: 1px solid #48415e;
-  background:
-    linear-gradient(145deg,#24213b,#111420);
-}
-
-.stats .card:after {
-  content: "";
-  position: absolute;
-  width: 110px;
-  height: 110px;
-  top: -35px;
-  right: -25px;
-  border-radius: 50%;
-  background: currentColor;
-  opacity: .065;
-}
-
-.stats strong {
-  display: block;
-  margin: 9px 0;
-  font-size: clamp(31px,3.4vw,46px);
-  font-variant-numeric: tabular-nums;
-}
-
-.stats small {
-  color: var(--muted);
-  font-weight: 700;
-}
-
-.purple { color: var(--purple); }
-.pink { color: var(--pink); }
-.gold { color: var(--gold); }
-.green { color: var(--green); }
-.red { color: var(--red); }
-
-/* DASHBOARD OVERVIEW */
-
-.commandGrid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 15px;
-  margin: 15px 0;
-}
-
-.commandGrid .card {
-  margin: 0;
-}
-
-.adminBadge {
-  display: inline-block;
-  padding: 5px 9px;
-  border-radius: 30px;
-  color: #ffe4a3;
-  background: #4a371d44;
-  border: 1px solid #77603c;
-  font-size: 11px;
-  font-weight: 800;
-}
-
-.miniLabel {
-  display: flex;
-  justify-content: space-between;
-  gap: 8px;
-  color: #cbc4dd;
-  font-size: 13px;
-}
-
-.meter {
-  height: 11px;
-  margin: 9px 0 14px;
-  border-radius: 30px;
-  background: #3b344b;
-  overflow: hidden;
-}
-
-.meter span {
-  display: block;
-  width: 0;
-  height: 100%;
-  background:
-    linear-gradient(90deg,#c48bfa,#f8cb78);
-  transition: width .45s;
-}
-
-.feed {
-  margin: 0;
-  padding: 0;
-  max-height: 220px;
-  overflow: auto;
-  list-style: none;
-}
-
-.feed li {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 10px 0;
-  border-bottom: 1px solid #353047;
-  font-size: 13px;
-}
-
-.feed .time {
-  color: var(--muted);
-  white-space: nowrap;
-}
-
-/* VISITOR TABLE */
-
-.filters input {
-  width: 260px;
-}
-
-.tablewrap {
-  overflow: auto;
-  max-height: 73vh;
-  border: 1px solid var(--line);
-  border-radius: 12px;
-}
-
-table {
-  width: 100%;
-  min-width: 1120px;
-  border-collapse: collapse;
-}
-
-th,td {
-  padding: 13px;
-  text-align: left;
-  vertical-align: middle;
-  font-size: 13px;
-  border-bottom: 1px solid #343449;
-}
-
-th {
-  position: sticky;
-  top: 0;
-  background: #29233b;
-  color: #e8d7ff;
-  white-space: nowrap;
-}
-
-tr:hover td {
-  background: #ffffff09;
-}
-
-.id {
-  color: var(--gold);
-  font: 800 13px Consolas,monospace;
-}
-
-.approved {
-  color: var(--green);
-  font-weight: 900;
-}
-
-.subtime {
-  color: var(--muted);
-  font-size: 12px;
-  margin-top: 4px;
-}
-
-.approve {
-  padding: 10px 12px;
-}
-
-.approve.choc {
-  background: #a47729;
-}
-
-/* RESET PANEL */
-
-.resetPanel {
-  border-color: #aa4965;
-  background:
-    linear-gradient(145deg,#391c2e,#18141f);
-}
-
-.resetPanel input {
-  width: min(420px,100%);
-}
-
-.foot {
-  text-align: center;
-  color: #88829c;
-  margin-top: 25px;
-  font-size: 12px;
-}
-
-/* RESPONSIVE */
-
-@media(max-width:1050px) {
-  .stats {
-    grid-template-columns:
-      repeat(3,minmax(0,1fr));
-  }
-  .admin-tabs {
-    width: 100%;
-    justify-content: flex-start;
-  }
-}
-
-@media(max-width:760px) {
-  .commandGrid {
-    grid-template-columns: 1fr;
-  }
-  .stats {
-    grid-template-columns:
-      repeat(2,minmax(0,1fr));
-  }
-}
-
-@media(max-width:600px) {
-  main {
-    padding: 14px 9px;
-  }
-  .card {
-    padding: 15px;
-  }
-  .filters input,
-  .filters select {
-    width: 100%;
-  }
-  .actions button {
-    flex: 1;
-  }
-  .admin-tabs a {
-    flex: 1;
-    font-size: 11px;
-    padding: 12px 8px;
-  }
-}
-
-@media(prefers-reduced-motion:reduce) {
-  .live {
-    animation: none;
+    var(--bg)
+}
+body:before{
+  content:"";position:fixed;inset:0;
+  pointer-events:none;
+  background-image:radial-gradient(#b697e0 1px,transparent 1px);
+  background-size:30px 30px;opacity:.13
+}
+main{
+  position:relative;max-width:1300px;
+  margin:auto;padding:24px 15px 50px
+}
+h1{font-size:clamp(28px,4vw,43px);margin:7px 0}
+h1 em{color:var(--purple);font-style:normal}
+h2{margin:0 0 10px}
+p{line-height:1.55}
+.muted{color:var(--muted)}
+.eyebrow{
+  color:var(--gold);font-size:12px;
+  letter-spacing:3px;font-weight:900
+}
+.hide{display:none!important}
+.head{
+  display:flex;align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;gap:18px;
+  padding:20px 22px;margin-bottom:17px;
+  border:1px solid #514068;border-radius:22px;
+  background:linear-gradient(110deg,#241a3cbb,#111322cc);
+  box-shadow:0 14px 40px #0005
+}
+.head-title{flex:1;min-width:260px}
+.live{
+  color:var(--green);border:1px solid #416b57;
+  background:#163d2c66;border-radius:30px;
+  padding:10px 13px;font-weight:800;font-size:12px;
+  white-space:nowrap
+}
+.admin-tabs,.quick-nav{
+  display:flex;flex-wrap:wrap;
+  gap:10px;align-items:center
+}
+.admin-tabs a,.quick-nav a{
+  display:inline-flex;align-items:center;
+  justify-content:center;
+  padding:13px 17px;min-height:46px;
+  background:#49345c;color:#f7eaff;
+  border:1px solid #82659c;border-radius:12px;
+  font-size:13px;font-weight:900;
+  text-decoration:none;white-space:nowrap
+}
+.admin-tabs a:hover,.quick-nav a:hover{background:#675080}
+.admin-tabs a.active,.quick-nav a.gold-link{
+  color:#281b05;background:#f6d993;border-color:#ffe4aa
+}
+.quick-nav{margin:12px 0 20px}
+.card{
+  background:linear-gradient(155deg,#202235,#11131f);
+  border:1px solid var(--line);
+  border-radius:20px;padding:21px;
+  margin:16px 0;box-shadow:0 14px 35px #0005
+}
+.top,.sectionhead,.actions,.filters{
+  display:flex;align-items:center;flex-wrap:wrap;gap:12px
+}
+.top,.sectionhead{justify-content:space-between}
+.actions{justify-content:flex-end}
+button{
+  border:0;border-radius:11px;
+  padding:12px;color:white;
+  font:inherit;font-weight:800;cursor:pointer;
+  background:linear-gradient(110deg,#9c69ec,#6844bb)
+}
+button:disabled{opacity:.55;cursor:default}
+.goldBtn{
+  color:#281b05;
+  background:linear-gradient(100deg,#ffe29a,#d39b40)
+}
+.secondary{background:#323348}
+.danger{
+  background:#70283e;color:#ffe3eb;
+  border:1px solid #b34c66
+}
+label{display:block;font-weight:800;margin:14px 0 6px}
+input,select{
+  font:inherit;padding:12px;min-height:43px;
+  border-radius:11px;background:#0e1020;
+  color:white;border:1px solid #57546c
+}
+.login{max-width:450px;margin:35px auto}
+.login input,.login button[type=submit]{width:100%}
+.login button[type=submit]{margin-top:11px}
+.message{font-size:13px;color:var(--muted);line-height:1.6}
+.error{color:var(--red)!important}
+.stats{
+  display:grid;grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:12px;margin:17px 0
+}
+.stats .card{
+  position:relative;overflow:hidden;
+  margin:0;min-height:145px;border-color:#48415e;
+  background:linear-gradient(145deg,#24213b,#111420)
+}
+.stats .card:after{
+  content:"";position:absolute;right:-25px;top:-35px;
+  width:110px;height:110px;border-radius:50%;
+  background:currentColor;opacity:.065
+}
+.stats strong{
+  display:block;font-size:clamp(30px,3.4vw,46px);
+  margin:9px 0;font-variant-numeric:tabular-nums
+}
+.stats small{color:var(--muted);font-weight:700}
+.purple{color:var(--purple)}
+.pink{color:var(--pink)}
+.gold{color:var(--gold)}
+.green{color:var(--green)}
+.commandGrid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:15px;margin:15px 0
+}
+.commandGrid .card{margin:0}
+.adminBadge{
+  display:inline-block;padding:5px 9px;
+  border-radius:30px;color:#ffe4a3;
+  border:1px solid #77603c;
+  background:#4a371d44;font-size:11px
+}
+.miniLabel{
+  display:flex;justify-content:space-between;
+  gap:8px;color:#cbc4dd;font-size:13px
+}
+.meter{
+  height:11px;border-radius:30px;
+  background:#3b344b;overflow:hidden;
+  margin:9px 0 14px
+}
+.meter span{
+  display:block;width:0;height:100%;
+  background:linear-gradient(90deg,#c48bfa,#f8cb78)
+}
+.feed{list-style:none;padding:0;margin:0;max-height:220px;overflow:auto}
+.feed li{
+  padding:10px 0;border-bottom:1px solid #353047;
+  display:flex;justify-content:space-between;
+  gap:12px;font-size:13px
+}
+.feed .time{color:var(--muted);white-space:nowrap}
+.filters input{width:260px}
+.tablewrap{
+  overflow:auto;max-height:73vh;
+  border:1px solid var(--line);border-radius:12px
+}
+table{width:100%;min-width:1120px;border-collapse:collapse}
+th,td{
+  border-bottom:1px solid #343449;
+  padding:13px;text-align:left;vertical-align:middle;
+  font-size:13px
+}
+th{
+  position:sticky;top:0;background:#29233b;
+  color:#e8d7ff;white-space:nowrap
+}
+tr:hover td{background:#ffffff09}
+.id{
+  font:800 13px Consolas,monospace;
+  color:var(--gold)
+}
+.approved{color:var(--green);font-weight:900}
+.subtime{font-size:12px;color:var(--muted);margin-top:4px}
+.approve{padding:10px 12px}
+.approve.choc{background:#a47729}
+.resetPanel{
+  border-color:#aa4965;
+  background:linear-gradient(145deg,#391c2e,#18141f)
+}
+.resetPanel input{width:min(420px,100%)}
+.foot{
+  text-align:center;color:#88829c;
+  font-size:12px;margin-top:25px
+}
+@media(max-width:1000px){
+  .stats{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .admin-tabs{width:100%}
+}
+@media(max-width:760px){
+  .commandGrid{grid-template-columns:1fr}
+  .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:600px){
+  main{padding:14px 9px}
+  .card{padding:15px}
+  .filters input,.filters select{width:100%}
+  .admin-tabs a,.quick-nav a{
+    flex:1;font-size:11px;padding:11px 8px
   }
 }
 </style>
@@ -541,309 +227,187 @@ tr:hover td {
 <body>
 <main>
 
-<!-- CENTRAL ADMIN HEADER -->
-
 <header class="head">
-
   <div class="head-title">
-    <div class="eyebrow">
-      ✦ EXHIBITION CONTROL ROOM ✦
-    </div>
-
-    <h1>
-      🍫 Arabic Challenge <em>ADMIN</em>
-    </h1>
-
-    <p class="muted">
-      Black Neon Edition · Live visitors & rewards
-    </p>
+    <div class="eyebrow">✦ EXHIBITION CONTROL ROOM ✦</div>
+    <h1>🍫 Arabic Challenge <em>ADMIN</em></h1>
+    <p class="muted">Black Neon Edition · Live visitors & rewards</p>
   </div>
 
-  <div class="live">
-    ● LIVE DASHBOARD
-  </div>
-
-  <!-- THREE ADMIN BUTTONS -->
+  <div class="live">● LIVE DASHBOARD</div>
 
   <nav class="admin-tabs">
-
-    <a href="admin.html" class="active">
+    <a class="active" href="admin.html">
       ✦ Quiz Admin
     </a>
-
-    <a href="https://freshlook10-alt.github.io/Edex-Word-Portal/">
+    <a href="https://freshlook10-alt.github.io/Edex-Word-Portal/admin.html">
       ◈ Ball Game Admin
     </a>
-
     <a href="https://freshlook10-alt.github.io/edex-timer-challenge/admin.html">
       ⏱ Timer Admin
     </a>
-
   </nav>
-
 </header>
 
-<!-- LOGIN -->
+<nav class="quick-nav">
+  <a class="gold-link"
+     href="index.html"
+     target="_blank"
+     rel="noopener noreferrer">
+    ↗ Open Quiz Visitor Screen
+  </a>
+</nav>
 
 <section id="login" class="card login">
-
   <h2>🔐 Organizer Login</h2>
-
-  <p class="muted">
-    Sign in using your existing Firebase organizer account.
-  </p>
+  <p class="muted">Sign in using your Firebase organizer account.</p>
 
   <form id="loginForm">
-
     <label for="email">Email</label>
-
-    <input
-      id="email"
-      type="email"
-      autocomplete="username"
-      required>
+    <input id="email" type="email"
+           autocomplete="username" required>
 
     <label for="password">Password</label>
-
-    <input
-      id="password"
-      type="password"
-      autocomplete="current-password"
-      required>
+    <input id="password" type="password"
+           autocomplete="current-password" required>
 
     <button id="signIn" type="submit">
       Open Control Room
     </button>
-
   </form>
 
-  <button
-    id="resetEmail"
-    class="secondary"
-    type="button">
+  <button id="resetEmail" class="secondary">
     Forgot password?
   </button>
-
   <p id="loginMessage" class="message"></p>
-
 </section>
 
-<!-- QUIZ DASHBOARD -->
-
 <section id="dashboard" class="hide">
-
-  <!-- WELCOME AND CONTROLS -->
-
   <div class="card top">
-
     <div>
       <div class="eyebrow">WELCOME BACK</div>
-
       <b id="adminEmail"></b>
-
       <p class="muted">
-        Repeated plays are recorded,
-        but cannot win another prize.
+        Repeated plays are recorded, but cannot win another prize.
       </p>
     </div>
-
     <div class="actions">
-
-      <button id="csv" class="goldBtn">
-        ⬇ Download CSV
-      </button>
-
-      <button
-        id="openReset"
-        class="danger hide">
+      <button id="csv" class="goldBtn">⬇ Download CSV</button>
+      <button id="openReset" class="danger hide">
         🗑 Reset Visitors
       </button>
-
-      <button id="logout" class="secondary">
-        Log Out
-      </button>
-
+      <button id="logout" class="secondary">Log Out</button>
     </div>
   </div>
 
-  <!-- FIVE STATISTICS -->
-
   <div class="stats">
-
     <div class="card purple">
       👥
       <strong id="visitors">0</strong>
       <small>Total Quiz Plays</small>
     </div>
-
     <div class="card pink">
       🍬
       <strong id="toffees">0</strong>
       <small>Toffees Given Out</small>
     </div>
-
     <div class="card gold">
       🍫
       <strong id="chocolates">0</strong>
       <small>Chocolates Given Out</small>
     </div>
-
     <div class="card green">
       ⏳
       <strong id="pending">0</strong>
       <small>Awaiting Approval</small>
     </div>
-
     <div class="card purple">
       🔁
       <strong id="repeats">0</strong>
       <small>Times Repeated</small>
     </div>
-
   </div>
 
-  <!-- LIVE OVERVIEW -->
-
   <div class="commandGrid">
-
     <section class="card">
-
-      <div class="eyebrow">
-        ✦ EXHIBITION PULSE
-      </div>
-
+      <div class="eyebrow">✦ EXHIBITION PULSE</div>
       <h2>
         Live Overview
-        <span class="adminBadge">
-          AUTO-UPDATING
-        </span>
+        <span class="adminBadge">AUTO-UPDATING</span>
       </h2>
-
       <div class="miniLabel">
         <span>First-time plays</span>
         <strong id="firstCount">0</strong>
       </div>
-
-      <div class="meter">
-        <span id="firstMeter"></span>
-      </div>
+      <div class="meter"><span id="firstMeter"></span></div>
 
       <div class="miniLabel">
         <span>Repeated plays</span>
         <strong id="repeatCount">0</strong>
       </div>
-
-      <div class="meter">
-        <span id="repeatMeter"></span>
-      </div>
+      <div class="meter"><span id="repeatMeter"></span></div>
 
       <div class="miniLabel">
         <span>Approved rewards</span>
         <strong id="approvedCount">0</strong>
       </div>
-
-      <div class="meter">
-        <span id="approvedMeter"></span>
-      </div>
+      <div class="meter"><span id="approvedMeter"></span></div>
 
       <p class="message">
-        Calculations update from Firebase
-        results and approvals.
+        These totals update from Firebase.
       </p>
-
     </section>
 
     <section class="card">
-
-      <div class="eyebrow">
-        ✦ LATEST ACTIVITY
-      </div>
-
+      <div class="eyebrow">✦ LATEST ACTIVITY</div>
       <h2>Recent Approvals</h2>
-
       <ul id="recentFeed" class="feed">
         <li>Waiting for activity…</li>
       </ul>
-
     </section>
-
   </div>
 
-  <!-- RESET PANEL -->
-
-  <section
-    id="resetPanel"
-    class="card resetPanel hide">
-
-    <h2>⚠️ Reset All Exhibition Data</h2>
-
+  <section id="resetPanel" class="card resetPanel hide">
+    <h2>⚠️ Reset All Quiz Visitor Data</h2>
     <p>
-      This permanently deletes Quiz visitor
-      results, prize approvals, browser
+      This deletes Quiz visitor results, approvals, browser
       registrations and the Quiz visitor counter.
-      The Ball Game and Timer records are separate.
     </p>
-
     <p class="muted">
       Download your CSV first.
-      Do not reset while visitors are playing.
+      This does not reset Ball or Timer records.
     </p>
 
-    <label for="ownerPassword">
-      Main admin password
-    </label>
-
-    <input
-      id="ownerPassword"
-      type="password"
-      autocomplete="current-password"
-      placeholder="Enter your current password">
+    <label for="ownerPassword">Main admin password</label>
+    <input id="ownerPassword" type="password"
+           autocomplete="current-password"
+           placeholder="Current password">
 
     <div class="actions">
-
       <button id="doReset" class="danger">
         Delete All Visitor Data
       </button>
-
-      <button
-        id="cancelReset"
-        class="secondary">
+      <button id="cancelReset" class="secondary">
         Cancel
       </button>
-
     </div>
-
-    <p
-      id="resetStatus"
-      class="message"
-      role="status"></p>
-
+    <p id="resetStatus" class="message" role="status"></p>
   </section>
 
-  <!-- VISITOR RESULTS -->
-
   <section class="card">
-
     <div class="sectionhead">
-
       <div>
         <h2>✨ Visitor Results</h2>
-
         <p class="muted">
-          Short Visitor IDs · Repeated plays ·
-          12-hour times
+          Short Visitor IDs · Repeated plays · 12-hour times
         </p>
       </div>
 
       <div class="filters">
-
-        <input
-          id="search"
-          type="search"
-          placeholder="Search name or Visitor ID">
+        <input id="search" type="search"
+               placeholder="Search name or Visitor ID">
 
         <select id="filter">
-
           <option value="all">All results</option>
           <option value="first">First plays</option>
           <option value="retry">Repeated plays</option>
@@ -851,17 +415,12 @@ tr:hover td {
           <option value="approved">Approved prizes</option>
           <option value="toffee">🍬 Toffee</option>
           <option value="chocolate">🍫 Chocolate</option>
-
         </select>
-
       </div>
-
     </div>
 
     <div class="tablewrap">
-
       <table>
-
         <thead>
           <tr>
             <th>Name</th>
@@ -875,22 +434,14 @@ tr:hover td {
             <th>Admin Approval</th>
           </tr>
         </thead>
-
         <tbody id="rows"></tbody>
-
       </table>
-
     </div>
 
-    <p
-      id="message"
-      class="message"
-      role="status">
+    <p id="message" class="message" role="status">
       Connecting to Firebase…
     </p>
-
   </section>
-
 </section>
 
 <p class="foot">
@@ -899,144 +450,82 @@ tr:hover td {
 
 </main>
 
-<!-- FIREBASE LIBRARIES -->
-
 <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore-compat.js"></script>
-
-<!-- EXISTING FIREBASE CONFIGURATION -->
-
 <script src="firebase-config.js"></script>
-
-<!-- DASHBOARD JAVASCRIPT -->
 
 <script>
 const $ = id => document.getElementById(id);
-
 const auth = firebase.auth();
-
-// SAME UID AS YOUR EXISTING QUIZ OWNER
-
 const OWNER_UID = "DWoqJv8nnNhp84t4mwz6uD5q8HQ2";
 
 let results = [];
 let approvals = new Map();
-
-let unsubscribeResults = null;
-let unsubscribeApprovals = null;
-
+let offResults = null;
+let offApprovals = null;
 let resultsReady = false;
 let approvalsReady = false;
-
 let error = "";
 let resetting = false;
 
-// DISPLAY SHORT VISITOR ID
-
 function visitorID(deviceId) {
-  const pattern =
-    /^[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i;
+  if (!/^[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i
+      .test(deviceId || "")) return "Older entry";
 
-  if (!pattern.test(deviceId || "")) {
-    return "Older entry";
-  }
-
-  const alphabet =
-    "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-
+  const alphabet = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
   let n = BigInt(
-    "0x" +
-    deviceId.replace(/-/g, "").slice(0, 10)
+    "0x" + deviceId.replace(/-/g, "").slice(0, 10)
   );
-
-  let output = "";
+  let out = "";
 
   for (let i = 0; i < 8; i++) {
-    output = alphabet[Number(n % 32n)] + output;
+    out = alphabet[Number(n % 32n)] + out;
     n /= 32n;
   }
-
-  return output.slice(0, 4) +
-    "-" +
-    output.slice(4);
+  return out.slice(0, 4) + "-" + out.slice(4);
 }
 
-// FORMAT DATE
-
-function when(timestamp) {
-  if (!timestamp?.toDate) {
-    return "Saving…";
-  }
-
-  return timestamp.toDate().toLocaleString(
-    "en-US",
-    {
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-      hour: "numeric",
-      minute: "2-digit",
-      hour12: true
-    }
-  );
+function when(t) {
+  return t?.toDate
+    ? t.toDate().toLocaleString("en-US", {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+        hour: "numeric",
+        minute: "2-digit",
+        hour12: true
+      })
+    : "Saving…";
 }
 
-// REPEATED ATTEMPT DETECTION
+const repeated = p => p.firstAttempt === false;
+const eligible = p =>
+  p.score >= 2 && p.won === true && !repeated(p);
 
-const repeated = player =>
-  player.firstAttempt === false;
+const reward = p =>
+  !eligible(p)
+    ? "none"
+    : p.score === 3
+      ? "chocolate"
+      : "toffee";
 
-// PRIZE ELIGIBILITY
+const rewardLabel = p =>
+  reward(p) === "chocolate"
+    ? "🍫 Chocolate"
+    : reward(p) === "toffee"
+      ? "🍬 Toffee"
+      : "No prize";
 
-const eligible = player =>
-  Number(player.score) >= 2 &&
-  player.won === true &&
-  !repeated(player);
-
-// CHOCOLATE OR TOFFEE
-
-function reward(player) {
-  if (!eligible(player)) {
-    return "none";
-  }
-
-  return Number(player.score) === 3
-    ? "chocolate"
-    : "toffee";
+function stop() {
+  if (offResults) offResults();
+  if (offApprovals) offApprovals();
+  offResults = null;
+  offApprovals = null;
 }
 
-function rewardLabel(player) {
-  switch (reward(player)) {
-    case "chocolate":
-      return "🍫 Chocolate";
-    case "toffee":
-      return "🍬 Toffee";
-    default:
-      return "No prize";
-  }
-}
-
-// STOP FIREBASE LISTENERS
-
-function stopListeners() {
-  if (unsubscribeResults) {
-    unsubscribeResults();
-  }
-
-  if (unsubscribeApprovals) {
-    unsubscribeApprovals();
-  }
-
-  unsubscribeResults = null;
-  unsubscribeApprovals = null;
-}
-
-// LOGIN
-
-$("loginForm").onsubmit = async event => {
-  event.preventDefault();
-
+$("loginForm").onsubmit = async e => {
+  e.preventDefault();
   $("signIn").disabled = true;
   $("loginMessage").textContent = "";
 
@@ -1054,14 +543,10 @@ $("loginForm").onsubmit = async event => {
   }
 };
 
-// FORGOT PASSWORD
-
 $("resetEmail").onclick = async () => {
   const email = $("email").value.trim();
-
   if (!email) {
-    $("loginMessage").textContent =
-      "Enter your email first.";
+    $("loginMessage").textContent = "Enter your email first.";
     return;
   }
 
@@ -1076,28 +561,18 @@ $("resetEmail").onclick = async () => {
   }
 };
 
-// SIGN OUT
-
 $("logout").onclick = () => {
-  if (!resetting) {
-    auth.signOut();
-  }
+  if (!resetting) auth.signOut();
 };
-
-// FILTERS
 
 $("search").oninput = draw;
 $("filter").onchange = draw;
 $("csv").onclick = downloadCSV;
 
-// LOGIN STATE AND LIVE DATABASE LISTENERS
-
 auth.onAuthStateChanged(user => {
-  stopListeners();
-
+  stop();
   results = [];
   approvals = new Map();
-
   resultsReady = false;
   approvalsReady = false;
   error = "";
@@ -1112,9 +587,7 @@ auth.onAuthStateChanged(user => {
 
   $("login").classList.add("hide");
   $("dashboard").classList.remove("hide");
-
-  $("adminEmail").textContent =
-    user.email || "Admin";
+  $("adminEmail").textContent = user.email || "Admin";
 
   $("openReset").classList.toggle(
     "hide",
@@ -1123,62 +596,39 @@ auth.onAuthStateChanged(user => {
 
   draw();
 
-  // FETCH QUIZ RESULTS
-
-  unsubscribeResults = db.collection("results")
+  offResults = db.collection("results")
     .orderBy("createdAt", "desc")
-    .onSnapshot(
-      snapshot => {
-        results = snapshot.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data()
-        }));
+    .onSnapshot(snapshot => {
+      results = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+      resultsReady = true;
+      draw();
+    }, err => {
+      console.error(err);
+      error = "Cannot read Quiz results.";
+      draw();
+    });
 
-        resultsReady = true;
-        draw();
-      },
-      err => {
-        console.error(err);
-        error =
-          "Cannot read results. Check Firebase permissions.";
-        draw();
-      }
-    );
-
-  // FETCH APPROVALS
-
-  unsubscribeApprovals = db.collection("approvals")
-    .onSnapshot(
-      snapshot => {
-        approvals = new Map(
-          snapshot.docs
-            .filter(doc =>
-              doc.data().accepted === true
-            )
-            .map(doc => [
-              doc.id,
-              doc.data()
-            ])
-        );
-
-        approvalsReady = true;
-        draw();
-      },
-      err => {
-        console.error(err);
-        error =
-          "Cannot read approvals. Check Firebase rules.";
-        draw();
-      }
-    );
+  offApprovals = db.collection("approvals")
+    .onSnapshot(snapshot => {
+      approvals = new Map(
+        snapshot.docs
+          .filter(doc => doc.data().accepted === true)
+          .map(doc => [doc.id, doc.data()])
+      );
+      approvalsReady = true;
+      draw();
+    }, err => {
+      console.error(err);
+      error = "Cannot read Quiz approvals.";
+      draw();
+    });
 });
 
-// APPROVE ONE PRIZE
-
-async function approve(player, button) {
-  if (!eligible(player) || resetting) {
-    return;
-  }
+async function approve(p, button) {
+  if (!eligible(p) || resetting) return;
 
   button.disabled = true;
   button.textContent = "Approving…";
@@ -1186,22 +636,19 @@ async function approve(player, button) {
   try {
     await db.runTransaction(async tx => {
       const resultRef =
-        db.collection("results").doc(player.id);
+        db.collection("results").doc(p.id);
 
       const approvalRef =
-        db.collection("approvals").doc(player.id);
+        db.collection("approvals").doc(p.id);
 
-      const resultSnapshot = await tx.get(resultRef);
-      const approvalSnapshot = await tx.get(approvalRef);
+      const current = await tx.get(resultRef);
+      const existing = await tx.get(approvalRef);
 
-      if (
-        !resultSnapshot.exists ||
-        !eligible(resultSnapshot.data())
-      ) {
+      if (!current.exists || !eligible(current.data())) {
         throw Error("Repeated or ineligible attempt");
       }
 
-      if (!approvalSnapshot.exists) {
+      if (!existing.exists) {
         tx.set(approvalRef, {
           accepted: true,
           acceptedAt:
@@ -1211,90 +658,64 @@ async function approve(player, button) {
     });
   } catch (err) {
     console.error(err);
-
     button.disabled = false;
     button.textContent = "Approve prize";
-
-    error =
-      "Approval failed. Check Firebase permissions.";
-
+    error = "Approval failed. Check Firebase permissions.";
     draw();
   }
 }
-
-// RENDER ADMIN DASHBOARD
 
 function draw() {
   const body = $("rows");
   body.replaceChildren();
 
-  const search =
-    $("search").value.trim().toLowerCase();
-
+  const search = $("search").value.trim().toLowerCase();
   const filter = $("filter").value;
 
-  const shown = results.filter(player => {
-    const r = reward(player);
-    const approved = approvals.has(player.id);
+  const shown = results.filter(p => {
+    const r = reward(p);
+    const approved = approvals.has(p.id);
 
-    const searchable = (
-      String(player.name || "") + " " +
-      visitorID(player.deviceId) + " " +
-      player.id
-    ).toLowerCase();
-
-    const matches = searchable.includes(search);
+    const matches = (
+      String(p.name || "") + " " +
+      visitorID(p.deviceId) + " " + p.id
+    ).toLowerCase().includes(search);
 
     return matches && (
       filter === "all" ||
-      (filter === "first" && !repeated(player)) ||
-      (filter === "retry" && repeated(player)) ||
-      (
-        filter === "pending" &&
-        r !== "none" &&
-        !approved
-      ) ||
-      (
-        filter === "approved" &&
-        r !== "none" &&
-        approved
-      ) ||
+      (filter === "first" && !repeated(p)) ||
+      (filter === "retry" && repeated(p)) ||
+      (filter === "pending" && r !== "none" && !approved) ||
+      (filter === "approved" && r !== "none" && approved) ||
       filter === r
     );
   });
 
-  // CREATE VISITOR ROWS
-
-  for (const player of shown) {
+  for (const p of shown) {
     const row = body.insertRow();
 
-    const values = [
-      player.name || "Visitor",
-      player.level || "",
-      player.score + "/3",
-      visitorID(player.deviceId),
-      repeated(player) ? "Repeated" : "First play",
-      repeated(player) ? "No prize" : rewardLabel(player),
-      player.quizSet || "—",
-      when(player.createdAt)
-    ];
-
-    values.forEach((value, index) => {
+    [
+      p.name || "Visitor",
+      p.level || "",
+      p.score + "/3",
+      visitorID(p.deviceId),
+      repeated(p) ? "Repeated" : "First play",
+      repeated(p) ? "No prize" : rewardLabel(p),
+      p.quizSet || "—",
+      when(p.createdAt)
+    ].forEach((value, i) => {
       const cell = row.insertCell();
       cell.textContent = value;
-
-      if (index === 3) {
-        cell.className = "id";
-      }
+      if (i === 3) cell.className = "id";
     });
 
-    const actionCell = row.insertCell();
-    const approval = approvals.get(player.id);
+    const action = row.insertCell();
+    const approval = approvals.get(p.id);
 
-    if (repeated(player)) {
-      actionCell.textContent = "Repeated";
-    } else if (!eligible(player)) {
-      actionCell.textContent = "No prize";
+    if (repeated(p)) {
+      action.textContent = "Repeated";
+    } else if (!eligible(p)) {
+      action.textContent = "No prize";
     } else if (approval) {
       const title = document.createElement("strong");
       title.className = "approved";
@@ -1303,69 +724,49 @@ function draw() {
       const date = document.createElement("div");
       date.className = "subtime";
       date.textContent = when(approval.acceptedAt);
-
-      actionCell.append(title, date);
+      action.append(title, date);
     } else {
       const button = document.createElement("button");
-
       button.className =
-        "approve" +
-        (Number(player.score) === 3 ? " choc" : "");
-
-      button.textContent =
-        "Approve " + rewardLabel(player);
-
+        "approve" + (p.score === 3 ? " choc" : "");
+      button.textContent = "Approve " + rewardLabel(p);
       button.disabled = resetting;
-      button.onclick = () => approve(player, button);
-
-      actionCell.append(button);
+      button.onclick = () => approve(p, button);
+      action.append(button);
     }
   }
 
-  // COUNTERS
-
-  const toffees = results.filter(player =>
-    reward(player) === "toffee" &&
-    approvals.has(player.id)
-  ).length;
-
-  const chocolates = results.filter(player =>
-    reward(player) === "chocolate" &&
-    approvals.has(player.id)
-  ).length;
-
-  const pending = results.filter(player =>
-    eligible(player) &&
-    !approvals.has(player.id)
-  ).length;
-
-  const repeats = results.filter(repeated).length;
-
   $("visitors").textContent = results.length;
-  $("toffees").textContent = toffees;
-  $("chocolates").textContent = chocolates;
-  $("pending").textContent = pending;
-  $("repeats").textContent = repeats;
+  $("toffees").textContent = results.filter(p =>
+    reward(p) === "toffee" && approvals.has(p.id)
+  ).length;
 
-  // LIVE OVERVIEW
+  $("chocolates").textContent = results.filter(p =>
+    reward(p) === "chocolate" && approvals.has(p.id)
+  ).length;
+
+  $("pending").textContent = results.filter(p =>
+    eligible(p) && !approvals.has(p.id)
+  ).length;
+
+  $("repeats").textContent =
+    results.filter(repeated).length;
 
   const firstCount =
-    results.filter(player => !repeated(player)).length;
+    results.filter(p => !repeated(p)).length;
 
   const repeatedCount =
     results.filter(repeated).length;
 
-  const approvedList = results.filter(player =>
-    eligible(player) &&
-    approvals.has(player.id)
+  const approvedList = results.filter(p =>
+    eligible(p) && approvals.has(p.id)
   );
 
   $("firstCount").textContent = firstCount;
   $("repeatCount").textContent = repeatedCount;
   $("approvedCount").textContent = approvedList.length;
 
-  const total = Math.max(1, results.length);
-
+  const total = Math.max(results.length, 1);
   $("firstMeter").style.width =
     (firstCount / total * 100) + "%";
 
@@ -1375,19 +776,14 @@ function draw() {
   $("approvedMeter").style.width =
     (approvedList.length / total * 100) + "%";
 
-  // RECENT APPROVALS
-
   const feed = $("recentFeed");
   feed.replaceChildren();
 
-  const latest = [...approvedList]
-    .sort((a, b) => {
-      const aTime =
-        approvals.get(a.id)?.acceptedAt?.toMillis?.() || 0;
-      const bTime =
-        approvals.get(b.id)?.acceptedAt?.toMillis?.() || 0;
-      return bTime - aTime;
-    })
+  const latest = approvedList
+    .sort((a, b) =>
+      (approvals.get(b.id)?.acceptedAt?.toMillis?.() || 0) -
+      (approvals.get(a.id)?.acceptedAt?.toMillis?.() || 0)
+    )
     .slice(0, 5);
 
   if (!latest.length) {
@@ -1396,24 +792,20 @@ function draw() {
     feed.append(li);
   }
 
-  for (const player of latest) {
+  for (const p of latest) {
     const li = document.createElement("li");
     const person = document.createElement("span");
     const time = document.createElement("span");
 
     person.textContent =
-      (Number(player.score) === 3 ? "🍫 " : "🍬 ") +
-      (player.name || "Visitor");
+      (p.score === 3 ? "🍫 " : "🍬 ") +
+      (p.name || "Visitor");
 
     time.className = "time";
-    time.textContent =
-      when(approvals.get(player.id).acceptedAt);
-
+    time.textContent = when(approvals.get(p.id).acceptedAt);
     li.append(person, time);
     feed.append(li);
   }
-
-  // CONNECTION STATUS
 
   $("message").textContent =
     error ||
@@ -1425,85 +817,55 @@ function draw() {
           ? "No results match."
           : "No visitors yet.");
 
-  $("message").classList.toggle(
-    "error",
-    Boolean(error)
-  );
+  $("message").classList.toggle("error", Boolean(error));
 }
-
-// SECURE CSV CELL FORMAT
 
 function csvCell(value) {
-  let text = String(value ?? "");
-
-  // Prevent spreadsheet formula injection
-
-  if (/^\s*[=+@\-]/.test(text)) {
-    text = "'" + text;
-  }
-
-  return '"' +
-    text.replaceAll('"', '""') +
-    '"';
+  let x = String(value ?? "");
+  if (/^\s*[=+@\-]/.test(x)) x = "'" + x;
+  return '"' + x.replaceAll('"', '""') + '"';
 }
 
-// EXPORT ALL QUIZ RECORDS
-
 function downloadCSV() {
-  if (
-    !resultsReady ||
-    !approvalsReady ||
-    error
-  ) {
+  if (!resultsReady || !approvalsReady || error) {
     $("message").textContent =
       "Wait for Firebase to load all results.";
     return;
   }
 
   const rows = [[
-    "Name",
-    "Level",
-    "Score",
-    "Visitor ID",
-    "Attempt",
-    "Prize",
-    "Quiz Set",
-    "Ticket ID",
-    "Time Played",
-    "Admin Approval",
-    "Approved At",
-    "Toffees Given Out",
-    "Chocolates Given Out",
+    "Name", "Level", "Score", "Visitor ID",
+    "Attempt", "Prize", "Quiz Set", "Ticket ID",
+    "Time Played", "Admin Approval", "Approved At",
+    "Toffees Given Out", "Chocolates Given Out",
     "Repeated"
   ]];
 
-  results.forEach(player => {
-    const approval = approvals.get(player.id);
-
-    const approved =
-      Boolean(approval) && eligible(player);
+  results.forEach(p => {
+    const a = approvals.get(p.id);
+    const approved = !!a && eligible(p);
 
     rows.push([
-      player.name || "",
-      player.level || "",
-      player.score + "/3",
-      visitorID(player.deviceId),
-      repeated(player) ? "Repeated" : "First play",
-      repeated(player) ? "No prize" : rewardLabel(player),
-      player.quizSet || "",
-      player.id.slice(-8).toUpperCase(),
-      when(player.createdAt),
-      repeated(player)
+      p.name,
+      p.level,
+      p.score + "/3",
+      visitorID(p.deviceId),
+      repeated(p) ? "Repeated" : "First play",
+      repeated(p) ? "No prize" : rewardLabel(p),
+      p.quizSet || "",
+      p.id.slice(-8).toUpperCase(),
+      when(p.createdAt),
+      repeated(p)
         ? "Repeated"
         : approved
           ? "Approved"
-          : eligible(player)
+          : eligible(p)
             ? "Pending"
             : "No prize",
-      approved ? when(approval.acceptedAt) : "",
-      approved && Number(player.score) === 2 ? 1 : 0,
-      approved && Number(player.score) === 3 ? 1 : 0,
-      repeated(player) ? "Yes" : "No"
+      approved ? when(a.acceptedAt) : "",
+      approved && p.score === 2 ? 1 : 0,
+      approved && p.score === 3 ? 1 : 0,
+      repeated(p) ? "Yes" : "No"
     ]);
   });
 
@@ -1516,20 +878,15 @@ function downloadCSV() {
   ]);
 
   const csv = "\uFEFF" +
-    rows.map(row =>
-      row.map(csvCell).join(",")
-    ).join("\r\n");
+    rows.map(r => r.map(csvCell).join(",")).join("\r\n");
 
   const url = URL.createObjectURL(
-    new Blob([csv], {
-      type: "text/csv;charset=utf-8"
-    })
+    new Blob([csv], {type:"text/csv;charset=utf-8"})
   );
 
   const link = document.createElement("a");
   link.href = url;
   link.download = "arabic-challenge-results.csv";
-
   document.body.appendChild(link);
   link.click();
   link.remove();
@@ -1537,65 +894,40 @@ function downloadCSV() {
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 
-// OPEN RESET PANEL
-
 $("openReset").onclick = () => {
-  if (auth.currentUser?.uid !== OWNER_UID) {
-    return;
-  }
+  if (auth.currentUser?.uid !== OWNER_UID) return;
 
   $("ownerPassword").value = "";
   $("resetStatus").textContent = "";
   $("resetPanel").classList.remove("hide");
 };
 
-// CANCEL RESET
-
 $("cancelReset").onclick = () => {
-  if (!resetting) {
-    $("resetPanel").classList.add("hide");
-  }
+  if (!resetting) $("resetPanel").classList.add("hide");
 };
-
-// ERASE ONE QUIZ COLLECTION
 
 async function eraseCollection(name) {
   let count = 0;
-
   while (true) {
     const snapshot = await db.collection(name)
-      .limit(200)
-      .get({ source: "server" });
+      .limit(200).get({source:"server"});
 
-    if (snapshot.empty) {
-      return count;
-    }
+    if (snapshot.empty) return count;
 
     const batch = db.batch();
-
-    snapshot.docs.forEach(doc => {
-      batch.delete(doc.ref);
-    });
-
+    snapshot.docs.forEach(doc => batch.delete(doc.ref));
     await batch.commit();
 
     count += snapshot.size;
-
     $("resetStatus").textContent =
       `Deleting ${name}: ${count} removed…`;
   }
 }
 
-// RESET ONLY THE QUIZ DATA
-
 $("doReset").onclick = async () => {
   const user = auth.currentUser;
 
-  if (
-    resetting ||
-    !user ||
-    user.uid !== OWNER_UID
-  ) {
+  if (resetting || !user || user.uid !== OWNER_UID) {
     return;
   }
 
@@ -1608,58 +940,43 @@ $("doReset").onclick = async () => {
   }
 
   resetting = true;
-
   $("doReset").disabled = true;
   $("cancelReset").disabled = true;
   $("logout").disabled = true;
 
   try {
-    // Check the organizer password again
-
-    const credential =
+    await user.reauthenticateWithCredential(
       firebase.auth.EmailAuthProvider.credential(
-        user.email,
-        password
-      );
-
-    await user.reauthenticateWithCredential(credential);
+        user.email, password
+      )
+    );
 
     $("ownerPassword").value = "";
-
     $("resetStatus").textContent =
-      "Password checked. Deleting visitor data…";
-
-    // Only Arabic Quiz collections
+      "Password checked. Deleting Quiz visitor data…";
 
     await eraseCollection("approvals");
     await eraseCollection("results");
     await eraseCollection("devices");
-
     await db.collection("meta")
-      .doc("visitorCounter")
-      .delete();
+      .doc("visitorCounter").delete();
 
     $("resetStatus").textContent =
-      "✅ Reset complete. Quiz visitor counts are now zero.";
-
+      "✅ Quiz reset complete.";
   } catch (err) {
     console.error(err);
     $("ownerPassword").value = "";
-
     $("resetStatus").textContent =
       "❌ Reset incomplete: " +
       (err.message || "Check Firebase rules.");
   } finally {
     resetting = false;
-
     $("doReset").disabled = false;
     $("cancelReset").disabled = false;
     $("logout").disabled = false;
-
     draw();
   }
 };
 </script>
-
 </body>
 </html>
