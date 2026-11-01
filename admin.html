@@ -1,12 +1,9 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 <meta charset="UTF-8">
-<meta name="viewport"
-      content="width=device-width, initial-scale=1">
-
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>EDEX | Central Admin Panel</title>
 
 <style>
@@ -32,16 +29,8 @@ body {
   color: #f9f6ff;
   font: 15px system-ui, Arial, sans-serif;
   background:
-    radial-gradient(
-      ellipse at 10% 0%,
-      #42207685,
-      transparent 42%
-    ),
-    radial-gradient(
-      ellipse at 100% 12%,
-      #61441c45,
-      transparent 38%
-    ),
+    radial-gradient(ellipse at 10% 0%,#42207685,transparent 42%),
+    radial-gradient(ellipse at 100% 12%,#61441c45,transparent 38%),
     var(--bg);
 }
 
@@ -51,7 +40,7 @@ body:before {
   inset: 0;
   pointer-events: none;
   background-image:
-    radial-gradient(#b697e0 1px, transparent 1px);
+    radial-gradient(#b697e0 1px,transparent 1px);
   background-size: 30px 30px;
   opacity: .13;
 }
@@ -64,7 +53,7 @@ main {
 }
 
 h1 {
-  font-size: clamp(28px, 4vw, 43px);
+  font-size: clamp(28px,4vw,43px);
   margin: 7px 0;
 }
 
@@ -96,34 +85,26 @@ p {
   display: none !important;
 }
 
-/* HEADER */
+/* MAIN HEADER */
 
 .head {
   display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  gap: 18px;
   align-items: center;
-
+  justify-content: space-between;
+  flex-wrap: wrap;
   padding: 20px 22px;
   margin-bottom: 17px;
-
   border: 1px solid #514068;
   border-radius: 22px;
-
   background:
-    linear-gradient(
-      110deg,
-      #241a3cbb,
-      #111322cc
-    );
-
+    linear-gradient(110deg,#241a3cbb,#111322cc);
   box-shadow: 0 14px 40px #0005;
 }
 
 .head-title {
   flex: 1;
-  min-width: 260px;
+  min-width: 270px;
 }
 
 .live {
@@ -132,78 +113,67 @@ p {
   background: #163d2c66;
   border-radius: 30px;
   padding: 10px 13px;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 800;
   white-space: nowrap;
-
   box-shadow: 0 0 0 5px #1e79401c;
-  animation: livePulse 2.8s infinite;
+  animation: pulse 2.8s infinite;
 }
 
-@keyframes livePulse {
+@keyframes pulse {
   50% {
     box-shadow: 0 0 0 9px #1e79400d;
   }
 }
 
-/* THREE ADMIN BUTTONS */
+/* ALL THREE ADMIN TABS */
 
 .admin-tabs {
   display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: flex-end;
-  flex-wrap: wrap;
-  gap: 10px;
 }
 
 .admin-tabs a {
   display: inline-flex;
-  align-items: center;
   justify-content: center;
-
+  align-items: center;
   min-height: 48px;
-  padding: 13px 19px;
-
+  padding: 13px 17px;
   border-radius: 12px;
+  background: #4b355f;
   border: 1px solid #82659c;
-
-  background: #49345c;
-  color: #f6eaff;
-
+  color: #f7eaff;
   text-decoration: none;
-  text-align: center;
   font-size: 13px;
   font-weight: 900;
   white-space: nowrap;
-
-  transition: transform .2s,
-              background .2s;
+  transition: .2s;
 }
 
 .admin-tabs a:hover {
-  transform: translateY(-2px);
   background: #664b80;
+  transform: translateY(-2px);
 }
 
 .admin-tabs a.active {
-  color: #291c08;
+  color: #281b05;
+  border-color: #ffe29a;
   background:
-    linear-gradient(110deg, #ffe2a1, #f7ce78);
-  border-color: #ffe5a7;
+    linear-gradient(110deg,#ffe2a1,#f4ca74);
 }
 
 /* CARDS */
 
 .card {
   background:
-    linear-gradient(155deg, #202235, #11131f);
-
+    linear-gradient(155deg,#202235,#11131f);
   border: 1px solid var(--line);
   border-radius: 20px;
-
   padding: 21px;
   margin: 16px 0;
-
   box-shadow: 0 14px 35px #0005;
 }
 
@@ -230,16 +200,14 @@ p {
 
 button {
   border: 0;
-  border-radius: 11px;
   padding: 12px;
-
+  border-radius: 11px;
   color: white;
+  background:
+    linear-gradient(110deg,#9c69ec,#6844bb);
   font: inherit;
   font-weight: 800;
   cursor: pointer;
-
-  background:
-    linear-gradient(110deg, #9c69ec, #6844bb);
 }
 
 button:hover:not(:disabled) {
@@ -254,7 +222,7 @@ button:disabled {
 .goldBtn {
   color: #281b05;
   background:
-    linear-gradient(100deg, #ffe29a, #d39b40);
+    linear-gradient(100deg,#ffe29a,#d39b40);
 }
 
 .secondary {
@@ -267,30 +235,29 @@ button:disabled {
   border: 1px solid #b34c66;
 }
 
+/* FORMS */
+
+label {
+  display: block;
+  margin: 14px 0 6px;
+  font-weight: 800;
+}
+
 input,
 select {
   font: inherit;
   padding: 12px;
-  border-radius: 11px;
-
-  background: #0e1020;
-  color: white;
-  border: 1px solid #57546c;
   min-height: 43px;
+  color: white;
+  background: #0e1020;
+  border: 1px solid #57546c;
+  border-radius: 11px;
 }
 
 input:focus,
 select:focus {
   outline: 2px solid var(--purple);
 }
-
-label {
-  display: block;
-  font-weight: 800;
-  margin: 14px 0 6px;
-}
-
-/* LOGIN */
 
 .login {
   max-width: 450px;
@@ -316,46 +283,42 @@ label {
   line-height: 1.6;
 }
 
-/* STATISTICS */
+/* STATISTICS CARDS */
 
 .stats {
   display: grid;
   grid-template-columns:
-    repeat(5, minmax(0, 1fr));
+    repeat(5,minmax(0,1fr));
   gap: 12px;
   margin: 17px 0;
 }
 
 .stats .card {
   position: relative;
+  overflow: hidden;
   margin: 0;
   min-height: 145px;
-  overflow: hidden;
-
   border: 1px solid #48415e;
   background:
-    linear-gradient(145deg, #24213b, #111420);
+    linear-gradient(145deg,#24213b,#111420);
 }
 
 .stats .card:after {
   content: "";
   position: absolute;
-  right: -25px;
-  top: -35px;
-
   width: 110px;
   height: 110px;
+  top: -35px;
+  right: -25px;
   border-radius: 50%;
-
   background: currentColor;
   opacity: .065;
-  filter: blur(2px);
 }
 
 .stats strong {
   display: block;
   margin: 9px 0;
-  font-size: clamp(31px, 3.4vw, 46px);
+  font-size: clamp(31px,3.4vw,46px);
   font-variant-numeric: tabular-nums;
 }
 
@@ -370,7 +333,7 @@ label {
 .green { color: var(--green); }
 .red { color: var(--red); }
 
-/* OVERVIEW */
+/* DASHBOARD OVERVIEW */
 
 .commandGrid {
   display: grid;
@@ -385,30 +348,13 @@ label {
 
 .adminBadge {
   display: inline-block;
+  padding: 5px 9px;
+  border-radius: 30px;
   color: #ffe4a3;
   background: #4a371d44;
   border: 1px solid #77603c;
-  padding: 5px 9px;
-  border-radius: 30px;
   font-size: 11px;
   font-weight: 800;
-}
-
-.meter {
-  height: 11px;
-  border-radius: 30px;
-  background: #3b344b;
-  overflow: hidden;
-  margin: 9px 0 14px;
-}
-
-.meter span {
-  display: block;
-  height: 100%;
-  width: 0;
-  background:
-    linear-gradient(90deg, #c48bfa, #f8cb78);
-  transition: width .45s;
 }
 
 .miniLabel {
@@ -419,25 +365,38 @@ label {
   font-size: 13px;
 }
 
+.meter {
+  height: 11px;
+  margin: 9px 0 14px;
+  border-radius: 30px;
+  background: #3b344b;
+  overflow: hidden;
+}
+
+.meter span {
+  display: block;
+  width: 0;
+  height: 100%;
+  background:
+    linear-gradient(90deg,#c48bfa,#f8cb78);
+  transition: width .45s;
+}
+
 .feed {
-  list-style: none;
   margin: 0;
   padding: 0;
   max-height: 220px;
   overflow: auto;
+  list-style: none;
 }
 
 .feed li {
-  padding: 10px 0;
-  border-bottom: 1px solid #353047;
   display: flex;
   justify-content: space-between;
   gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid #353047;
   font-size: 13px;
-}
-
-.feed li:last-child {
-  border: 0;
 }
 
 .feed .time {
@@ -445,7 +404,7 @@ label {
   white-space: nowrap;
 }
 
-/* VISITOR RECORDS */
+/* VISITOR TABLE */
 
 .filters input {
   width: 260px;
@@ -464,19 +423,19 @@ table {
   border-collapse: collapse;
 }
 
-th, td {
-  border-bottom: 1px solid #343449;
+th,td {
   padding: 13px;
   text-align: left;
   vertical-align: middle;
   font-size: 13px;
+  border-bottom: 1px solid #343449;
 }
 
 th {
-  background: #29233b;
-  color: #e8d7ff;
   position: sticky;
   top: 0;
+  background: #29233b;
+  color: #e8d7ff;
   white-space: nowrap;
 }
 
@@ -485,13 +444,8 @@ tr:hover td {
 }
 
 .id {
-  font: 800 13px ui-monospace,
-        Consolas, monospace;
   color: var(--gold);
-}
-
-.repeat {
-  color: #f9f6ff;
+  font: 800 13px Consolas,monospace;
 }
 
 .approved {
@@ -500,104 +454,83 @@ tr:hover td {
 }
 
 .subtime {
-  font-size: 12px;
   color: var(--muted);
+  font-size: 12px;
   margin-top: 4px;
 }
 
 .approve {
   padding: 10px 12px;
-  white-space: nowrap;
 }
 
 .approve.choc {
   background: #a47729;
 }
 
-/* RESET */
+/* RESET PANEL */
 
 .resetPanel {
   border-color: #aa4965;
   background:
-    linear-gradient(145deg, #391c2e, #18141f);
+    linear-gradient(145deg,#391c2e,#18141f);
 }
 
 .resetPanel input {
-  width: min(420px, 100%);
+  width: min(420px,100%);
 }
 
 .foot {
   text-align: center;
   color: #88829c;
-  font-size: 12px;
   margin-top: 25px;
+  font-size: 12px;
 }
 
-/* MOBILE */
+/* RESPONSIVE */
 
-@media(max-width: 1000px) {
+@media(max-width:1050px) {
   .stats {
     grid-template-columns:
-      repeat(3, minmax(0, 1fr));
+      repeat(3,minmax(0,1fr));
   }
-
   .admin-tabs {
     width: 100%;
     justify-content: flex-start;
   }
 }
 
-@media(max-width: 760px) {
+@media(max-width:760px) {
   .commandGrid {
     grid-template-columns: 1fr;
   }
-
   .stats {
     grid-template-columns:
-      repeat(2, minmax(0, 1fr));
-  }
-
-  .head {
-    padding: 15px;
+      repeat(2,minmax(0,1fr));
   }
 }
 
-@media(max-width: 600px) {
+@media(max-width:600px) {
   main {
     padding: 14px 9px;
   }
-
   .card {
     padding: 15px;
   }
-
   .filters input,
   .filters select {
     width: 100%;
   }
-
   .actions button {
     flex: 1;
   }
-
   .admin-tabs a {
     flex: 1;
-    padding: 12px 8px;
     font-size: 11px;
+    padding: 12px 8px;
   }
 }
 
-@media(max-width: 420px) {
-  .stats .card {
-    padding: 13px;
-  }
-
-  .stats strong {
-    font-size: 29px;
-  }
-}
-
-@media(prefers-reduced-motion: reduce) {
+@media(prefers-reduced-motion:reduce) {
   .live {
     animation: none;
   }
@@ -606,12 +539,9 @@ tr:hover td {
 </head>
 
 <body>
-
 <main>
 
-<!-- ==================================
-     EDEX CENTRAL ADMIN HEADER
-================================== -->
+<!-- CENTRAL ADMIN HEADER -->
 
 <header class="head">
 
@@ -621,8 +551,7 @@ tr:hover td {
     </div>
 
     <h1>
-      🍫 Arabic Challenge
-      <em>ADMIN</em>
+      🍫 Arabic Challenge <em>ADMIN</em>
     </h1>
 
     <p class="muted">
@@ -634,7 +563,7 @@ tr:hover td {
     ● LIVE DASHBOARD
   </div>
 
-  <!-- ALL THREE GAME ADMIN BUTTONS -->
+  <!-- THREE ADMIN BUTTONS -->
 
   <nav class="admin-tabs">
 
@@ -642,7 +571,7 @@ tr:hover td {
       ✦ Quiz Admin
     </a>
 
-    <a href="ball-admin.html">
+    <a href="https://freshlook10-alt.github.io/Edex-Word-Portal/">
       ◈ Ball Game Admin
     </a>
 
@@ -654,16 +583,14 @@ tr:hover td {
 
 </header>
 
-<!-- ==================================
-     ORGANIZER LOGIN
-================================== -->
+<!-- LOGIN -->
 
 <section id="login" class="card login">
 
   <h2>🔐 Organizer Login</h2>
 
   <p class="muted">
-    Sign in with your authorized Firebase account.
+    Sign in using your existing Firebase organizer account.
   </p>
 
   <form id="loginForm">
@@ -701,11 +628,11 @@ tr:hover td {
 
 </section>
 
-<!-- ==================================
-     QUIZ ADMIN DASHBOARD
-================================== -->
+<!-- QUIZ DASHBOARD -->
 
 <section id="dashboard" class="hide">
+
+  <!-- WELCOME AND CONTROLS -->
 
   <div class="card top">
 
@@ -737,10 +664,9 @@ tr:hover td {
       </button>
 
     </div>
-
   </div>
 
-  <!-- LIVE STATISTICS -->
+  <!-- FIVE STATISTICS -->
 
   <div class="stats">
 
@@ -776,7 +702,7 @@ tr:hover td {
 
   </div>
 
-  <!-- EXHIBITION OVERVIEW -->
+  <!-- LIVE OVERVIEW -->
 
   <div class="commandGrid">
 
@@ -821,13 +747,11 @@ tr:hover td {
       </div>
 
       <p class="message">
-        These totals update automatically
-        from Firebase.
+        Calculations update from Firebase
+        results and approvals.
       </p>
 
     </section>
-
-    <!-- LATEST ACTIVITY -->
 
     <section class="card">
 
@@ -856,7 +780,8 @@ tr:hover td {
     <p>
       This permanently deletes Quiz visitor
       results, prize approvals, browser
-      registrations and the visitor counter.
+      registrations and the Quiz visitor counter.
+      The Ball Game and Timer records are separate.
     </p>
 
     <p class="muted">
@@ -872,7 +797,7 @@ tr:hover td {
       id="ownerPassword"
       type="password"
       autocomplete="current-password"
-      placeholder="Type your current password">
+      placeholder="Enter your current password">
 
     <div class="actions">
 
@@ -880,7 +805,9 @@ tr:hover td {
         Delete All Visitor Data
       </button>
 
-      <button id="cancelReset" class="secondary">
+      <button
+        id="cancelReset"
+        class="secondary">
         Cancel
       </button>
 
@@ -889,8 +816,7 @@ tr:hover td {
     <p
       id="resetStatus"
       class="message"
-      role="status">
-    </p>
+      role="status"></p>
 
   </section>
 
@@ -901,14 +827,12 @@ tr:hover td {
     <div class="sectionhead">
 
       <div>
-
         <h2>✨ Visitor Results</h2>
 
         <p class="muted">
           Short Visitor IDs · Repeated plays ·
           12-hour times
         </p>
-
       </div>
 
       <div class="filters">
@@ -920,33 +844,13 @@ tr:hover td {
 
         <select id="filter">
 
-          <option value="all">
-            All results
-          </option>
-
-          <option value="first">
-            First plays
-          </option>
-
-          <option value="retry">
-            Repeated plays
-          </option>
-
-          <option value="pending">
-            Awaiting approval
-          </option>
-
-          <option value="approved">
-            Approved prizes
-          </option>
-
-          <option value="toffee">
-            🍬 Toffee
-          </option>
-
-          <option value="chocolate">
-            🍫 Chocolate
-          </option>
+          <option value="all">All results</option>
+          <option value="first">First plays</option>
+          <option value="retry">Repeated plays</option>
+          <option value="pending">Awaiting approval</option>
+          <option value="approved">Approved prizes</option>
+          <option value="toffee">🍬 Toffee</option>
+          <option value="chocolate">🍫 Chocolate</option>
 
         </select>
 
@@ -995,32 +899,32 @@ tr:hover td {
 
 </main>
 
-<!-- FIREBASE -->
+<!-- FIREBASE LIBRARIES -->
 
 <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore-compat.js"></script>
 
+<!-- EXISTING FIREBASE CONFIGURATION -->
+
 <script src="firebase-config.js"></script>
 
-<!-- ADMIN JAVASCRIPT -->
+<!-- DASHBOARD JAVASCRIPT -->
 
 <script>
-
 const $ = id => document.getElementById(id);
 
 const auth = firebase.auth();
 
-// EXISTING OWNER UID
+// SAME UID AS YOUR EXISTING QUIZ OWNER
 
-const OWNER_UID =
-  "DWoqJv8nnNhp84t4mwz6uD5q8HQ2";
+const OWNER_UID = "DWoqJv8nnNhp84t4mwz6uD5q8HQ2";
 
 let results = [];
 let approvals = new Map();
 
-let offResults = null;
-let offApprovals = null;
+let unsubscribeResults = null;
+let unsubscribeApprovals = null;
 
 let resultsReady = false;
 let approvalsReady = false;
@@ -1028,14 +932,13 @@ let approvalsReady = false;
 let error = "";
 let resetting = false;
 
-// VISITOR ID
+// DISPLAY SHORT VISITOR ID
 
 function visitorID(deviceId) {
+  const pattern =
+    /^[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i;
 
-  if (
-    !/^[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i
-      .test(deviceId || "")
-  ) {
+  if (!pattern.test(deviceId || "")) {
     return "Older entry";
   }
 
@@ -1047,29 +950,26 @@ function visitorID(deviceId) {
     deviceId.replace(/-/g, "").slice(0, 10)
   );
 
-  let out = "";
+  let output = "";
 
   for (let i = 0; i < 8; i++) {
-    out =
-      alphabet[Number(n % 32n)] + out;
-
+    output = alphabet[Number(n % 32n)] + output;
     n /= 32n;
   }
 
-  return out.slice(0, 4) +
+  return output.slice(0, 4) +
     "-" +
-    out.slice(4);
+    output.slice(4);
 }
 
-// DATE AND TIME
+// FORMAT DATE
 
-function when(t) {
-
-  if (!t?.toDate) {
+function when(timestamp) {
+  if (!timestamp?.toDate) {
     return "Saving…";
   }
 
-  return t.toDate().toLocaleString(
+  return timestamp.toDate().toLocaleString(
     "en-US",
     {
       year: "numeric",
@@ -1082,91 +982,81 @@ function when(t) {
   );
 }
 
-// QUIZ RESULT RULES
+// REPEATED ATTEMPT DETECTION
 
-const repeated = p =>
-  p.firstAttempt === false;
+const repeated = player =>
+  player.firstAttempt === false;
 
-const eligible = p =>
-  p.score >= 2 &&
-  p.won === true &&
-  !repeated(p);
+// PRIZE ELIGIBILITY
 
-const reward = p => {
-  if (!eligible(p)) {
+const eligible = player =>
+  Number(player.score) >= 2 &&
+  player.won === true &&
+  !repeated(player);
+
+// CHOCOLATE OR TOFFEE
+
+function reward(player) {
+  if (!eligible(player)) {
     return "none";
   }
 
-  return p.score === 3
+  return Number(player.score) === 3
     ? "chocolate"
     : "toffee";
-};
+}
 
-const rewardLabel = p => {
-  const r = reward(p);
+function rewardLabel(player) {
+  switch (reward(player)) {
+    case "chocolate":
+      return "🍫 Chocolate";
+    case "toffee":
+      return "🍬 Toffee";
+    default:
+      return "No prize";
+  }
+}
 
-  if (r === "chocolate") {
-    return "🍫 Chocolate";
+// STOP FIREBASE LISTENERS
+
+function stopListeners() {
+  if (unsubscribeResults) {
+    unsubscribeResults();
   }
 
-  if (r === "toffee") {
-    return "🍬 Toffee";
+  if (unsubscribeApprovals) {
+    unsubscribeApprovals();
   }
 
-  return "No prize";
-};
-
-// STOP LISTENERS
-
-function stop() {
-
-  if (offResults) {
-    offResults();
-  }
-
-  if (offApprovals) {
-    offApprovals();
-  }
-
-  offResults = null;
-  offApprovals = null;
+  unsubscribeResults = null;
+  unsubscribeApprovals = null;
 }
 
 // LOGIN
 
-$("loginForm").onsubmit = async e => {
-
-  e.preventDefault();
+$("loginForm").onsubmit = async event => {
+  event.preventDefault();
 
   $("signIn").disabled = true;
   $("loginMessage").textContent = "";
 
   try {
-
     await auth.signInWithEmailAndPassword(
       $("email").value.trim(),
       $("password").value
     );
-
-  } catch (e) {
-
-    console.error(e);
-
+  } catch (err) {
+    console.error(err);
     $("loginMessage").textContent =
       "Login failed. Check email and password.";
-
   } finally {
-
     $("signIn").disabled = false;
-
   }
-
 };
 
-// PASSWORD RESET
+// FORGOT PASSWORD
 
 $("resetEmail").onclick = async () => {
-
   const email = $("email").value.trim();
 
   if (!email) {
@@ -1176,59 +1066,47 @@ $("resetEmail").onclick = async () => {
   }
 
   try {
-
     await auth.sendPasswordResetEmail(email);
-
     $("loginMessage").textContent =
       "If registered, check your inbox for a reset link.";
-
-  } catch (e) {
-
-    console.error(e);
-
+  } catch (err) {
+    console.error(err);
     $("loginMessage").textContent =
       "Unable to send reset email.";
-
   }
 };
 
-// LOGOUT
+// SIGN OUT
 
 $("logout").onclick = () => {
-
   if (!resetting) {
     auth.signOut();
   }
-
 };
 
-// SEARCH, FILTER, CSV
+// FILTERS
 
 $("search").oninput = draw;
 $("filter").onchange = draw;
 $("csv").onclick = downloadCSV;
 
-// FIREBASE AUTHENTICATION
+// LOGIN STATE AND LIVE DATABASE LISTENERS
 
 auth.onAuthStateChanged(user => {
-
-  stop();
+  stopListeners();
 
   results = [];
   approvals = new Map();
 
   resultsReady = false;
   approvalsReady = false;
-
   error = "";
 
   $("resetPanel").classList.add("hide");
 
   if (!user) {
-
     $("dashboard").classList.add("hide");
     $("login").classList.remove("hide");
-
     return;
   }
 
@@ -1245,42 +1123,33 @@ auth.onAuthStateChanged(user => {
 
   draw();
 
-  // LIVE RESULTS
+  // FETCH QUIZ RESULTS
 
-  offResults = db.collection("results")
+  unsubscribeResults = db.collection("results")
     .orderBy("createdAt", "desc")
     .onSnapshot(
-
       snapshot => {
-
         results = snapshot.docs.map(doc => ({
           id: doc.id,
           ...doc.data()
         }));
 
         resultsReady = true;
-
         draw();
       },
-
       err => {
-
         console.error(err);
-
         error =
-          "Cannot read results. Check Firestore admin permissions.";
-
+          "Cannot read results. Check Firebase permissions.";
         draw();
       }
     );
 
-  // LIVE APPROVALS
+  // FETCH APPROVALS
 
-  offApprovals = db.collection("approvals")
+  unsubscribeApprovals = db.collection("approvals")
     .onSnapshot(
-
       snapshot => {
-
         approvals = new Map(
           snapshot.docs
             .filter(doc =>
@@ -1293,28 +1162,21 @@ auth.onAuthStateChanged(user => {
         );
 
         approvalsReady = true;
-
         draw();
       },
-
       err => {
-
         console.error(err);
-
         error =
-          "Cannot read approvals. Check Firestore rules.";
-
+          "Cannot read approvals. Check Firebase rules.";
         draw();
       }
     );
-
 });
 
-// APPROVE PRIZE
+// APPROVE ONE PRIZE
 
-async function approve(p, button) {
-
-  if (!eligible(p) || resetting) {
+async function approve(player, button) {
+  if (!eligible(player) || resetting) {
     return;
   }
 
@@ -1322,46 +1184,33 @@ async function approve(p, button) {
   button.textContent = "Approving…";
 
   try {
-
     await db.runTransaction(async tx => {
-
       const resultRef =
-        db.collection("results").doc(p.id);
+        db.collection("results").doc(player.id);
 
       const approvalRef =
-        db.collection("approvals").doc(p.id);
+        db.collection("approvals").doc(player.id);
 
-      const current =
-        await tx.get(resultRef);
-
-      const existing =
-        await tx.get(approvalRef);
+      const resultSnapshot = await tx.get(resultRef);
+      const approvalSnapshot = await tx.get(approvalRef);
 
       if (
-        !current.exists ||
-        !eligible(current.data())
+        !resultSnapshot.exists ||
+        !eligible(resultSnapshot.data())
       ) {
-        throw Error(
-          "Repeated or ineligible attempt"
-        );
+        throw Error("Repeated or ineligible attempt");
       }
 
-      if (!existing.exists) {
-
+      if (!approvalSnapshot.exists) {
         tx.set(approvalRef, {
           accepted: true,
           acceptedAt:
-            firebase.firestore.FieldValue
-              .serverTimestamp()
+            firebase.firestore.FieldValue.serverTimestamp()
         });
-
       }
-
     });
-
-  } catch (e) {
-
-    console.error(e);
+  } catch (err) {
+    console.error(err);
 
     button.disabled = false;
     button.textContent = "Approve prize";
@@ -1373,206 +1222,149 @@ async function approve(p, button) {
   }
 }
 
-// UPDATE THE DASHBOARD
+// RENDER ADMIN DASHBOARD
 
 function draw() {
-
   const body = $("rows");
-
   body.replaceChildren();
 
   const search =
     $("search").value.trim().toLowerCase();
 
-  const filter =
-    $("filter").value;
+  const filter = $("filter").value;
 
-  const shown = results.filter(p => {
+  const shown = results.filter(player => {
+    const r = reward(player);
+    const approved = approvals.has(player.id);
 
-    const r = reward(p);
+    const searchable = (
+      String(player.name || "") + " " +
+      visitorID(player.deviceId) + " " +
+      player.id
+    ).toLowerCase();
 
-    const approved =
-      approvals.has(p.id);
-
-    const searchable =
-      (
-        String(p.name || "") +
-        " " +
-        visitorID(p.deviceId) +
-        " " +
-        p.id
-      ).toLowerCase();
-
-    const matches =
-      searchable.includes(search);
+    const matches = searchable.includes(search);
 
     return matches && (
       filter === "all" ||
-
-      (filter === "first" && !repeated(p)) ||
-
-      (filter === "retry" && repeated(p)) ||
-
+      (filter === "first" && !repeated(player)) ||
+      (filter === "retry" && repeated(player)) ||
       (
         filter === "pending" &&
         r !== "none" &&
         !approved
       ) ||
-
       (
         filter === "approved" &&
         r !== "none" &&
         approved
       ) ||
-
       filter === r
     );
-
   });
 
-  // VISITOR ROWS
+  // CREATE VISITOR ROWS
 
-  for (const p of shown) {
-
+  for (const player of shown) {
     const row = body.insertRow();
 
     const values = [
-      p.name || "Visitor",
-      p.level || "",
-      p.score + "/3",
-      visitorID(p.deviceId),
-      repeated(p)
-        ? "Repeated"
-        : "First play",
-      repeated(p)
-        ? "No prize"
-        : rewardLabel(p),
-      p.quizSet || "—",
-      when(p.createdAt)
+      player.name || "Visitor",
+      player.level || "",
+      player.score + "/3",
+      visitorID(player.deviceId),
+      repeated(player) ? "Repeated" : "First play",
+      repeated(player) ? "No prize" : rewardLabel(player),
+      player.quizSet || "—",
+      when(player.createdAt)
     ];
 
-    values.forEach((value, i) => {
-
+    values.forEach((value, index) => {
       const cell = row.insertCell();
-
       cell.textContent = value;
 
-      if (i === 3) {
+      if (index === 3) {
         cell.className = "id";
       }
-
     });
 
-    const action = row.insertCell();
+    const actionCell = row.insertCell();
+    const approval = approvals.get(player.id);
 
-    const approval = approvals.get(p.id);
-
-    if (repeated(p)) {
-
-      action.textContent = "Repeated";
-
-    } else if (!eligible(p)) {
-
-      action.textContent = "No prize";
-
+    if (repeated(player)) {
+      actionCell.textContent = "Repeated";
+    } else if (!eligible(player)) {
+      actionCell.textContent = "No prize";
     } else if (approval) {
-
-      const title =
-        document.createElement("strong");
-
+      const title = document.createElement("strong");
       title.className = "approved";
       title.textContent = "Approved";
 
-      const date =
-        document.createElement("div");
-
+      const date = document.createElement("div");
       date.className = "subtime";
-      date.textContent =
-        when(approval.acceptedAt);
+      date.textContent = when(approval.acceptedAt);
 
-      action.append(title, date);
-
+      actionCell.append(title, date);
     } else {
-
-      const button =
-        document.createElement("button");
+      const button = document.createElement("button");
 
       button.className =
         "approve" +
-        (p.score === 3 ? " choc" : "");
+        (Number(player.score) === 3 ? " choc" : "");
 
       button.textContent =
-        "Approve " + rewardLabel(p);
+        "Approve " + rewardLabel(player);
 
       button.disabled = resetting;
+      button.onclick = () => approve(player, button);
 
-      button.onclick = () =>
-        approve(p, button);
-
-      action.append(button);
-
+      actionCell.append(button);
     }
-
   }
 
-  // LIVE COUNTERS
+  // COUNTERS
 
-  const toffees = results.filter(
-    p =>
-      reward(p) === "toffee" &&
-      approvals.has(p.id)
+  const toffees = results.filter(player =>
+    reward(player) === "toffee" &&
+    approvals.has(player.id)
   ).length;
 
-  const chocolates = results.filter(
-    p =>
-      reward(p) === "chocolate" &&
-      approvals.has(p.id)
+  const chocolates = results.filter(player =>
+    reward(player) === "chocolate" &&
+    approvals.has(player.id)
   ).length;
 
-  const pending = results.filter(
-    p =>
-      eligible(p) &&
-      !approvals.has(p.id)
+  const pending = results.filter(player =>
+    eligible(player) &&
+    !approvals.has(player.id)
   ).length;
 
-  const repeats =
-    results.filter(repeated).length;
+  const repeats = results.filter(repeated).length;
 
-  $("visitors").textContent =
-    results.length;
-
+  $("visitors").textContent = results.length;
   $("toffees").textContent = toffees;
-
   $("chocolates").textContent = chocolates;
-
   $("pending").textContent = pending;
-
   $("repeats").textContent = repeats;
 
   // LIVE OVERVIEW
 
   const firstCount =
-    results.filter(p => !repeated(p)).length;
+    results.filter(player => !repeated(player)).length;
 
   const repeatedCount =
     results.filter(repeated).length;
 
-  const approvedList =
-    results.filter(
-      p =>
-        eligible(p) &&
-        approvals.has(p.id)
-    );
+  const approvedList = results.filter(player =>
+    eligible(player) &&
+    approvals.has(player.id)
+  );
 
   $("firstCount").textContent = firstCount;
-
   $("repeatCount").textContent = repeatedCount;
+  $("approvedCount").textContent = approvedList.length;
 
-  $("approvedCount").textContent =
-    approvedList.length;
-
-  const total =
-    Math.max(results.length, 1);
+  const total = Math.max(1, results.length);
 
   $("firstMeter").style.width =
     (firstCount / total * 100) + "%";
@@ -1586,75 +1378,52 @@ function draw() {
   // RECENT APPROVALS
 
   const feed = $("recentFeed");
-
   feed.replaceChildren();
 
   const latest = [...approvedList]
     .sort((a, b) => {
-
       const aTime =
-        approvals.get(a.id)
-          ?.acceptedAt?.toMillis?.() || 0;
-
+        approvals.get(a.id)?.acceptedAt?.toMillis?.() || 0;
       const bTime =
-        approvals.get(b.id)
-          ?.acceptedAt?.toMillis?.() || 0;
-
+        approvals.get(b.id)?.acceptedAt?.toMillis?.() || 0;
       return bTime - aTime;
-
     })
     .slice(0, 5);
 
   if (!latest.length) {
-
     const li = document.createElement("li");
-
-    li.textContent =
-      "No approved prizes yet.";
-
+    li.textContent = "No approved prizes yet.";
     feed.append(li);
   }
 
-  for (const p of latest) {
-
-    const li =
-      document.createElement("li");
-
-    const person =
-      document.createElement("span");
-
-    const time =
-      document.createElement("span");
+  for (const player of latest) {
+    const li = document.createElement("li");
+    const person = document.createElement("span");
+    const time = document.createElement("span");
 
     person.textContent =
-      (p.score === 3 ? "🍫 " : "🍬 ") +
-      (p.name || "Visitor");
+      (Number(player.score) === 3 ? "🍫 " : "🍬 ") +
+      (player.name || "Visitor");
 
     time.className = "time";
-
     time.textContent =
-      when(
-        approvals.get(p.id).acceptedAt
-      );
+      when(approvals.get(player.id).acceptedAt);
 
     li.append(person, time);
-
     feed.append(li);
   }
 
-  // STATUS MESSAGE
+  // CONNECTION STATUS
 
   $("message").textContent =
     error ||
-    (
-      !resultsReady || !approvalsReady
-        ? "Connecting…"
-        : shown.length
-          ? ""
-          : results.length
-            ? "No results match."
-            : "No visitors yet."
-    );
+    (!resultsReady || !approvalsReady
+      ? "Connecting…"
+      : shown.length
+        ? ""
+        : results.length
+          ? "No results match."
+          : "No visitors yet.");
 
   $("message").classList.toggle(
     "error",
@@ -1662,13 +1431,12 @@ function draw() {
   );
 }
 
-// CSV ESCAPING
+// SECURE CSV CELL FORMAT
 
 function csvCell(value) {
-
   let text = String(value ?? "");
 
-  // PREVENT SPREADSHEET FORMULA EXECUTION
+  // Prevent spreadsheet formula injection
 
   if (/^\s*[=+@\-]/.test(text)) {
     text = "'" + text;
@@ -1679,19 +1447,16 @@ function csvCell(value) {
     '"';
 }
 
-// DOWNLOAD CSV
+// EXPORT ALL QUIZ RECORDS
 
 function downloadCSV() {
-
   if (
     !resultsReady ||
     !approvalsReady ||
     error
   ) {
-
     $("message").textContent =
       "Wait for Firebase to load all results.";
-
     return;
   }
 
@@ -1712,53 +1477,34 @@ function downloadCSV() {
     "Repeated"
   ]];
 
-  results.forEach(p => {
-
-    const approval =
-      approvals.get(p.id);
+  results.forEach(player => {
+    const approval = approvals.get(player.id);
 
     const approved =
-      Boolean(approval) && eligible(p);
+      Boolean(approval) && eligible(player);
 
     rows.push([
-      p.name,
-      p.level,
-      p.score + "/3",
-      visitorID(p.deviceId),
-
-      repeated(p)
-        ? "Repeated"
-        : "First play",
-
-      repeated(p)
-        ? "No prize"
-        : rewardLabel(p),
-
-      p.quizSet || "",
-
-      p.id.slice(-8).toUpperCase(),
-
-      when(p.createdAt),
-
-      repeated(p)
+      player.name || "",
+      player.level || "",
+      player.score + "/3",
+      visitorID(player.deviceId),
+      repeated(player) ? "Repeated" : "First play",
+      repeated(player) ? "No prize" : rewardLabel(player),
+      player.quizSet || "",
+      player.id.slice(-8).toUpperCase(),
+      when(player.createdAt),
+      repeated(player)
         ? "Repeated"
         : approved
           ? "Approved"
-          : eligible(p)
+          : eligible(player)
             ? "Pending"
             : "No prize",
-
-      approved
-        ? when(approval.acceptedAt)
-        : "",
-
-      approved && p.score === 2 ? 1 : 0,
-
-      approved && p.score === 3 ? 1 : 0,
-
-      repeated(p) ? "Yes" : "No"
+      approved ? when(approval.acceptedAt) : "",
+      approved && Number(player.score) === 2 ? 1 : 0,
+      approved && Number(player.score) === 3 ? 1 : 0,
+      repeated(player) ? "Yes" : "No"
     ]);
-
   });
 
   rows.push([
@@ -1769,79 +1515,57 @@ function downloadCSV() {
     $("repeats").textContent
   ]);
 
-  const csv =
-    "\uFEFF" +
-    rows
-      .map(row =>
-        row.map(csvCell).join(",")
-      )
-      .join("\r\n");
+  const csv = "\uFEFF" +
+    rows.map(row =>
+      row.map(csvCell).join(",")
+    ).join("\r\n");
 
-  const url =
-    URL.createObjectURL(
-      new Blob(
-        [csv],
-        { type: "text/csv;charset=utf-8" }
-      )
-    );
-
-  const a =
-    document.createElement("a");
-
-  a.href = url;
-
-  a.download =
-    "arabic-challenge-results.csv";
-
-  document.body.appendChild(a);
-
-  a.click();
-  a.remove();
-
-  setTimeout(
-    () => URL.revokeObjectURL(url),
-    1000
+  const url = URL.createObjectURL(
+    new Blob([csv], {
+      type: "text/csv;charset=utf-8"
+    })
   );
+
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = "arabic-challenge-results.csv";
+
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 
-// SHOW RESET PANEL
+// OPEN RESET PANEL
 
 $("openReset").onclick = () => {
-
-  if (
-    auth.currentUser?.uid !== OWNER_UID
-  ) {
+  if (auth.currentUser?.uid !== OWNER_UID) {
     return;
   }
 
   $("ownerPassword").value = "";
   $("resetStatus").textContent = "";
-
   $("resetPanel").classList.remove("hide");
 };
 
 // CANCEL RESET
 
 $("cancelReset").onclick = () => {
-
   if (!resetting) {
     $("resetPanel").classList.add("hide");
   }
-
 };
 
-// DELETE A COLLECTION IN BATCHES
+// ERASE ONE QUIZ COLLECTION
 
 async function eraseCollection(name) {
-
   let count = 0;
 
   while (true) {
-
-    const snapshot =
-      await db.collection(name)
-        .limit(200)
-        .get({ source: "server" });
+    const snapshot = await db.collection(name)
+      .limit(200)
+      .get({ source: "server" });
 
     if (snapshot.empty) {
       return count;
@@ -1862,10 +1586,9 @@ async function eraseCollection(name) {
   }
 }
 
-// RESET ALL QUIZ DATA
+// RESET ONLY THE QUIZ DATA
 
 $("doReset").onclick = async () => {
-
   const user = auth.currentUser;
 
   if (
@@ -1876,14 +1599,11 @@ $("doReset").onclick = async () => {
     return;
   }
 
-  const password =
-    $("ownerPassword").value;
+  const password = $("ownerPassword").value;
 
   if (!password) {
-
     $("resetStatus").textContent =
       "Type your current admin password.";
-
     return;
   }
 
@@ -1894,8 +1614,7 @@ $("doReset").onclick = async () => {
   $("logout").disabled = true;
 
   try {
-
-    // VERIFY PASSWORD AGAIN
+    // Check the organizer password again
 
     const credential =
       firebase.auth.EmailAuthProvider.credential(
@@ -1903,16 +1622,14 @@ $("doReset").onclick = async () => {
         password
       );
 
-    await user.reauthenticateWithCredential(
-      credential
-    );
+    await user.reauthenticateWithCredential(credential);
 
     $("ownerPassword").value = "";
 
     $("resetStatus").textContent =
       "Password checked. Deleting visitor data…";
 
-    // ONLY RESET ARABIC QUIZ COLLECTIONS
+    // Only Arabic Quiz collections
 
     await eraseCollection("approvals");
     await eraseCollection("results");
@@ -1923,20 +1640,16 @@ $("doReset").onclick = async () => {
       .delete();
 
     $("resetStatus").textContent =
-      "✅ Reset complete. All visitor counts are now zero.";
+      "✅ Reset complete. Quiz visitor counts are now zero.";
 
-  } catch (e) {
-
-    console.error(e);
-
+  } catch (err) {
+    console.error(err);
     $("ownerPassword").value = "";
 
     $("resetStatus").textContent =
       "❌ Reset incomplete: " +
-      (e.message || "Check Firebase rules.");
-
+      (err.message || "Check Firebase rules.");
   } finally {
-
     resetting = false;
 
     $("doReset").disabled = false;
@@ -1945,9 +1658,7 @@ $("doReset").onclick = async () => {
 
     draw();
   }
-
 };
-
 </script>
 
 </body>
