@@ -1,0 +1,461 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1">
+
+  <meta name="theme-color" content="#090b21">
+
+  <title>EDEX | Ball Game Admin</title>
+
+  <link rel="preconnect"
+        href="https://fonts.googleapis.com">
+
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;900&family=Outfit:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+  <!-- Use the design from the Word Portal website -->
+  <link rel="stylesheet"
+        href="https://freshlook10-alt.github.io/Edex-Word-Portal/style.css">
+
+  <style>
+    .edex-admin-nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin: 16px auto 30px;
+    }
+
+    .edex-admin-nav a {
+      padding: 13px 20px;
+      border: 1px solid #bda5e85c;
+      border-radius: 14px;
+      background: #41325a55;
+      color: #eee1ff;
+      font-size: 13px;
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    .edex-admin-nav a.active {
+      color: #3b2716;
+      background: linear-gradient(
+        110deg, #f3ca8a, #fff0bc
+      );
+      border-color: #ffdf9d;
+    }
+
+    .edex-admin-nav a:hover {
+      filter: brightness(1.15);
+    }
+
+    .game-shortcut {
+      text-align: center;
+      margin: 20px auto;
+    }
+
+    .game-shortcut a {
+      display: inline-block;
+      padding: 13px 24px;
+      border-radius: 13px;
+      color: #192137;
+      background: linear-gradient(
+        110deg, #a9b4ff, #86e0ed
+      );
+      font-weight: 800;
+    }
+
+    .admin-description {
+      text-align: center;
+      color: #bbb0d0;
+      font-size: 13px;
+      margin-bottom: 25px;
+    }
+
+    .dashboard-grid > .panel {
+      min-width: 0;
+    }
+
+    .table-scroll {
+      max-height: 480px;
+      overflow: auto;
+    }
+
+    .admin-heading {
+      text-align: center;
+      margin: 20px 0;
+      font-size: 38px;
+      font-weight: 900;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="aurora"></div>
+  <div class="dust"></div>
+
+  <!-- MAIN EDEX HEADER -->
+
+  <header class="topbar">
+    <a class="brand" href="admin.html">
+      <span class="gem">✦</span>
+
+      <span>
+        EDEX
+        <small>CONTROL CENTER</small>
+      </span>
+    </a>
+
+    <span class="live-dot">
+      ● ORGANIZER DASHBOARD
+    </span>
+  </header>
+
+  <!-- BOTH ADMIN SECTIONS -->
+
+  <nav class="edex-admin-nav">
+
+    <a href="admin.html">
+      ✦ Quiz Admin
+    </a>
+
+    <a href="ball-admin.html" class="active">
+      ◈ Ball Game Admin
+    </a>
+
+  </nav>
+
+  <main class="dashboard">
+
+    <!-- ORGANIZER LOGIN -->
+
+    <section class="panel auth-box" id="adminLogin">
+
+      <div class="eyebrow">
+        ✦ ORGANIZER ACCESS
+      </div>
+
+      <h1>
+        Enter the <em>Portal.</em>
+      </h1>
+
+      <p>
+        Sign in with your EDEX Word Portal
+        organizer account.
+      </p>
+
+      <form id="loginForm">
+
+        <input
+          id="email"
+          type="email"
+          autocomplete="username"
+          placeholder="Organizer Email"
+          required
+        >
+
+        <input
+          id="password"
+          type="password"
+          autocomplete="current-password"
+          placeholder="Password"
+          required
+        >
+
+        <button type="submit" class="btn aqua">
+          Unlock Dashboard
+        </button>
+
+      </form>
+
+      <p class="error" id="loginError"></p>
+
+    </section>
+
+    <!-- PRIVATE DASHBOARD -->
+
+    <section id="adminContent" hidden>
+
+      <div class="dashboard-head">
+
+        <div>
+          <div class="eyebrow">
+            ✦ EDEX EXHIBITION EXPERIENCE
+          </div>
+
+          <h1>
+            Ball Game <em>Studio.</em>
+          </h1>
+
+          <p>
+            Live statistics, rewards and
+            challenge management.
+          </p>
+        </div>
+
+        <button class="btn outline" id="signout">
+          Sign Out
+        </button>
+
+      </div>
+
+      <!-- MAIN STATISTICS -->
+
+      <div class="stats-grid">
+
+        <div class="stat panel">
+
+          <span>TOTAL ROUNDS PLAYED</span>
+
+          <strong id="played">0</strong>
+
+        </div>
+
+        <div class="stat panel">
+
+          <span>SUCCESSFUL ROUNDS</span>
+
+          <strong id="wins">0</strong>
+
+        </div>
+
+        <div class="stat panel">
+
+          <span>NOT WON</span>
+
+          <strong id="losses">0</strong>
+
+        </div>
+
+        <div class="stat panel accent">
+
+          <span>CHOCOLATES GIVEN 🍫</span>
+
+          <strong id="chocolates">0</strong>
+
+        </div>
+
+      </div>
+
+      <!-- CHOCOLATE STOCK AND WORD SETTINGS -->
+
+      <div class="dashboard-grid">
+
+        <section class="panel pad">
+
+          <div class="panel-title">
+            <span>
+              01 / CHOCOLATE INVENTORY
+            </span>
+          </div>
+
+          <p>
+            Set the total number of chocolates
+            available for this activity.
+          </p>
+
+          <div class="inventory">
+
+            <div>
+              <small>TOTAL CHOCOLATES</small>
+              <strong id="stock">—</strong>
+            </div>
+
+            <div>
+              <small>REMAINING STOCK</small>
+              <strong id="remainingStock">—</strong>
+            </div>
+
+          </div>
+
+          <div class="setting">
+
+            <input
+              type="number"
+              id="stockInput"
+              min="0"
+              step="1"
+              placeholder="Example: 200"
+            >
+
+            <button class="btn gold" id="stockBtn">
+              Save Stock
+            </button>
+
+          </div>
+
+          <p class="help">
+            A successful round records one chocolate.
+            An unsuccessful round records zero.
+          </p>
+
+        </section>
+
+        <!-- WORD BANK SETTINGS -->
+
+        <section class="panel pad">
+
+          <div class="panel-title">
+            <span>
+              02 / RANDOMIZER SETTINGS
+            </span>
+          </div>
+
+          <p>
+            Select real-word mode or all possible
+            three-letter combinations.
+          </p>
+
+          <label for="mode">
+            RANDOMIZER MODE
+          </label>
+
+          <select id="mode">
+
+            <option value="words">
+              Real Arabic Words
+            </option>
+
+            <option value="all">
+              All 125 Combinations
+            </option>
+
+          </select>
+
+          <label for="wordList">
+            ACCEPTED ARABIC WORDS
+          </label>
+
+          <textarea
+            id="wordList"
+            rows="5"
+            dir="rtl"
+            spellcheck="false"
+            placeholder="باب، تاج، تاب">
+          </textarea>
+
+          <button class="btn lavender" id="saveBank">
+            Save Word Settings
+          </button>
+
+          <button class="btn outline" id="resetCycle">
+            ↺ Reset Used Word Cycle
+          </button>
+
+          <p class="help" id="wordHelp">
+            The randomizer will not repeat
+            combinations within the same cycle.
+          </p>
+
+        </section>
+
+      </div>
+
+      <!-- RECENT RESULT HISTORY -->
+
+      <section class="panel pad">
+
+        <div class="panel-title">
+
+          <span>
+            03 / CHALLENGE HISTORY
+          </span>
+
+          <button class="btn outline" id="csv">
+            ↓ Export CSV
+          </button>
+
+        </div>
+
+        <p>
+          Every completed and unsuccessful
+          attempt is recorded here.
+        </p>
+
+        <div class="table-scroll">
+
+          <table>
+
+            <thead>
+
+              <tr>
+                <th>DATE & TIME</th>
+                <th>ARABIC WORD</th>
+                <th>RESULT</th>
+                <th>CHOCOLATE</th>
+                <th>TIME USED</th>
+              </tr>
+
+            </thead>
+
+            <tbody id="records">
+
+              <tr>
+                <td colspan="5">
+                  No rounds recorded yet.
+                </td>
+              </tr>
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+        <p class="help">
+          The dashboard displays the latest 200 rounds.
+          CSV export includes all saved rounds.
+        </p>
+
+      </section>
+
+      <!-- GAME LINK -->
+
+      <div class="game-shortcut">
+
+        <a href="https://freshlook10-alt.github.io/Edex-Word-Portal/"
+           target="_blank"
+           rel="noopener">
+
+          ✧ Open Word Portal Game Screen
+
+        </a>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- NOTIFICATIONS -->
+
+  <div id="toast"
+       class="toast"
+       role="status"
+       aria-live="polite">
+  </div>
+
+  <!-- FIREBASE SDK -->
+
+  <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-app-compat.js"></script>
+
+  <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-auth-compat.js"></script>
+
+  <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore-compat.js"></script>
+
+  <!-- LOAD THE NEW WORD PORTAL FIREBASE PROJECT -->
+
+  <script src="https://freshlook10-alt.github.io/Edex-Word-Portal/firebase-config.js"></script>
+
+  <!-- LOAD WORD PORTAL ADMIN LOGIC -->
+
+  <script src="https://freshlook10-alt.github.io/Edex-Word-Portal/app.js"></script>
+
+</body>
+</html>
