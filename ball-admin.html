@@ -1,13 +1,12 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#090b21">
 
 <title>EDEX | Ball Game Admin</title>
-<meta name="theme-color" content="#090b21">
 
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;900&family=Outfit:wght@400;600;800;900&display=swap" rel="stylesheet">
 
@@ -24,31 +23,28 @@ href="https://freshlook10-alt.github.io/Edex-Word-Portal/style.css">
   justify-content: center;
   flex-wrap: wrap;
   gap: 12px;
-  margin: 18px auto 30px;
-  padding: 0 15px;
+  padding: 12px;
+  margin: 4px auto 22px;
 }
 
 .admin-nav a {
-  padding: 13px 22px;
+  color: #f5eaff;
   background: #403052;
-  color: #f4e7ff;
   border: 1px solid #ba9ce866;
   border-radius: 13px;
+  padding: 13px 22px;
   text-decoration: none;
   font-weight: 800;
-  font-size: 13px;
 }
 
 .admin-nav a.active {
-  background: linear-gradient(
-    110deg, #f2c782, #fff0be
-  );
+  background: linear-gradient(110deg,#f2c782,#fff0be);
   color: #342316;
 }
 
 .dashboard {
   max-width: 1200px;
-  margin: 0 auto;
+  margin: auto;
 }
 
 .pad {
@@ -56,91 +52,81 @@ href="https://freshlook10-alt.github.io/Edex-Word-Portal/style.css">
 }
 
 .reset-panel {
-  background: linear-gradient(
-    135deg, #292341, #15152d
-  );
+  background: linear-gradient(135deg,#292341,#15152d);
   border: 1px solid #b69ce466;
   border-radius: 22px;
-  padding: 28px;
-  margin: 25px 0;
+  padding: 26px;
+  margin: 22px 0;
 }
 
 .reset-panel h2 {
-  font-size: 26px;
-  margin: 12px 0;
   color: #f7d69f;
+  margin: 12px 0;
 }
 
 .reset-panel p {
   color: #c6bcdb;
-  line-height: 1.7;
+  line-height: 1.6;
 }
 
 .reset-panel input {
+  width: min(100%,370px);
   display: block;
-  width: min(100%, 370px);
-  margin: 12px 0;
+  margin: 10px 0 16px;
 }
 
-.reset-button {
-  background: linear-gradient(
-    110deg, #966ee4, #b394ef
-  );
-  color: white;
-  font-weight: 900;
-  padding: 15px 25px;
+.reset-btn {
+  background: linear-gradient(110deg,#966ee4,#b394ef);
+  color: #fff;
   border: 0;
   border-radius: 13px;
+  padding: 14px 20px;
+  font-weight: 900;
   cursor: pointer;
 }
 
-.reset-button:hover {
-  filter: brightness(1.14);
-}
-
-.reset-button:disabled {
+.reset-btn:disabled {
   opacity: .4;
   cursor: not-allowed;
 }
 
 .status-message {
-  font-size: 13px;
   min-height: 22px;
-  margin-top: 15px;
-  color: #95e4c9;
+  margin-top: 14px;
+  font-size: 13px;
+  color: #99e6c5;
 }
 
 .status-message.bad {
   color: #ffacba;
 }
 
-.action-row {
+.toolbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
   flex-wrap: wrap;
+  gap: 12px;
 }
 
 .live-preview {
+  text-align: center;
   background: #12132b;
   border: 1px solid #af94e655;
   border-radius: 16px;
-  padding: 18px;
-  text-align: center;
-  margin: 12px 0 20px;
+  padding: 16px;
+  margin: 12px 0;
 }
 
 .live-preview strong {
   display: block;
+  font: 900 50px Cairo,sans-serif;
   color: #f8d79e;
-  font: 900 50px Cairo, sans-serif;
 }
 
 .live-preview span {
-  color: #d1c2e6;
   font-size: 12px;
-  font-weight: 800;
+  color: #d1c2e6;
 }
 
 .table-scroll {
@@ -152,6 +138,7 @@ href="https://freshlook10-alt.github.io/Edex-Word-Portal/style.css">
   .reset-panel {
     padding: 18px;
   }
+
   .admin-nav a {
     padding: 11px 13px;
   }
@@ -164,13 +151,10 @@ href="https://freshlook10-alt.github.io/Edex-Word-Portal/style.css">
 <div class="aurora"></div>
 <div class="dust"></div>
 
-<!-- EDEX HEADER -->
-
 <header class="topbar">
 
   <a class="brand" href="admin.html">
     <span class="gem">✦</span>
-
     <span>
       EDEX
       <small>CONTROL CENTER</small>
@@ -182,8 +166,6 @@ href="https://freshlook10-alt.github.io/Edex-Word-Portal/style.css">
   </span>
 
 </header>
-
-<!-- TWO ADMIN PAGES -->
 
 <nav class="admin-nav">
 
@@ -204,7 +186,7 @@ href="https://freshlook10-alt.github.io/Edex-Word-Portal/style.css">
 <section class="panel auth-box" id="loginPanel">
 
   <div class="eyebrow">
-    ✦ AUTHORIZED ACCESS
+    ✦ ORGANIZER ACCESS
   </div>
 
   <h1>
@@ -216,16 +198,16 @@ href="https://freshlook10-alt.github.io/Edex-Word-Portal/style.css">
   <form id="loginForm">
 
     <input
-      type="email"
       id="email"
+      type="email"
       autocomplete="username"
-      placeholder="Organizer Email"
+      placeholder="Organizer email"
       required
     >
 
     <input
-      type="password"
       id="password"
+      type="password"
       autocomplete="current-password"
       placeholder="Password"
       required
@@ -237,7 +219,7 @@ href="https://freshlook10-alt.github.io/Edex-Word-Portal/style.css">
 
   </form>
 
-  <p id="loginError" class="status-message bad"></p>
+  <p class="status-message bad" id="loginError"></p>
 
 </section>
 
@@ -257,7 +239,7 @@ href="https://freshlook10-alt.github.io/Edex-Word-Portal/style.css">
     </h1>
 
     <p>
-      Live activity, chocolates, and player records.
+      Live activity, chocolates, and round records.
     </p>
   </div>
 
@@ -305,9 +287,7 @@ href="https://freshlook10-alt.github.io/Edex-Word-Portal/style.css">
 
   <div class="live-preview">
 
-    <strong id="liveWord" dir="rtl">
-      ✦
-    </strong>
+    <strong id="liveWord" dir="rtl">✦</strong>
 
     <span id="liveStage">
       STANDBY
@@ -315,16 +295,12 @@ href="https://freshlook10-alt.github.io/Edex-Word-Portal/style.css">
 
   </div>
 
-  <p>
-    View the currently selected word
-    and the latest game status.
-  </p>
-
-  <a class="btn aqua"
-     href="https://freshlook10-alt.github.io/Edex-Word-Portal/"
-     target="_blank"
-     rel="noopener"
-     style="display:inline-block;text-decoration:none;">
+  <a
+    class="btn aqua"
+    style="display:inline-block;text-decoration:none"
+    target="_blank"
+    rel="noopener"
+    href="https://freshlook10-alt.github.io/Edex-Word-Portal/">
 
     ✧ Open Game Screen
 
@@ -339,8 +315,7 @@ href="https://freshlook10-alt.github.io/Edex-Word-Portal/style.css">
   </div>
 
   <p>
-    Track chocolates distributed during
-    the activity.
+    Track chocolates distributed during the activity.
   </p>
 
   <div class="inventory">
@@ -360,8 +335,8 @@ href="https://freshlook10-alt.github.io/Edex-Word-Portal/style.css">
   <div class="setting">
 
     <input
-      type="number"
       id="stockInput"
+      type="number"
       min="0"
       step="1"
       placeholder="Enter stock"
@@ -377,7 +352,7 @@ href="https://freshlook10-alt.github.io/Edex-Word-Portal/style.css">
 
 </div>
 
-<!-- RANDOMIZER SETTINGS -->
+<!-- WORD SETTINGS -->
 
 <section class="panel pad">
 
@@ -386,8 +361,7 @@ href="https://freshlook10-alt.github.io/Edex-Word-Portal/style.css">
   </div>
 
   <p>
-    Manage the Arabic words used by
-    your Word Portal.
+    Choose real-word mode or all 125 possible combinations.
   </p>
 
   <label for="mode">
@@ -423,11 +397,11 @@ href="https://freshlook10-alt.github.io/Edex-Word-Portal/style.css">
 
 </section>
 
-<!-- SAVED ROUNDS -->
+<!-- PEOPLE WHO PLAYED -->
 
 <section class="panel pad">
 
-  <div class="action-row">
+  <div class="toolbar">
 
     <div class="panel-title">
       04 / PEOPLE WHO PLAYED
@@ -440,8 +414,7 @@ href="https://freshlook10-alt.github.io/Edex-Word-Portal/style.css">
   </div>
 
   <p>
-    Every completed and unsuccessful
-    round is saved below.
+    Each finished round is saved below.
   </p>
 
   <div class="table-scroll">
@@ -458,8 +431,7 @@ href="https://freshlook10-alt.github.io/Edex-Word-Portal/style.css">
         </tr>
       </thead>
 
-      <tbody id="records">
-      </tbody>
+      <tbody id="records"></tbody>
 
     </table>
 
@@ -467,7 +439,7 @@ href="https://freshlook10-alt.github.io/Edex-Word-Portal/style.css">
 
 </section>
 
-<!-- ONLY ONE RESET BUTTON -->
+<!-- ONE RESET BUTTON - NO POPUP -->
 
 <section class="reset-panel">
 
@@ -480,19 +452,15 @@ href="https://freshlook10-alt.github.io/Edex-Word-Portal/style.css">
   </h2>
 
   <p>
-    Clear all previous Ball Game rounds
-    and start again from zero.
+    Clear previous Ball Game rounds and reset played,
+    completed, not-won and chocolates-given counts
+    to zero.
   </p>
 
   <p>
-    This resets the played count, completed
-    count, not-won count, chocolate count,
-    and saved round history.
-  </p>
-
-  <p>
-    Your Arabic Quiz, timer duration,
-    and saved word bank will not be deleted.
+    The Arabic Quiz, timer setting, word bank and
+    original total chocolate stock will remain unchanged.
+    Export CSV first. Do not reset while visitors are playing.
   </p>
 
   <label for="resetPassword">
@@ -500,36 +468,33 @@ href="https://freshlook10-alt.github.io/Edex-Word-Portal/style.css">
   </label>
 
   <input
-    type="password"
     id="resetPassword"
+    type="password"
     autocomplete="current-password"
     placeholder="Enter organizer password"
   >
 
-  <button class="reset-button" id="resetPlayers">
+  <button class="reset-btn" id="resetPlayers">
     ↺ Reset All Played Visitors
   </button>
 
-  <p id="resetStatus"
-     class="status-message"
-     role="status">
+  <p
+    id="resetStatus"
+    class="status-message"
+    role="status"
+    aria-live="polite">
   </p>
 
 </section>
 
 </section>
-
 </main>
 
 <!-- FIREBASE -->
 
 <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-app-compat.js"></script>
-
 <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-auth-compat.js"></script>
-
 <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore-compat.js"></script>
-
-<!-- WORD PORTAL FIREBASE CONFIG -->
 
 <script src="https://freshlook10-alt.github.io/Edex-Word-Portal/firebase-config.js"></script>
 
@@ -581,30 +546,29 @@ href="https://freshlook10-alt.github.io/Edex-Word-Portal/style.css">
   let busy = false;
   let unsubscribers = [];
 
-  function status(text, error = false) {
+  // STATUS MESSAGES INSIDE THE PAGE
+
+  function status(text, bad = false) {
     $("resetStatus").textContent = text;
 
     $("resetStatus").classList.toggle(
-      "bad", error
+      "bad", bad
     );
   }
 
-  function errorMessage(error) {
+  function errorText(error) {
     return error?.message || "Something went wrong.";
   }
 
   function setBusy(value) {
     busy = value;
 
-    [
-      "saveStock",
-      "saveBank",
-      "csv",
-      "resetPlayers",
-      "logout"
-    ].forEach(id => {
+    for (const id of [
+      "saveStock", "saveBank",
+      "csv", "resetPlayers", "logout"
+    ]) {
       $(id).disabled = value;
-    });
+    }
   }
 
   async function run(task) {
@@ -616,16 +580,16 @@ href="https://freshlook10-alt.github.io/Edex-Word-Portal/style.css">
     try {
       await task();
     } catch (error) {
-      status("Error: " + errorMessage(error), true);
+      status("Error: " + errorText(error), true);
     } finally {
       setBusy(false);
     }
   }
 
+  // UPDATE ADMIN DISPLAY
+
   function render() {
     if (!authorized) return;
-
-    // MAIN COUNTERS
 
     for (const id of [
       "played", "wins", "losses", "chocolates"
@@ -634,12 +598,9 @@ href="https://freshlook10-alt.github.io/Edex-Word-Portal/style.css">
         Number(stats[id] || 0).toLocaleString();
     }
 
-    // CHOCOLATE STOCK
-
     const stock = stats.stockTotal;
 
-    const hasStock =
-      Number.isSafeInteger(stock);
+    const hasStock = Number.isSafeInteger(stock);
 
     $("stock").textContent = hasStock
       ? stock.toLocaleString()
@@ -652,24 +613,19 @@ href="https://freshlook10-alt.github.io/Edex-Word-Portal/style.css">
         ).toLocaleString()
       : "—";
 
-    // CURRENT GAME
-
     $("liveWord").textContent = live.word || "✦";
 
     $("liveStage").textContent =
       String(live.stage || "idle").toUpperCase();
 
-    // ROUND HISTORY
-
     const tbody = $("records");
     tbody.replaceChildren();
 
     if (!records.length) {
-      const row = tbody.insertRow();
-      const cell = row.insertCell();
+      const cell = tbody.insertRow().insertCell();
 
       cell.colSpan = 5;
-      cell.textContent = "No previous players recorded.";
+      cell.textContent = "No previous rounds recorded.";
       return;
     }
 
@@ -683,14 +639,18 @@ href="https://freshlook10-alt.github.io/Edex-Word-Portal/style.css">
       const values = [
         date,
         record.word || "—",
+
         record.outcome === "won"
           ? "Completed" : "Not Won",
+
         record.chocolate || 0,
+
         Math.round(record.elapsedSec || 0) + " sec"
       ];
 
       values.forEach((value, index) => {
         const cell = row.insertCell();
+
         cell.textContent = value;
 
         if (index === 1) {
@@ -699,6 +659,8 @@ href="https://freshlook10-alt.github.io/Edex-Word-Portal/style.css">
       });
     }
   }
+
+  // FIREBASE LIVE LISTENERS
 
   function stopListeners() {
     unsubscribers.forEach(fn => fn());
@@ -716,7 +678,8 @@ href="https://freshlook10-alt.github.io/Edex-Word-Portal/style.css">
         };
 
         render();
-      }, error => status(errorMessage(error), true))
+
+      }, error => status(errorText(error), true))
     );
 
     unsubscribers.push(
@@ -734,7 +697,8 @@ href="https://freshlook10-alt.github.io/Edex-Word-Portal/style.css">
           settings.words.join("، ");
 
         render();
-      }, error => status(errorMessage(error), true))
+
+      }, error => status(errorText(error), true))
     );
 
     unsubscribers.push(
@@ -749,7 +713,8 @@ href="https://freshlook10-alt.github.io/Edex-Word-Portal/style.css">
         };
 
         render();
-      }, error => status(errorMessage(error), true))
+
+      }, error => status(errorText(error), true))
     );
 
     unsubscribers.push(
@@ -759,7 +724,8 @@ href="https://freshlook10-alt.github.io/Edex-Word-Portal/style.css">
         .onSnapshot(snap => {
           records = snap.docs.map(doc => doc.data());
           render();
-        }, error => status(errorMessage(error), true))
+
+        }, error => status(errorText(error), true))
     );
   }
 
@@ -771,14 +737,15 @@ href="https://freshlook10-alt.github.io/Edex-Word-Portal/style.css">
     $("loginError").textContent = "";
 
     try {
-      const result =
+      const credential =
         await auth.signInWithEmailAndPassword(
           $("email").value.trim(),
           $("password").value
         );
 
-      if (result.user.uid !== ADMIN_UID) {
+      if (credential.user.uid !== ADMIN_UID) {
         await auth.signOut();
+
         throw Error("Unauthorized organizer account.");
       }
 
@@ -786,7 +753,7 @@ href="https://freshlook10-alt.github.io/Edex-Word-Portal/style.css">
 
     } catch (error) {
       $("loginError").textContent =
-        errorMessage(error);
+        errorText(error);
     }
   };
 
@@ -812,16 +779,20 @@ href="https://freshlook10-alt.github.io/Edex-Word-Portal/style.css">
 
   $("logout").onclick = () => auth.signOut();
 
-  // SAVE CHOCOLATE STOCK
+  // SAVE STOCK
 
   $("saveStock").onclick = () => run(async () => {
     const input = $("stockInput").value.trim();
     const quantity = Number(input);
 
-    if (!input ||
-        !Number.isSafeInteger(quantity) ||
-        quantity < 0) {
-      throw Error("Enter a valid stock quantity.");
+    if (
+      !input ||
+      !Number.isSafeInteger(quantity) ||
+      quantity < 0
+    ) {
+      throw Error(
+        "Enter a valid whole-number stock quantity."
+      );
     }
 
     await db.runTransaction(async tx => {
@@ -832,19 +803,21 @@ href="https://freshlook10-alt.github.io/Edex-Word-Portal/style.css">
         Number(snap.data()?.chocolates || 0)
       ) {
         throw Error(
-          "Stock cannot be below distributed chocolates."
+          "Stock cannot be below chocolates already given."
         );
       }
 
-      tx.set(statsRef, {
-        stockTotal: quantity
-      }, {merge: true});
+      tx.set(
+        statsRef,
+        { stockTotal: quantity },
+        { merge: true }
+      );
     });
 
     status("Chocolate stock saved.");
   });
 
-  // SAVE ARABIC WORD SETTINGS
+  // SAVE WORD BANK
 
   $("saveBank").onclick = () => run(async () => {
     const words = [...new Set(
@@ -854,37 +827,36 @@ href="https://freshlook10-alt.github.io/Edex-Word-Portal/style.css">
         .filter(Boolean)
     )];
 
-    if (!words.length ||
-        words.some(w => !/^[ابتثج]{3}$/u.test(w))) {
+    if (
+      !words.length ||
+      words.some(w => !/^[ابتثج]{3}$/u.test(w))
+    ) {
       throw Error(
-        "Use three-letter words from ا ب ت ث ج."
+        "Enter only three-letter combinations of ا ب ت ث ج."
       );
     }
 
     await settingsRef.set({
       mode: $("mode").value,
       words
-    }, {merge: true});
+    }, { merge: true });
 
     status("Word settings saved.");
   });
 
-  // DOWNLOAD ALL SAVED RESULTS
+  // EXPORT CSV
 
   $("csv").onclick = () => run(async () => {
-    const snap = await historyRef
+    const snapshot = await historyRef
       .orderBy("at", "desc")
-      .get({source: "server"});
+      .get({ source: "server" });
 
     const rows = [[
-      "Date",
-      "Word",
-      "Result",
-      "Chocolate",
-      "Time Used"
+      "Date", "Word", "Result",
+      "Chocolate", "Time Used (seconds)"
     ]];
 
-    snap.docs.forEach(doc => {
+    snapshot.docs.forEach(doc => {
       const r = doc.data();
 
       rows.push([
@@ -896,16 +868,15 @@ href="https://freshlook10-alt.github.io/Edex-Word-Portal/style.css">
       ]);
     });
 
-    function csvCell(value) {
-      let text = String(value ?? "");
+    const csvCell = value => {
+      let s = String(value ?? "");
 
-      // Avoid spreadsheet formula execution.
-      if (/^\s*[=+\-@]/.test(text)) {
-        text = "'" + text;
+      if (/^\s*[=+\-@]/.test(s)) {
+        s = "'" + s;
       }
 
-      return '"' + text.replace(/"/g, '""') + '"';
-    }
+      return '"' + s.replace(/"/g, '""') + '"';
+    };
 
     const csv = "\uFEFF" +
       rows.map(row =>
@@ -918,21 +889,22 @@ href="https://freshlook10-alt.github.io/Edex-Word-Portal/style.css">
       })
     );
 
-    const link = document.createElement("a");
+    const a = document.createElement("a");
 
-    link.href = url;
-    link.download = "edex-ball-game-results.csv";
+    a.href = url;
+    a.download = "edex-ball-game-results.csv";
 
-    document.body.append(link);
-    link.click();
-    link.remove();
+    document.body.append(a);
+    a.click();
+    a.remove();
 
     setTimeout(() => URL.revokeObjectURL(url), 1000);
 
     status("Results exported successfully.");
   });
 
-  // ONE SIMPLE PLAYER RESET
+  // RESET PREVIOUS PLAYERS
+  // NO POPUP / NO SECOND CONFIRMATION
 
   $("resetPlayers").onclick = () => run(async () => {
 
@@ -948,16 +920,7 @@ href="https://freshlook10-alt.github.io/Edex-Word-Portal/style.css">
       throw Error("Enter your organizer password.");
     }
 
-    const answer = prompt(
-      "This will permanently erase all Ball Game played records and reset chocolate counters. Type RESET to confirm."
-    );
-
-    if (answer !== "RESET") {
-      status("Reset cancelled.");
-      return;
-    }
-
-    // VERIFY PASSWORD
+    // VERIFY PASSWORD ONLY
 
     await user.reauthenticateWithCredential(
       firebase.auth.EmailAuthProvider.credential(
@@ -968,24 +931,24 @@ href="https://freshlook10-alt.github.io/Edex-Word-Portal/style.css">
 
     $("resetPassword").value = "";
 
-    // PAUSE GAME DURING RESET
+    // STOP NEW ROUNDS DURING RESET
 
     await liveRef.set({
       stage: "maintenance",
       word: "",
       startedAt: null
-    }, {merge: true});
+    }, { merge: true });
 
     status("Clearing previous played records...");
 
-    // DELETE OLD ROUND RECORDS
-
     let deleted = 0;
+
+    // DELETE RECORDS IN BATCHES
 
     while (true) {
       const snapshot = await historyRef
         .limit(200)
-        .get({source: "server"});
+        .get({ source: "server" });
 
       if (snapshot.empty) break;
 
@@ -1000,12 +963,12 @@ href="https://freshlook10-alt.github.io/Edex-Word-Portal/style.css">
       deleted += snapshot.size;
 
       status(
-        "Cleared " + deleted + " previous records..."
+        "Cleared " + deleted + " previous rounds..."
       );
     }
 
-    // CLEAR COUNTS AND RESTART GAME
-    // KEEP EXISTING TIMER AND WORD SETTINGS
+    // RESET THE COUNTERS
+    // KEEP TIMER AND WORD SETTINGS
     // KEEP TOTAL CHOCOLATE STOCK
 
     const batch = db.batch();
@@ -1015,7 +978,7 @@ href="https://freshlook10-alt.github.io/Edex-Word-Portal/style.css">
       wins: 0,
       losses: 0,
       chocolates: 0
-    }, {merge: true});
+    }, { merge: true });
 
     batch.set(liveRef, {
       stage: "idle",
@@ -1024,15 +987,18 @@ href="https://freshlook10-alt.github.io/Edex-Word-Portal/style.css">
       usedWords: [],
       roundId: 0,
       durationSec: settings.durationSec
-    }, {merge: true});
+    }, { merge: true });
 
     await batch.commit();
 
+    // SHOW SUCCESS INSIDE THE PAGE
+
     status(
-      "✓ Reset successful! " +
-      deleted + " previous rounds cleared. " +
-      "All player counts are back to zero."
+      "✓ Reset complete. " +
+      deleted + " previous rounds deleted. " +
+      "All counts are zero."
     );
+
   });
 
 })();
